@@ -12,6 +12,33 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 DEFAULT_DATABASE_URL = "sqlite+aiosqlite:///./linguaflame-club.db"
 DEFAULT_REDIS_URL = "redis://localhost:6379/0"
 
+# --- Варианты настроек группы (/setup) ---
+# Уровни CEFR, которые задаёт админ группы.
+LEVELS: tuple[str, ...] = ("A1", "A2", "B1", "B2", "C1", "C2")
+# Языки переводов и пояснений.
+TRANSLATION_LANGUAGES: tuple[str, ...] = ("ru", "uz", "en", "tr", "es", "de")
+# Языки интерфейса бота.
+UI_LANGUAGES: tuple[str, ...] = ("en", "ru")
+# Сколько слов публиковать в ежедневном посте.
+WORDS_COUNT_OPTIONS: tuple[int, ...] = (5, 10, 20)
+# Популярные часовые пояса кнопками; остальные — вводом вручную.
+POPULAR_TIMEZONES: tuple[str, ...] = (
+    "UTC",
+    "Europe/London",
+    "Europe/Berlin",
+    "Asia/Tashkent",
+    "Asia/Samarkand",
+    "Asia/Almaty",
+)
+# Время ежедневного поста кнопками; своё — вводом вручную.
+POST_TIME_OPTIONS: tuple[str, ...] = ("08:00", "09:00", "19:00", "20:00")
+# Тихие часы: пресеты; «выкл» — совпадающие начало и конец.
+QUIET_HOURS_OPTIONS: tuple[tuple[str, str], ...] = (
+    ("22:00", "07:00"),
+    ("23:00", "08:00"),
+    ("21:00", "08:00"),
+)
+
 
 class ConfigError(RuntimeError):
     """Понятная ошибка конфигурации, показывается пользователю при запуске."""

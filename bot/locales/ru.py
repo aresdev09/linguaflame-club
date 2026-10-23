@@ -26,7 +26,8 @@ TEXTS: dict[str, str] = {
     "setup.quiet": "Тихие часы",
     "setup.on": "вкл",
     "setup.off": "выкл",
-    "setup.manual": "✏️ Ввести вручную",
+    "setup.timezone_manual": "✏️ Ввести часовой пояс вручную",
+    "setup.time_manual": "✏️ Ввести время вручную",
     "setup.timezone_prompt": (
         "Ответьте на это сообщение часовым поясом, например Asia/Samarkand."
     ),

@@ -10,6 +10,7 @@ from aiogram.enums import ParseMode
 from aiogram.exceptions import TelegramUnauthorizedError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
+from bot.admins import AdminCache
 from bot.config import ConfigError, Settings, get_settings
 from bot.database import get_session_factory
 from bot.logging_setup import setup_logging
@@ -55,6 +56,7 @@ async def main(settings: Settings) -> None:
         per_chat_limit=settings.limit_messages_per_minute,
         global_limit=max(int(settings.limit_global_per_second), 1),
     )
+    admins = AdminCache(bot)
     dispatcher = build_dispatcher(session_factory, settings)
 
     me = await bot.get_me()
@@ -66,6 +68,7 @@ async def main(settings: Settings) -> None:
             allowed_updates=ALLOWED_UPDATES,
             session_factory=session_factory,
             sender=sender,
+            admins=admins,
         )
     finally:
         await bot.session.close()

@@ -24,7 +24,8 @@ TEXTS: dict[str, str] = {
     "setup.quiet": "Quiet hours",
     "setup.on": "on",
     "setup.off": "off",
-    "setup.manual": "✏️ Enter manually",
+    "setup.timezone_manual": "✏️ Enter timezone manually",
+    "setup.time_manual": "✏️ Enter time manually",
     "setup.timezone_prompt": (
         "Reply to this message with the timezone, for example Asia/Samarkand."
     ),
