@@ -4,7 +4,8 @@
 """
 
 import uuid
-from datetime import UTC, date, datetime, time
+from datetime import UTC, datetime, time
+from datetime import date as date_type
 
 from sqlalchemy import (
     JSON,
@@ -162,7 +163,7 @@ class GroupStreak(Base):
     )
     current_streak: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     best_streak: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
-    last_active_date: Mapped[date | None] = mapped_column(Date)
+    last_active_date: Mapped[date_type | None] = mapped_column(Date)
 
 
 class GameSession(Base):
@@ -249,7 +250,7 @@ class DailyPost(Base):
     chat_id: Mapped[int] = mapped_column(
         BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
     )
-    date: Mapped[date] = mapped_column(Date)
+    date: Mapped[date_type] = mapped_column(Date)
     kind: Mapped[str] = mapped_column(daily_post_kind_enum)
     payload: Mapped[dict | None] = mapped_column(JSON)
     message_id: Mapped[int | None] = mapped_column(BigIntType)
@@ -272,7 +273,7 @@ class ContentCache(Base):
     level: Mapped[str] = mapped_column(String(2))
     language: Mapped[str] = mapped_column(String(8))
     # Дневной контент (слова, грамматика) привязан к дате; None — без даты.
-    date: Mapped[date | None] = mapped_column(Date)
+    date: Mapped[date_type | None] = mapped_column(Date)
     payload: Mapped[dict] = mapped_column(JSON)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
@@ -335,6 +336,6 @@ class AIUsage(Base):
         BigIntType, ForeignKey("chats.id", onupdate="CASCADE"), primary_key=True
     )
     # Дата в часовом поясе чата: квота сбрасывается в полночь группы.
-    date: Mapped[date] = mapped_column(Date, primary_key=True)
+    date: Mapped[date_type] = mapped_column(Date, primary_key=True)
     requests: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     tokens: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
