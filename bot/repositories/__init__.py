@@ -1,1 +1,21 @@
-"""Репозитории: доступ к базе данных."""
+"""Репозитории: весь доступ к базе данных, в хендлерах SQL не пишется."""
+
+from bot.repositories.base import BaseRepo
+from bot.repositories.chat import ChatRepo
+from bot.repositories.content import ContentRepo
+from bot.repositories.game import GameRepo
+from bot.repositories.member import MemberRepo
+from bot.repositories.score import ScoreRepo
+from bot.repositories.streak import StreakRepo
+from bot.repositories.usage import UsageRepo
+
+__all__ = [
+    "BaseRepo",
+    "ChatRepo",
+    "ContentRepo",
+    "GameRepo",
+    "MemberRepo",
+    "ScoreRepo",
+    "StreakRepo",
+    "UsageRepo",
+]
