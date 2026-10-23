@@ -4,12 +4,16 @@ import logging
 
 from aiogram import F, Router
 from aiogram.enums import ChatMemberStatus
-from aiogram.types import ChatMemberUpdated
+from aiogram.types import ChatMemberUpdated, Message
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from bot.locales import t
 from bot.sender import Sender
-from bot.services.group_lifecycle import register_bot_added, register_bot_removed
+from bot.services.group_lifecycle import (
+    migrate_chat,
+    register_bot_added,
+    register_bot_removed,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -50,3 +54,35 @@ async def bot_membership_changed(
             chat_type=chat.type,
         )
         await sender.send(chat.id, t("welcome.added", chat_row.ui_language))
+
+
+@router.message(F.migrate_to_chat_id)
+async def on_group_upgraded(
+    message: Message,
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """Группа стала супергруппой: переносим данные на новый chat_id."""
+    new_chat_id = message.migrate_to_chat_id
+    if new_chat_id is None:  # защита от служебного сообщения без миграции
+        return
+    await migrate_chat(
+        session_factory, old_chat_id=message.chat.id, new_chat_id=new_chat_id
+    )
+
+
+@router.message(F.migrate_from_chat_id)
+async def on_group_upgrade_seen_in_supergroup(
+    message: Message,
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """Второе служебное сообщение о миграции: приходит уже в супергруппе.
+
+    Обработчик идемпотентен: если перенос уже сделан первым сообщением,
+    повторный вызов ничего не меняет.
+    """
+    old_chat_id = message.migrate_from_chat_id
+    if old_chat_id is None:
+        return
+    await migrate_chat(
+        session_factory, old_chat_id=old_chat_id, new_chat_id=message.chat.id
+    )

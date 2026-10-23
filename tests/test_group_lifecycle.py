@@ -10,13 +10,22 @@ from aiogram.types import (
     ChatMemberLeft,
     ChatMemberMember,
     ChatMemberUpdated,
+    Message,
     User,
 )
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from bot.repositories import ChatRepo
-from bot.routers.group_admin import bot_membership_changed
-from bot.services.group_lifecycle import register_bot_added, register_bot_removed
+from bot.routers.group_admin import (
+    bot_membership_changed,
+    on_group_upgrade_seen_in_supergroup,
+    on_group_upgraded,
+)
+from bot.services.group_lifecycle import (
+    migrate_chat,
+    register_bot_added,
+    register_bot_removed,
+)
 
 BOT_USER = User(id=42, is_bot=True, first_name="Club bot")
 
@@ -152,3 +161,51 @@ async def test_membership_handler_ignores_promotion(
         sender=sender,
     )
     sender.send.assert_not_awaited()
+
+
+async def test_migrate_moves_chat_and_is_idempotent(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """Перенос чата в супергруппу; повторный вызов ничего не ломает."""
+    old_id, new_id = -300, -1000000000300
+    await register_bot_added(session_factory, chat_id=old_id, title="G", chat_type="group")
+
+    await migrate_chat(session_factory, old_chat_id=old_id, new_chat_id=new_id)
+    await migrate_chat(session_factory, old_chat_id=old_id, new_chat_id=new_id)
+
+    async with session_factory() as session:
+        assert await ChatRepo(session).get(old_id) is None
+        moved = await ChatRepo(session).get(new_id)
+        assert moved is not None
+        assert moved.title == "G"
+
+
+async def test_migration_message_handlers_move_chat(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """Обработчики обоих служебных сообщений о миграции переносят данные."""
+    old_id, new_id = -301, -1000000000301
+    await register_bot_added(session_factory, chat_id=old_id, title="G", chat_type="group")
+
+    upgraded = Message(
+        message_id=1,
+        date=datetime.now(UTC),
+        chat=Chat(id=old_id, type="group", title="G"),
+        migrate_to_chat_id=new_id,
+    )
+    await on_group_upgraded(message=upgraded, session_factory=session_factory)
+
+    seen_in_supergroup = Message(
+        message_id=2,
+        date=datetime.now(UTC),
+        chat=Chat(id=new_id, type="supergroup", title="G"),
+        migrate_from_chat_id=old_id,
+    )
+    await on_group_upgrade_seen_in_supergroup(
+        message=seen_in_supergroup, session_factory=session_factory
+    )
+
+    async with session_factory() as session:
+        assert await ChatRepo(session).get(old_id) is None
+        moved = await ChatRepo(session).get(new_id)
+        assert moved is not None
