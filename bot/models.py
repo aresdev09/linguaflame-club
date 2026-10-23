@@ -3,17 +3,22 @@
 Все даты и время хранятся в UTC (в PostgreSQL — `timestamptz`).
 """
 
-from datetime import UTC, datetime, time
+import uuid
+from datetime import UTC, date, datetime, time
 
 from sqlalchemy import (
     BigInteger,
     Boolean,
+    Date,
     DateTime,
+    Enum,
     ForeignKey,
+    Index,
     Integer,
     String,
     Text,
     Time,
+    Uuid,
     false,
     true,
 )
@@ -27,6 +32,19 @@ def utcnow() -> datetime:
 
 # BIGINT в PostgreSQL, INTEGER в SQLite (нужен для автоинкремента primary key).
 BigIntType = BigInteger().with_variant(Integer, "sqlite")
+
+# Источники начислений в журнале очков.
+score_source_enum = Enum(
+    "quiz",
+    "scramble",
+    "gap",
+    "race",
+    "truefalse",
+    "daily_bonus",
+    "streak_bonus",
+    name="score_source",
+    native_enum=False,
+)
 
 
 class Base(DeclarativeBase):
@@ -78,3 +96,44 @@ class Member(Base):
     last_seen_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     # Скрылся из рейтинга по запросу (см. /privacy).
     opted_out: Mapped[bool] = mapped_column(Boolean, default=False, server_default=false())
+
+
+class ScoreEvent(Base):
+    """Журнал начислений очков — источник правды для рейтинга.
+
+    Отдельных счётчиков очков в таблицах нет: рейтинг считается
+    агрегатом по этому журналу.
+    """
+
+    __tablename__ = "score_events"
+
+    id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
+    chat_id: Mapped[int] = mapped_column(
+        BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
+    )
+    user_id: Mapped[int] = mapped_column(BigIntType)
+    points: Mapped[int] = mapped_column(Integer)
+    source: Mapped[str] = mapped_column(score_source_enum)
+    # Сессия игры, за которую начислены очки; None — очки вне игры.
+    session_id: Mapped[uuid.UUID | None] = mapped_column(
+        Uuid(as_uuid=True), ForeignKey("game_sessions.id")
+    )
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    __table_args__ = (
+        Index("ix_score_events_chat_id_created_at", "chat_id", "created_at"),
+        Index("ix_score_events_chat_id_user_id", "chat_id", "user_id"),
+    )
+
+
+class GroupStreak(Base):
+    """Общий огонёк группы: серия дней с активностью."""
+
+    __tablename__ = "group_streaks"
+
+    chat_id: Mapped[int] = mapped_column(
+        BigIntType, ForeignKey("chats.id", onupdate="CASCADE"), primary_key=True
+    )
+    current_streak: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    best_streak: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    last_active_date: Mapped[date | None] = mapped_column(Date)
