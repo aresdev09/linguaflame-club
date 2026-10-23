@@ -7,6 +7,7 @@ import uuid
 from datetime import UTC, date, datetime, time
 
 from sqlalchemy import (
+    JSON,
     BigInteger,
     Boolean,
     Date,
@@ -20,6 +21,7 @@ from sqlalchemy import (
     Time,
     Uuid,
     false,
+    text,
     true,
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -44,6 +46,14 @@ score_source_enum = Enum(
     "streak_bonus",
     name="score_source",
     native_enum=False,
+)
+
+# Виды игр и статусы сессий.
+game_kind_enum = Enum(
+    "quiz", "scramble", "gap", "race", "truefalse", name="game_kind", native_enum=False
+)
+game_status_enum = Enum(
+    "running", "finished", "stopped", "expired", name="game_status", native_enum=False
 )
 
 
@@ -137,3 +147,74 @@ class GroupStreak(Base):
     current_streak: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     best_streak: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
     last_active_date: Mapped[date | None] = mapped_column(Date)
+
+
+class GameSession(Base):
+    """Сессия групповой игры: квиз или мини-игра.
+
+    Одна активная сессия на чат обеспечивается частичным уникальным
+    индексом по `chat_id` для статуса `running`.
+    """
+
+    __tablename__ = "game_sessions"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    chat_id: Mapped[int] = mapped_column(
+        BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
+    )
+    kind: Mapped[str] = mapped_column(game_kind_enum)
+    status: Mapped[str] = mapped_column(
+        game_status_enum, default="running", server_default="running"
+    )
+    # Раунды, текущий раунд и контент сессии.
+    state: Mapped[dict] = mapped_column(JSON, default=dict)
+    message_id: Mapped[int | None] = mapped_column(BigIntType)
+    started_by: Mapped[int] = mapped_column(BigIntType)
+    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    # Источник правды для таймеров: раунд закрывается по серверному времени.
+    ends_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    __table_args__ = (
+        Index("ix_game_sessions_chat_id_status", "chat_id", "status"),
+        # Частичный уникальный индекс: не больше одной игры в статусе
+        # `running` на чат. Завершённые и остановленные сессии не мешают.
+        Index(
+            "uq_game_sessions_chat_id_running",
+            "chat_id",
+            unique=True,
+            sqlite_where=text("status = 'running'"),
+            postgresql_where=text("status = 'running'"),
+        ),
+    )
+
+
+class GameAnswer(Base):
+    """Ответ участника на раунд игры."""
+
+    __tablename__ = "game_answers"
+
+    id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
+    session_id: Mapped[uuid.UUID] = mapped_column(
+        Uuid(as_uuid=True), ForeignKey("game_sessions.id")
+    )
+    round: Mapped[int] = mapped_column(Integer)
+    user_id: Mapped[int] = mapped_column(BigIntType)
+    answer: Mapped[str] = mapped_column(Text)
+    is_correct: Mapped[bool] = mapped_column(Boolean)
+    answer_time_ms: Mapped[int] = mapped_column(Integer)
+    points: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    __table_args__ = (
+        # Один ответ на участника в раунде.
+        Index(
+            "uq_game_answers_session_id_round_user_id",
+            "session_id",
+            "round",
+            "user_id",
+            unique=True,
+        ),
+    )
