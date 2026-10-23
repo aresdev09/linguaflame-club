@@ -62,6 +62,7 @@ class Settings(BaseSettings):
 
     # --- Лимиты Telegram и антиспам ---
     limit_messages_per_minute: int = 20  # сообщений на один чат в минуту
+    limit_global_per_second: float = 20.0  # глобальный лимит отправок в секунду
     limit_command_cooldown_seconds: float = 3.0  # пауза между командами
     limit_heavy_command_cooldown_seconds: float = 10.0  # квиз, /word и т.п.
     limit_game_cooldown_seconds: float = 10.0  # пауза между играми в чате
