@@ -33,7 +33,7 @@ def build_dispatcher(
 ) -> Dispatcher:
     """Собирает диспетчер: роутеры и middleware. FSM пока в памяти процесса."""
     dispatcher = Dispatcher()
-    dispatcher.include_router(group_admin.router)
+    dispatcher.include_router(group_admin.build_router())
 
     # Ошибки ловим снаружи всех: они не должны ронять бота.
     dispatcher.update.outer_middleware(ErrorMiddleware(session_factory, sender))

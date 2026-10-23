@@ -1,4 +1,9 @@
-"""Настройка группы: события бота в чате, /setup и /settings."""
+"""Настройка группы: события бота в чате, /setup и /settings.
+
+Роутер собирается фабрикой `build_router()`: диспетчер получает свежий
+экземпляр, а обработчики остаются обычными функциями — их удобно вызывать
+в тестах напрямую.
+"""
 
 import logging
 from time import monotonic
@@ -30,13 +35,8 @@ from bot.services.settings import (
 
 logger = logging.getLogger(__name__)
 
-router = Router(name="group_admin")
-
 # Команды и события этого роутера работают только в группах.
 GROUP_CHAT_TYPES = {"group", "supergroup"}
-router.message.filter(F.chat.type.in_(GROUP_CHAT_TYPES))
-router.my_chat_member.filter(F.chat.type.in_(GROUP_CHAT_TYPES))
-router.callback_query.filter(F.message.chat.type.in_(GROUP_CHAT_TYPES))
 
 # Статусы бота, при которых он «в чате».
 MEMBER_STATUSES = {ChatMemberStatus.MEMBER, ChatMemberStatus.ADMINISTRATOR}
@@ -66,7 +66,6 @@ def _refusal_allowed(chat_id: int, user_id: int) -> bool:
     return True
 
 
-@router.my_chat_member()
 async def bot_membership_changed(
     update: ChatMemberUpdated,
     session_factory: async_sessionmaker[AsyncSession],
@@ -92,7 +91,6 @@ async def bot_membership_changed(
         await sender.send(chat.id, t("welcome.added", chat_row.ui_language))
 
 
-@router.message(F.migrate_to_chat_id)
 async def on_group_upgraded(
     message: Message,
     session_factory: async_sessionmaker[AsyncSession],
@@ -106,7 +104,6 @@ async def on_group_upgraded(
     )
 
 
-@router.message(F.migrate_from_chat_id)
 async def on_group_upgrade_seen_in_supergroup(
     message: Message,
     session_factory: async_sessionmaker[AsyncSession],
@@ -124,7 +121,6 @@ async def on_group_upgrade_seen_in_supergroup(
     )
 
 
-@router.message(Command("setup", "settings"))
 async def open_settings(
     message: Message,
     session_factory: async_sessionmaker[AsyncSession],
@@ -156,7 +152,6 @@ async def open_settings(
     )
 
 
-@router.callback_query(F.data.startswith("set:"))
 async def change_setting(
     callback: CallbackQuery,
     session_factory: async_sessionmaker[AsyncSession],
@@ -235,7 +230,6 @@ async def _refresh_menu(
     )
 
 
-@router.message(SetupInput.timezone, F.reply_to_message, F.text, ~F.text.startswith("/"))
 async def manual_timezone_input(
     message: Message,
     session_factory: async_sessionmaker[AsyncSession],
@@ -251,7 +245,6 @@ async def manual_timezone_input(
     )
 
 
-@router.message(SetupInput.daily_time, F.reply_to_message, F.text, ~F.text.startswith("/"))
 async def manual_time_input(
     message: Message,
     session_factory: async_sessionmaker[AsyncSession],
@@ -308,3 +301,37 @@ async def _handle_manual_input(
                 settings_summary(updated, updated.ui_language),
                 reply_markup=settings_menu(updated, updated.ui_language),
             )
+
+
+def build_router() -> Router:
+    """Собирает роутер: порядок обработчиков важен.
+
+    Команды идут раньше ручного ввода, чтобы /setup во время ожидания
+    ответа открывал меню, а не считался вводом значения.
+    """
+    router = Router(name="group_admin")
+
+    router.message.filter(F.chat.type.in_(GROUP_CHAT_TYPES))
+    router.my_chat_member.filter(F.chat.type.in_(GROUP_CHAT_TYPES))
+    router.callback_query.filter(F.message.chat.type.in_(GROUP_CHAT_TYPES))
+
+    router.my_chat_member.register(bot_membership_changed)
+    router.message.register(on_group_upgraded, F.migrate_to_chat_id)
+    router.message.register(on_group_upgrade_seen_in_supergroup, F.migrate_from_chat_id)
+    router.message.register(open_settings, Command("setup", "settings"))
+    router.callback_query.register(change_setting, F.data.startswith("set:"))
+    router.message.register(
+        manual_timezone_input,
+        SetupInput.timezone,
+        F.reply_to_message,
+        F.text,
+        ~F.text.startswith("/"),
+    )
+    router.message.register(
+        manual_time_input,
+        SetupInput.daily_time,
+        F.reply_to_message,
+        F.text,
+        ~F.text.startswith("/"),
+    )
+    return router
