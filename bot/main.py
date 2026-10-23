@@ -14,6 +14,7 @@ from bot.admins import AdminCache
 from bot.config import ConfigError, Settings, get_settings
 from bot.database import get_session_factory
 from bot.logging_setup import setup_logging
+from bot.middlewares.errors import ErrorMiddleware
 from bot.middlewares.group import GroupContextMiddleware
 from bot.middlewares.throttle import ThrottleMiddleware
 from bot.routers import group_admin
@@ -27,12 +28,15 @@ ALLOWED_UPDATES: list[str] = ["message", "callback_query", "my_chat_member"]
 
 def build_dispatcher(
     session_factory: async_sessionmaker[AsyncSession],
+    sender: Sender,
     settings: Settings,
 ) -> Dispatcher:
     """Собирает диспетчер: роутеры и middleware. FSM пока в памяти процесса."""
     dispatcher = Dispatcher()
     dispatcher.include_router(group_admin.router)
 
+    # Ошибки ловим снаружи всех: они не должны ронять бота.
+    dispatcher.update.outer_middleware(ErrorMiddleware(session_factory, sender))
     # Порядок важен: контекст группы нужен кулдаунам, которые идут следом.
     dispatcher.update.middleware(GroupContextMiddleware(session_factory))
     dispatcher.update.middleware(
@@ -57,7 +61,7 @@ async def main(settings: Settings) -> None:
         global_limit=max(int(settings.limit_global_per_second), 1),
     )
     admins = AdminCache(bot)
-    dispatcher = build_dispatcher(session_factory, settings)
+    dispatcher = build_dispatcher(session_factory, sender, settings)
 
     me = await bot.get_me()
     logger.info("Бот @%s запускается в режиме long polling", me.username)
