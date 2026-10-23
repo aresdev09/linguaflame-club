@@ -10,7 +10,10 @@ from aiogram.enums import ParseMode
 from aiogram.exceptions import TelegramUnauthorizedError
 
 from bot.config import ConfigError, Settings, get_settings
+from bot.database import get_session_factory
 from bot.logging_setup import setup_logging
+from bot.routers import group_admin
+from bot.sender import Sender
 
 logger = logging.getLogger(__name__)
 
@@ -19,8 +22,10 @@ ALLOWED_UPDATES: list[str] = ["message", "callback_query", "my_chat_member"]
 
 
 def build_dispatcher() -> Dispatcher:
-    """Собирает диспетчер. Роутеры появятся на следующих этапах."""
-    return Dispatcher()
+    """Собирает диспетчер: роутеры и middleware. FSM пока в памяти процесса."""
+    dispatcher = Dispatcher()
+    dispatcher.include_router(group_admin.router)
+    return dispatcher
 
 
 async def main(settings: Settings) -> None:
@@ -29,13 +34,24 @@ async def main(settings: Settings) -> None:
         token=settings.bot_token,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
+    session_factory = get_session_factory()
+    sender = Sender(
+        bot,
+        per_chat_limit=settings.limit_messages_per_minute,
+        global_limit=max(int(settings.limit_global_per_second), 1),
+    )
     dispatcher = build_dispatcher()
 
     me = await bot.get_me()
     logger.info("Бот @%s запускается в режиме long polling", me.username)
 
     try:
-        await dispatcher.start_polling(bot, allowed_updates=ALLOWED_UPDATES)
+        await dispatcher.start_polling(
+            bot,
+            allowed_updates=ALLOWED_UPDATES,
+            session_factory=session_factory,
+            sender=sender,
+        )
     finally:
         await bot.session.close()
         logger.info("Бот остановлен")
