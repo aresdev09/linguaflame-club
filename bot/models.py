@@ -56,6 +56,22 @@ game_status_enum = Enum(
     "running", "finished", "stopped", "expired", name="game_status", native_enum=False
 )
 
+# Виды дневных постов и контента (общий кеш, банк вопросов, история).
+daily_post_kind_enum = Enum(
+    "words", "grammar", "recap", name="daily_post_kind", native_enum=False
+)
+content_kind_enum = Enum(
+    "words",
+    "grammar",
+    "quiz_batch",
+    "scramble",
+    "gap",
+    "race",
+    "truefalse",
+    name="content_kind",
+    native_enum=False,
+)
+
 
 class Base(DeclarativeBase):
     """Базовый класс для всех моделей."""
@@ -218,3 +234,107 @@ class GameAnswer(Base):
             unique=True,
         ),
     )
+
+
+class DailyPost(Base):
+    """Пост дня (слова, грамматика, итоги недели).
+
+    Запись создаётся до отправки: `posted_at` пустой означает «отправляется»,
+    заполненный — «отправлено». Уникальный индекс защищает от дублей.
+    """
+
+    __tablename__ = "daily_posts"
+
+    id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
+    chat_id: Mapped[int] = mapped_column(
+        BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
+    )
+    date: Mapped[date] = mapped_column(Date)
+    kind: Mapped[str] = mapped_column(daily_post_kind_enum)
+    payload: Mapped[dict | None] = mapped_column(JSON)
+    message_id: Mapped[int | None] = mapped_column(BigIntType)
+    posted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    __table_args__ = (
+        # Защита от дублей: один пост каждого вида в день на чат.
+        Index("uq_daily_posts_chat_id_date_kind", "chat_id", "date", "kind", unique=True),
+        Index("ix_daily_posts_chat_id_date", "chat_id", "date"),
+    )
+
+
+class ContentCache(Base):
+    """Общий кеш контента: одинаковый для групп одного уровня и языка."""
+
+    __tablename__ = "content_cache"
+
+    id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
+    kind: Mapped[str] = mapped_column(content_kind_enum)
+    level: Mapped[str] = mapped_column(String(2))
+    language: Mapped[str] = mapped_column(String(8))
+    # Дневной контент (слова, грамматика) привязан к дате; None — без даты.
+    date: Mapped[date | None] = mapped_column(Date)
+    payload: Mapped[dict] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    __table_args__ = (
+        # Поиск готового контента по виду, уровню, языку и дате.
+        Index(
+            "ix_content_cache_kind_level_language_date",
+            "kind",
+            "level",
+            "language",
+            "date",
+        ),
+    )
+
+
+class QuestionBankItem(Base):
+    """Запасной банк вопросов; пополняется результатами генерации."""
+
+    __tablename__ = "question_bank"
+
+    id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
+    level: Mapped[str] = mapped_column(String(2))
+    language: Mapped[str] = mapped_column(String(8))
+    kind: Mapped[str] = mapped_column(content_kind_enum)
+    payload: Mapped[dict] = mapped_column(JSON)
+    times_used: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    __table_args__ = (
+        # Выбор вопросов из банка, начиная с реже всего использованных.
+        Index("ix_question_bank_level_language_kind", "level", "language", "kind"),
+    )
+
+
+class ChatContentHistory(Base):
+    """Контент, уже использованный в группе: не повторяем его 30 дней."""
+
+    __tablename__ = "chat_content_history"
+
+    chat_id: Mapped[int] = mapped_column(
+        BigIntType, ForeignKey("chats.id", onupdate="CASCADE"), primary_key=True
+    )
+    # Хеш содержимого (sha256 в hex): одинаковый контент — одинаковый хеш.
+    content_hash: Mapped[str] = mapped_column(String(64), primary_key=True)
+    kind: Mapped[str] = mapped_column(content_kind_enum)
+    used_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    __table_args__ = (
+        # Чистка старой истории по чату.
+        Index("ix_chat_content_history_chat_id_used_at", "chat_id", "used_at"),
+    )
+
+
+class AIUsage(Base):
+    """Дневной счётчик запросов к ИИ на чат."""
+
+    __tablename__ = "ai_usage"
+
+    chat_id: Mapped[int] = mapped_column(
+        BigIntType, ForeignKey("chats.id", onupdate="CASCADE"), primary_key=True
+    )
+    # Дата в часовом поясе чата: квота сбрасывается в полночь группы.
+    date: Mapped[date] = mapped_column(Date, primary_key=True)
+    requests: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    tokens: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
