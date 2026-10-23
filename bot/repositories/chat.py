@@ -36,7 +36,7 @@ class ChatRepo(BaseRepo):
             await self.session.flush()
             return chat
         # Название группы могло измениться.
-        if title is not None:
+        if title is not None and chat.title != title:
             chat.title = title
         return chat
 

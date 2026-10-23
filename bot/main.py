@@ -8,10 +8,13 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.exceptions import TelegramUnauthorizedError
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from bot.config import ConfigError, Settings, get_settings
 from bot.database import get_session_factory
 from bot.logging_setup import setup_logging
+from bot.middlewares.group import GroupContextMiddleware
+from bot.middlewares.throttle import ThrottleMiddleware
 from bot.routers import group_admin
 from bot.sender import Sender
 
@@ -21,10 +24,22 @@ logger = logging.getLogger(__name__)
 ALLOWED_UPDATES: list[str] = ["message", "callback_query", "my_chat_member"]
 
 
-def build_dispatcher() -> Dispatcher:
+def build_dispatcher(
+    session_factory: async_sessionmaker[AsyncSession],
+    settings: Settings,
+) -> Dispatcher:
     """Собирает диспетчер: роутеры и middleware. FSM пока в памяти процесса."""
     dispatcher = Dispatcher()
     dispatcher.include_router(group_admin.router)
+
+    # Порядок важен: контекст группы нужен кулдаунам, которые идут следом.
+    dispatcher.update.middleware(GroupContextMiddleware(session_factory))
+    dispatcher.update.middleware(
+        ThrottleMiddleware(
+            user_cooldown=settings.limit_command_cooldown_seconds,
+            heavy_cooldown=settings.limit_heavy_command_cooldown_seconds,
+        )
+    )
     return dispatcher
 
 
@@ -40,7 +55,7 @@ async def main(settings: Settings) -> None:
         per_chat_limit=settings.limit_messages_per_minute,
         global_limit=max(int(settings.limit_global_per_second), 1),
     )
-    dispatcher = build_dispatcher()
+    dispatcher = build_dispatcher(session_factory, settings)
 
     me = await bot.get_me()
     logger.info("Бот @%s запускается в режиме long polling", me.username)
