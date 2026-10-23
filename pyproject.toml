@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "linguaflame-club"
+version = "0.1.0"
+description = "Group Telegram bot for learning English with AI: games, leaderboard, daily words and grammar"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "aiogram>=3.15,<4",
+    "SQLAlchemy>=2.0.30,<3",
+    "asyncpg>=0.30",
+    "aiosqlite>=0.20",
+    "alembic>=1.13,<2",
+    "redis>=5.0",
+    "APScheduler>=3.10,<4",
+    "httpx>=0.27",
+    "pydantic-settings>=2.2,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.6",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["bot"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
