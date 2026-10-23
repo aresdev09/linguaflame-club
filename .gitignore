@@ -1,0 +1,16 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+.venv/
+*.db
+.pytest_cache/
+.ruff_cache/
+
+# Local tooling & docs
+AGENTS.md
+skills/
+tasks/
+PROMPTS.md
+.opencode/
