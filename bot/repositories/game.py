@@ -1,12 +1,32 @@
 """Репозиторий игровых сессий и ответов."""
 
 import uuid
+from dataclasses import dataclass
 from datetime import datetime
 
-from sqlalchemy import case, func, select
+from sqlalchemy import and_, case, func, select
 
-from bot.models import GameAnswer, GameSession, utcnow
+from bot.models import GameAnswer, GameSession, Member, utcnow
 from bot.repositories.base import BaseRepo
+
+
+@dataclass(frozen=True)
+class RoundAnswer:
+    """Ответ раунда: участник и верность (имя нужно для итогов раунда)."""
+
+    user_id: int
+    is_correct: bool
+    display_name: str | None
+
+
+@dataclass(frozen=True)
+class SessionTotal:
+    """Очки участника за сессию; `first_answer_id` решает ничьи."""
+
+    user_id: int
+    points: int
+    display_name: str | None
+    first_answer_id: int
 
 
 class GameRepo(BaseRepo):
@@ -39,8 +59,15 @@ class GameRepo(BaseRepo):
         await self.session.flush()
         return session
 
-    async def get(self, session_id: uuid.UUID) -> GameSession | None:
-        return await self.session.get(GameSession, session_id)
+    async def get(
+        self, session_id: uuid.UUID, *, for_update: bool = False
+    ) -> GameSession | None:
+        """Сессия по id; `for_update` блокирует строку до конца транзакции.
+
+        Под этой блокировкой считаются верные ответы раунда — бонус
+        «первому» не должен достаться двум участникам сразу.
+        """
+        return await self.session.get(GameSession, session_id, with_for_update=for_update)
 
     async def get_active(self, chat_id: int) -> GameSession | None:
         """Текущая незавершённая игра чата (статус `running`), если есть."""
@@ -153,3 +180,86 @@ class GameRepo(BaseRepo):
         result = await self.session.execute(stmt)
         answers, correct = result.one()
         return int(answers), int(correct)
+
+    async def count_correct_answers(self, session_id: uuid.UUID, round: int) -> int:
+        """Сколько верных ответов уже принято в раунде (бонус «первому»)."""
+        stmt = (
+            select(func.count())
+            .select_from(GameAnswer)
+            .where(
+                GameAnswer.session_id == session_id,
+                GameAnswer.round == round,
+                GameAnswer.is_correct.is_(True),
+            )
+        )
+        result = await self.session.execute(stmt)
+        return int(result.scalar_one())
+
+    async def round_answers(self, session_id: uuid.UUID, round: int) -> list[RoundAnswer]:
+        """Ответы раунда с именами участников — для итогов раунда."""
+        stmt = (
+            select(GameAnswer.user_id, GameAnswer.is_correct, Member.display_name)
+            .join(GameSession, GameSession.id == GameAnswer.session_id)
+            .outerjoin(
+                Member,
+                and_(
+                    Member.chat_id == GameSession.chat_id,
+                    Member.user_id == GameAnswer.user_id,
+                ),
+            )
+            .where(GameAnswer.session_id == session_id, GameAnswer.round == round)
+            .order_by(GameAnswer.id)
+        )
+        result = await self.session.execute(stmt)
+        return [
+            RoundAnswer(user_id=user_id, is_correct=is_correct, display_name=display_name)
+            for user_id, is_correct, display_name in result.all()
+        ]
+
+    async def session_totals(self, session_id: uuid.UUID) -> list[SessionTotal]:
+        """Очки участников за сессию; при равенстве выше тот, кто ответил раньше."""
+        points_sum = func.sum(GameAnswer.points).label("points")
+        first_id = func.min(GameAnswer.id).label("first_id")
+        stmt = (
+            select(GameAnswer.user_id, points_sum, Member.display_name, first_id)
+            .join(GameSession, GameSession.id == GameAnswer.session_id)
+            .outerjoin(
+                Member,
+                and_(
+                    Member.chat_id == GameSession.chat_id,
+                    Member.user_id == GameAnswer.user_id,
+                ),
+            )
+            .where(GameAnswer.session_id == session_id)
+            .group_by(GameAnswer.user_id, Member.display_name)
+        )
+        result = await self.session.execute(stmt)
+        totals = [
+            SessionTotal(
+                user_id=user_id,
+                points=int(points),
+                display_name=display_name,
+                first_answer_id=int(first),
+            )
+            for user_id, points, display_name, first in result.all()
+        ]
+        return sorted(totals, key=lambda total: (-total.points, total.first_answer_id))
+
+    async def count_started_since(self, chat_id: int, since: datetime) -> int:
+        """Сколько игр начато в чате с указанного времени (дневной лимит)."""
+        stmt = (
+            select(func.count())
+            .select_from(GameSession)
+            .where(GameSession.chat_id == chat_id, GameSession.started_at >= since)
+        )
+        result = await self.session.execute(stmt)
+        return int(result.scalar_one())
+
+    async def latest_finished_at(self, chat_id: int) -> datetime | None:
+        """Время закрытия последней игры чата (кулдаун между играми)."""
+        stmt = (
+            select(func.max(GameSession.finished_at))
+            .where(GameSession.chat_id == chat_id, GameSession.finished_at.is_not(None))
+        )
+        result = await self.session.execute(stmt)
+        return result.scalar_one()

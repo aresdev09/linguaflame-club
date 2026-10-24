@@ -101,6 +101,14 @@ class Settings(BaseSettings):
     limit_game_cooldown_seconds: float = 10.0  # пауза между играми в чате
     limit_games_per_day: int = 30  # игр в день на один чат
 
+    # --- Игры ---
+    # Время на раунд квиза, секунды (настраивается 15–30).
+    quiz_round_seconds: int = Field(default=20, ge=15, le=30)
+    # Пауза между раундами квиза, секунды.
+    quiz_break_seconds: int = Field(default=3, ge=1, le=15)
+    # Ответы быстрее не получают бонус скорости (антиспам, миллисекунды).
+    score_fast_answer_ms: int = Field(default=500, ge=0)
+
 
 def _describe_settings_error(exc: ValidationError) -> str:
     """Собирает понятный текст ошибки по ошибкам валидации настроек."""

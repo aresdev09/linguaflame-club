@@ -111,30 +111,57 @@ class ScoringService:
         календарному дню часового пояса чата. Если лимит исчерпан, событие
         не записывается вовсе.
         """
-        if points <= 0:
-            return 0
         # Строка чата блокируется: параллельные начисления одному участнику
         # не должны вместе перешагнуть дневной лимит.
         async with self._session_factory() as session:
             async with session.begin():
                 chat = await ChatRepo(session).get(chat_id, for_update=True)
                 timezone_name = chat.timezone if chat is not None else "UTC"
-                day_start, day_end = day_bounds(timezone_name, self._now())
-                earned = await ScoreRepo(session).total(
-                    chat_id, user_id, since=day_start, until=day_end
+                return await self.award_locked(
+                    session,
+                    timezone_name,
+                    chat_id,
+                    user_id,
+                    points,
+                    source,
+                    session_id=session_id,
                 )
-                awarded = points
-                cap = self._settings.score_daily_cap
-                if cap > 0:
-                    awarded = min(points, max(cap - earned, 0))
-                if awarded > 0:
-                    await ScoreRepo(session).add_event(
-                        chat_id,
-                        user_id,
-                        points=awarded,
-                        source=source,
-                        session_id=session_id,
-                    )
+
+    async def award_locked(
+        self,
+        session: AsyncSession,
+        timezone_name: str,
+        chat_id: int,
+        user_id: int,
+        points: int,
+        source: str,
+        session_id: uuid.UUID | None = None,
+    ) -> int:
+        """То же начисление внутри готовой транзакции вызывающего кода.
+
+        Блокировки строк держит вызывающий: игры записывают ответ и очки
+        одной транзакцией — без окна, в котором ответ есть, а очков нет
+        (или наоборот). Часовой пояс передаётся снаружи, чтобы не читать
+        чат повторно под уже взятыми блокировками.
+        """
+        if points <= 0:
+            return 0
+        day_start, day_end = day_bounds(timezone_name, self._now())
+        earned = await ScoreRepo(session).total(
+            chat_id, user_id, since=day_start, until=day_end
+        )
+        awarded = points
+        cap = self._settings.score_daily_cap
+        if cap > 0:
+            awarded = min(points, max(cap - earned, 0))
+        if awarded > 0:
+            await ScoreRepo(session).add_event(
+                chat_id,
+                user_id,
+                points=awarded,
+                source=source,
+                session_id=session_id,
+            )
         if awarded < points:
             logger.info(
                 "Дневной лимит очков: %s из %s для %s в чате %s",

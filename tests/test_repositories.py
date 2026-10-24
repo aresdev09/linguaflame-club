@@ -86,6 +86,59 @@ async def test_only_one_active_game_per_chat(session: AsyncSession) -> None:
     assert (await games.get_active(CHAT_ID)).id == second.id
 
 
+async def test_game_queries_for_engine(session: AsyncSession) -> None:
+    """Запросы движка игр: первые верные, итоги раунда и сессии, лимиты."""
+    await _create_chat(session)
+    games = GameRepo(session)
+    members = MemberRepo(session)
+    game = await games.create_session(CHAT_ID, kind="quiz", started_by=1)
+    await session.commit()
+    game_id = game.id
+
+    await members.get_or_create(CHAT_ID, 111, display_name="Anna")
+    await members.get_or_create(CHAT_ID, 222, display_name="Bekzod")
+    await session.commit()
+
+    # Раунд 1: Анна первой верно, Бекзод вторым верно, Диля — неверно.
+    await games.add_answer(
+        game_id, 1, user_id=111, answer="B", is_correct=True, answer_time_ms=2000, points=16
+    )
+    await games.add_answer(
+        game_id, 1, user_id=222, answer="B", is_correct=True, answer_time_ms=4000, points=12
+    )
+    await games.add_answer(
+        game_id, 1, user_id=333, answer="A", is_correct=False, answer_time_ms=3000, points=0
+    )
+    # Раунд 2: очки Бекзода больше — выйдет первым в итогах.
+    await games.add_answer(
+        game_id, 2, user_id=222, answer="A", is_correct=True, answer_time_ms=1000, points=15
+    )
+    await session.commit()
+
+    # Бонус «первому»: в раунде уже два верных ответа.
+    assert await games.count_correct_answers(game_id, 1) == 2
+
+    answers = await games.round_answers(game_id, 1)
+    assert [(a.user_id, a.is_correct) for a in answers] == [
+        (111, True),
+        (222, True),
+        (333, False),
+    ]
+    assert answers[0].display_name == "Anna"
+
+    totals = await games.session_totals(game_id)
+    # Отвечавшие без очков тоже в списке — их скроет только текст итогов.
+    assert [(t.user_id, t.points) for t in totals] == [(222, 27), (111, 16), (333, 0)]
+    assert totals[0].display_name == "Bekzod"
+
+    # Дневной лимит игр и кулдаун между играми.
+    since = datetime(2026, 10, 23, tzinfo=UTC)
+    assert await games.count_started_since(CHAT_ID, since) == 1
+    await games.close(game_id, "finished")
+    await session.commit()
+    assert await games.latest_finished_at(CHAT_ID) is not None
+
+
 async def test_migrate_chat_id_moves_all_tables(
     session_factory: async_sessionmaker[AsyncSession],
 ) -> None:

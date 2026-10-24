@@ -173,6 +173,31 @@ async def test_award_ignores_non_positive_points(
     assert await _all_events(session_factory) == []
 
 
+async def test_award_locked_applies_daily_cap_inside_caller_tx(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """Начисление внутри чужой транзакции считает тот же дневной лимит.
+
+    Игры пишут ответ и очки одной транзакцией: лимит должен работать
+    и там, без двойных списаний.
+    """
+    await _chat(session_factory)
+    settings = _settings(score_daily_cap=25)
+    service = ScoringService(session_factory, settings)
+
+    async with session_factory() as session:
+        async with session.begin():
+            assert await service.award_locked(session, "UTC", CHAT_ID, 111, 20, "quiz") == 20
+            # Видит начисление из той же транзакции.
+            assert await service.award_locked(session, "UTC", CHAT_ID, 111, 10, "quiz") == 5
+
+    # Лимит дня исчерпан — обычное начисление ничего не добавляет.
+    assert await service.award(CHAT_ID, 111, 10, "quiz") == 0
+
+    events = await _all_events(session_factory)
+    assert [event.points for event in events] == [20, 5]
+
+
 # --- 5.2 Границы недели по часовому поясу чата ---
 
 
