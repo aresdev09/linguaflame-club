@@ -65,14 +65,18 @@ class Settings(BaseSettings):
     redis_url: str = DEFAULT_REDIS_URL
     log_level: str = "INFO"
 
-    # --- ИИ (OpenRouter, OpenAI-совместимый API) ---
-    ai_server_url: str = "https://openrouter.ai/api/v1"
+    # --- ИИ (OpenAI-совместимый API; по умолчанию NVIDIA NIM) ---
+    ai_server_url: str = "https://integrate.api.nvidia.com/v1"
     ai_api_key: str = ""
-    ai_model: str = "openai/gpt-4o-mini"
+    ai_model: str = "nvidia/nemotron-3-ultra-550b-a55b"
+    # Резервная модель, если основная не отвечает; пусто — работать без резерва.
+    ai_model_fallback: str = "deepseek-ai/deepseek-v4.1-flash"
     # Таймаут одного запроса к ИИ, секунды.
     ai_timeout_seconds: float = Field(default=30.0, gt=0)
     # Дневная квота запросов к ИИ на один чат (0 — без ограничения).
     ai_quota_per_day: int = Field(default=30, ge=0)
+    # Глобальный дневной бюджет запросов к ИИ по всем чатам (0 — без ограничения).
+    ai_global_daily_limit: int = Field(default=300, ge=0)
 
     # --- Очки за игры (менять без правки кода через окружение) ---
     score_quiz_correct: int = 10  # верный ответ в квизе
