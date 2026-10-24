@@ -72,6 +72,7 @@ async def _feed(
         session_factory=session_factory,
         sender=sender,
         admins=admins,
+        settings=_settings(),
     )
 
 
@@ -159,6 +160,27 @@ async def test_dispatcher_deactivates_when_bot_kicked(
         chat = await ChatRepo(session).get(-700)
         assert chat is not None
         assert chat.active is False
+
+
+async def test_dispatcher_answers_top_command(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """Команда /top проходит через диспетчер и отвечает рейтингом."""
+    bot, sender, admins, dispatcher = _harness(session_factory)
+
+    await _feed(
+        dispatcher,
+        bot,
+        sender,
+        admins,
+        session_factory,
+        _command_update(user_id=11, text="/top"),
+    )
+
+    bot.send_message.assert_awaited_once()
+    kwargs = bot.send_message.await_args.kwargs
+    assert "No scores yet" in kwargs["text"]
+    assert kwargs["reply_markup"] is not None
 
 
 async def test_dispatcher_refuses_setup_from_regular_member(
