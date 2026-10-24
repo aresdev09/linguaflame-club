@@ -2,6 +2,8 @@
 
 from datetime import date
 
+from sqlalchemy import func, select
+
 from bot.models import AIUsage
 from bot.repositories.base import BaseRepo
 
@@ -25,3 +27,11 @@ class UsageRepo(BaseRepo):
             usage.tokens += tokens
         await self.session.flush()
         return usage.requests
+
+    async def total_requests(self, on_date: date) -> int:
+        """Сумма запросов всех чатов за дату — для глобального бюджета."""
+        stmt = select(func.coalesce(func.sum(AIUsage.requests), 0)).where(
+            AIUsage.date == on_date
+        )
+        result = await self.session.execute(stmt)
+        return int(result.scalar_one())

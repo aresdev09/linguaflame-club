@@ -133,6 +133,32 @@ class ContentRepo(BaseRepo):
             history.used_at = utcnow()
         await self.session.flush()
 
+    async def recent_hashes(self, chat_id: int, *, since: datetime) -> set[str]:
+        """Хеши контента, выданного чату с указанного времени."""
+        stmt = select(ChatContentHistory.content_hash).where(
+            ChatContentHistory.chat_id == chat_id,
+            ChatContentHistory.used_at >= since,
+        )
+        result = await self.session.execute(stmt)
+        return set(result.scalars().all())
+
+    async def recent_words(self, level: str, language: str, *, since: date) -> set[str]:
+        """Слова дня уровня и языка за последние дни — для исключений."""
+        stmt = select(ContentCache.payload).where(
+            ContentCache.kind == "words",
+            ContentCache.level == level,
+            ContentCache.language == language,
+            ContentCache.date >= since,
+        )
+        result = await self.session.execute(stmt)
+        words: set[str] = set()
+        for payload in result.scalars().all():
+            for item in (payload or {}).get("words", []):
+                word = str(item.get("word", "")).strip().lower()
+                if word:
+                    words.add(word)
+        return words
+
     # --- Посты дня ---
 
     async def get_daily_post(
