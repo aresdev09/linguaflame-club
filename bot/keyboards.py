@@ -1,5 +1,6 @@
 """Inline-клавиатуры бота."""
 
+import uuid
 from datetime import time as dt_time
 
 from aiogram.types import InlineKeyboardMarkup
@@ -16,6 +17,7 @@ from bot.config import (
 )
 from bot.locales import t
 from bot.models import Chat
+from bot.services.games.callbacks import OPTION_LETTERS, build_answer_callback
 
 
 def _mark(selected: bool, label: str) -> str:
@@ -102,5 +104,23 @@ def top_period_keyboard(lang: str, period: str) -> InlineKeyboardMarkup:
         text=_mark(period == "all", t("top.period_all", lang)),
         callback_data="top:all",
     )
+    builder.adjust(2)
+    return builder.as_markup()
+
+
+def quiz_answers_keyboard(
+    session_id: uuid.UUID, round_no: int, options_count: int
+) -> InlineKeyboardMarkup:
+    """Кнопки ответов квиза: буквы A–D сеткой 2×2.
+
+    В `callback_data` — сессия, раунд и индекс варианта; правильный
+    ответ туда не попадает.
+    """
+    builder = InlineKeyboardBuilder()
+    for index in range(options_count):
+        builder.button(
+            text=OPTION_LETTERS[index],
+            callback_data=build_answer_callback(session_id, round_no, index),
+        )
     builder.adjust(2)
     return builder.as_markup()
