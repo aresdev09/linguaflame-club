@@ -30,6 +30,7 @@ from bot.services.ai_errors import (
     AIResponseError,
     AITimeoutError,
 )
+from bot.services.ai_quality import require_word_count
 from bot.services.ai_schemas import (
     GapResponse,
     GrammarLesson,
@@ -152,6 +153,7 @@ class AIClient:
             prompt=tasks.words_prompt(count, exclude_words),
             level=level,
             language=language,
+            validate=require_word_count(count),
         )
 
     async def generate_grammar(self, level: str, language: str) -> GrammarLesson:

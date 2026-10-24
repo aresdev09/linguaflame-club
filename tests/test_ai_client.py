@@ -252,3 +252,30 @@ def test_parse_json_payload_handles_fences_and_extra_text() -> None:
     with pytest.raises(json.JSONDecodeError):
         parse_json_payload("no json here")
     assert strip_markdown_fences("```\nvalue\n```") == "value"
+
+
+async def test_generate_words_requires_exact_count() -> None:
+    """Сервер вернул меньше слов, чем просили — ответ считается невалидным."""
+    body = json.dumps(
+        {
+            "words": [
+                {
+                    "word": "apple",
+                    "transcription": "/ˈæpəl/",
+                    "translation": "яблоко",
+                    "example": "I eat an apple.",
+                }
+            ]
+        },
+        ensure_ascii=False,
+    )
+    attempts: list[int] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        attempts.append(1)
+        return httpx.Response(200, json=_ok_body(body))
+
+    client = _make_client(handler)
+    with pytest.raises(AIResponseError):
+        await client.generate_words("B1", "ru", count=2)
+    assert len(attempts) == 3
