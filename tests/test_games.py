@@ -359,6 +359,32 @@ async def test_answer_after_deadline_rejected(
     assert events == []
 
 
+async def test_buttons_of_finished_game_rejected(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """Нажатие по кнопкам закрытой игры и чужой сессии — отказ."""
+    async with _engine(session_factory) as (sender, clock, games):
+        await _chat(session_factory)
+        await _seed_bank(session_factory, count=1)
+        await games.start_quiz(
+            await _chat(session_factory), started_by=1, rounds=1, thread_id=None
+        )
+        session_id = _session_id_of(sender.sent[0])
+        await _finish_round(games, session_id, clock)
+
+        # Игра завершена — её кнопки больше не работают.
+        after_end = await games.submit_answer(
+            session_id, chat_id=CHAT_ID, user_id=7, round_no=1, payload="1"
+        )
+        assert after_end.result.value == "no_game"
+
+        # Сессия другого чата не принимает ответы «со стороны».
+        wrong_chat = await games.submit_answer(
+            session_id, chat_id=-999, user_id=7, round_no=1, payload="1"
+        )
+        assert wrong_chat.result.value == "no_game"
+
+
 async def test_first_bonus_goes_to_exactly_one_player(
     session_factory: async_sessionmaker[AsyncSession],
 ) -> None:
