@@ -1,0 +1,338 @@
+{
+  "kind": "quiz_batch",
+  "level": "A1",
+  "language": "ru",
+  "generated_at": "2026-10-24T05:59:31+00:00",
+  "items": [
+    {
+      "options": [
+        "apple",
+        "banana",
+        "orange",
+        "pear"
+      ],
+      "correct_index": 0,
+      "question": "What is the English word for \"яблоко\"?",
+      "explanation": "Apple — это яблоко."
+    },
+    {
+      "options": [
+        "is",
+        "am",
+        "are",
+        "be"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct form: \"She ___ a teacher.\"",
+      "explanation": "Для третьего лица единственного числа используется is."
+    },
+    {
+      "options": [
+        "small",
+        "large",
+        "tiny",
+        "short"
+      ],
+      "correct_index": 1,
+      "question": "Which word means \"big\"?",
+      "explanation": "Large означает большой."
+    },
+    {
+      "options": [
+        "go",
+        "goes",
+        "going",
+        "went"
+      ],
+      "correct_index": 0,
+      "question": "Complete the sentence: \"I ___ to school every day.\"",
+      "explanation": "С местоимением I используется go."
+    },
+    {
+      "options": [
+        "childs",
+        "children",
+        "childes",
+        "child"
+      ],
+      "correct_index": 1,
+      "question": "What is the plural of \"child\"?",
+      "explanation": "Множественное число child — children."
+    },
+    {
+      "options": [
+        "He like pizza.",
+        "He likes pizza.",
+        "He liking pizza.",
+        "He like pizzas."
+      ],
+      "correct_index": 1,
+      "question": "Which sentence is correct?",
+      "explanation": "С he добавляется -s к глаголу."
+    },
+    {
+      "options": [
+        "My name Anna.",
+        "I name Anna.",
+        "My name is Anna.",
+        "Name my Anna."
+      ],
+      "correct_index": 2,
+      "question": "Translate: \"My name is Anna.\"",
+      "explanation": "Правильный порядок: My name is Anna."
+    },
+    {
+      "options": [
+        "A",
+        "An",
+        "The",
+        "No article"
+      ],
+      "correct_index": 2,
+      "question": "Choose the correct article: \"___ cat is black.\"",
+      "explanation": "Определённый артикль the используется для известного предмета."
+    },
+    {
+      "options": [
+        "warm",
+        "cold",
+        "cool",
+        "heat"
+      ],
+      "correct_index": 1,
+      "question": "What is the opposite of \"hot\"?",
+      "explanation": "Cold — холодный, противоположность hot."
+    },
+    {
+      "options": [
+        "is",
+        "are",
+        "am",
+        "be"
+      ],
+      "correct_index": 1,
+      "question": "Fill in the blank: \"They ___ playing football now.\"",
+      "explanation": "They требует are."
+    },
+    {
+      "options": [
+        "run",
+        "blue",
+        "eat",
+        "jump"
+      ],
+      "correct_index": 1,
+      "question": "Which word is a colour?",
+      "explanation": "Blue — синий, это цвет."
+    },
+    {
+      "options": [
+        "He",
+        "She",
+        "I",
+        "We"
+      ],
+      "correct_index": 2,
+      "question": "Choose the correct pronoun: \"___ am happy.\"",
+      "explanation": "С I используется am."
+    },
+    {
+      "options": [
+        "друг",
+        "враг",
+        "брат",
+        "сестра"
+      ],
+      "correct_index": 0,
+      "question": "What does \"friend\" mean in Russian?",
+      "explanation": "Friend переводится как друг."
+    },
+    {
+      "options": [
+        "do",
+        "does",
+        "is",
+        "are"
+      ],
+      "correct_index": 1,
+      "question": "Select the correct negative form: \"She ___ not like coffee.\"",
+      "explanation": "Для she используется does not."
+    },
+    {
+      "options": [
+        "I live in London.",
+        "I live on London.",
+        "I live at London.",
+        "I live to London."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence uses the correct preposition?",
+      "explanation": "Для городов используется предлог in."
+    },
+    {
+      "options": [
+        "goed",
+        "went",
+        "gone",
+        "going"
+      ],
+      "correct_index": 1,
+      "question": "What is the past form of \"go\"?",
+      "explanation": "Прошедшее время go — went."
+    },
+    {
+      "options": [
+        "Do",
+        "Does",
+        "Is",
+        "Are"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct question: \"___ you like tea?\"",
+      "explanation": "Для you используется Do."
+    },
+    {
+      "options": [
+        "We students.",
+        "We are student.",
+        "We are students.",
+        "We is students."
+      ],
+      "correct_index": 2,
+      "question": "Translate: \"We are students.\"",
+      "explanation": "Правильно: We are students."
+    },
+    {
+      "options": [
+        "drink",
+        "sleep",
+        "eat",
+        "read"
+      ],
+      "correct_index": 2,
+      "question": "Which word means \"to eat\"?",
+      "explanation": "Eat — есть."
+    },
+    {
+      "options": [
+        "is",
+        "are",
+        "am",
+        "be"
+      ],
+      "correct_index": 0,
+      "question": "Complete: \"There ___ a book on the table.\"",
+      "explanation": "Единственное число требует is."
+    },
+    {
+      "options": [
+        "bike",
+        "car",
+        "bus",
+        "train"
+      ],
+      "correct_index": 1,
+      "question": "What is the English for \"машина\"?",
+      "explanation": "Car — машина."
+    },
+    {
+      "options": [
+        "have",
+        "has",
+        "having",
+        "had"
+      ],
+      "correct_index": 1,
+      "question": "Choose the correct form: \"He ___ a new phone.\"",
+      "explanation": "Для he используется has."
+    },
+    {
+      "options": [
+        "She reads a book.",
+        "Does she read a book?",
+        "She reading a book.",
+        "She read a book."
+      ],
+      "correct_index": 1,
+      "question": "Which sentence is a question?",
+      "explanation": "Вопросительная форма начинается с Does."
+    },
+    {
+      "options": [
+        "Добрый вечер",
+        "Доброе утро",
+        "Спокойной ночи",
+        "Привет"
+      ],
+      "correct_index": 1,
+      "question": "Translate \"Good morning\" to Russian.",
+      "explanation": "Good morning — Доброе утро."
+    },
+    {
+      "options": [
+        "boxs",
+        "boxes",
+        "boxen",
+        "box"
+      ],
+      "correct_index": 1,
+      "question": "Select the correct plural: \"box\" → ___",
+      "explanation": "Множественное число box — boxes."
+    },
+    {
+      "options": [
+        "грустный",
+        "счастливый",
+        "злой",
+        "уставший"
+      ],
+      "correct_index": 1,
+      "question": "What does \"happy\" mean?",
+      "explanation": "Happy — счастливый."
+    },
+    {
+      "options": [
+        "He",
+        "She",
+        "It",
+        "We"
+      ],
+      "correct_index": 1,
+      "question": "Choose the correct pronoun for a girl: \"___ is my sister.\"",
+      "explanation": "Для девушки используется She."
+    },
+    {
+      "options": [
+        "have",
+        "has",
+        "had",
+        "having"
+      ],
+      "correct_index": 0,
+      "question": "Complete: \"I ___ breakfast at 7 a.m.\"",
+      "explanation": "С I используется have."
+    },
+    {
+      "options": [
+        "table",
+        "run",
+        "red",
+        "big"
+      ],
+      "correct_index": 1,
+      "question": "Which word is a verb?",
+      "explanation": "Run — глагол (бежать)."
+    },
+    {
+      "options": [
+        "Как дела?",
+        "Как тебя зовут?",
+        "Где ты?",
+        "Сколько тебе лет?"
+      ],
+      "correct_index": 0,
+      "question": "Translate: \"How are you?\"",
+      "explanation": "How are you? — Как дела?"
+    }
+  ]
+}

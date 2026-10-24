@@ -1,0 +1,158 @@
+{
+  "kind": "truefalse",
+  "level": "C1",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:23:32+00:00",
+  "items": [
+    {
+      "statement": "The subjunctive mood is used in the sentence: 'I suggest that he study harder.'",
+      "answer": true,
+      "explanation": "В предложениях с глаголами предложения (suggest, recommend, insist) после that используетсяPresent Subjunctive (базовая форма глагола без to), поэтому 'study' верно для любого лица."
+    },
+    {
+      "statement": "The phrase 'due to the fact that' is considered more concise than 'because'.",
+      "answer": false,
+      "explanation": "'Due to the fact that' — это громоздкая конструкция (wordiness), тогда как 'because' является лаконичной и предпочтительной в академическом и деловом письме."
+    },
+    {
+      "statement": "In the sentence 'Not only did he arrive late, but he also forgot his notes,' inversion is used correctly.",
+      "answer": true,
+      "explanation": "Когда предложение начинается с 'Not only', используется инверсия (вспомогательный глагол 'did' перед подлежащим 'he') для усиления акцента."
+    },
+    {
+      "statement": "The verb 'recommend' can be followed directly by an infinitive (e.g., 'I recommend to go').",
+      "answer": false,
+      "explanation": "Глагол 'recommend' не используется с инфинитивом. Правильные структуры: 'recommend doing something' (герундий) или 'recommend that someone do something' (subjunctive)."
+    },
+    {
+      "statement": "The word 'literally' can be used as an intensifier for metaphorical expressions in standard formal English.",
+      "answer": false,
+      "explanation": "В формальном английском 'literally' означает 'дословно'. Использование его как усилителя для метафор (например, 'I literally died laughing') считается стилистической ошибкой, хотя встречается в разговорной речи."
+    },
+    {
+      "statement": "A defining relative clause cannot be introduced by the relative pronoun 'that'.",
+      "answer": false,
+      "explanation": "В ограничительных (defining) придаточных предложениях 'that' часто используется вместо 'who' или 'which', особенно после суперлативов, all, nothing, something."
+    },
+    {
+      "statement": "The sentence 'Had I known the truth, I would have acted differently' is an example of a mixed conditional.",
+      "answer": false,
+      "explanation": "Это пример Third Conditional (смешанного типа) с инверсией вместо 'If I had known'. Mixed conditional сочетает времена разных условных типов (например, 'If I had studied, I would be rich now')."
+    },
+    {
+      "statement": "The noun 'information' is uncountable and has no plural form.",
+      "answer": true,
+      "explanation": "'Information' — неисчисляемое существительное. Для подсчета используется 'a piece of information'. Форма 'informations' не существует."
+    },
+    {
+      "statement": "The phrasal verb 'to put up with' means 'to tolerate'.",
+      "answer": true,
+      "explanation": "'To put up with' — неразделимый фразовый глагол, означающий 'терпеть, мириться с чем-то/кем-то'. Предлог 'with' обязателен, если есть объект."
+    },
+    {
+      "statement": "In the sentence 'The data is convincing,' the verb must be singular because 'data' is a singular noun.",
+      "answer": false,
+      "explanation": "'Data' — это форма множественного числа от 'datum'. В формальном/научном английском используется глагол во множественном числе ('The data are...'). В неформальном допустимо единственное число, но правило требует множественного."
+    },
+    {
+      "statement": "The structure 'get + object + past participle' (e.g., 'get the car fixed') expresses a causative meaning.",
+      "answer": true,
+      "explanation": "Конструкция 'get/have + объект + причастие II' выражает причинение (causative): заставить кого-то сделать или сделать что-то за вас. 'Get' менее формален, чем 'have'."
+    },
+    {
+      "statement": "The adjective 'economic' and 'economical' are interchangeable synonyms.",
+      "answer": false,
+      "explanation": "'Economic' относится к экономике как науке или системе (economic crisis). 'Economical' означает 'экономный, не расточительный' (economical car)."
+    },
+    {
+      "statement": "When using 'neither... nor...', the verb agrees with the noun closest to it (proximity rule).",
+      "answer": true,
+      "explanation": "Правило сближения (proximity rule): 'Neither the teacher nor the students were late' / 'Neither the students nor the teacher was late'."
+    },
+    {
+      "statement": "The modal verb 'must' has a past form 'musted' used for past obligations.",
+      "answer": false,
+      "explanation": "У 'must' нет формы прошедшего времени. Для выражения обязанности в прошлом используется 'had to'. 'Must have done' выражает уверенность в прошлом (дедукцию), а не обязанность."
+    },
+    {
+      "statement": "The phrase 'on behalf of' is followed by an object pronoun (e.g., 'on behalf of me').",
+      "answer": true,
+      "explanation": "Предлог 'of' требует объектного падежа местоимения. Правильно: 'on behalf of me/him/us/them'."
+    },
+    {
+      "statement": "A cleft sentence like 'It was John who stole the money' is used to emphasize the subject.",
+      "answer": true,
+      "explanation": "Раздельное предложение (cleft sentence) со структурой 'It is/was + выделяемый элемент + who/that...' служит для акцентирования внимания на подлежащем или дополнении."
+    },
+    {
+      "statement": "The word 'disinterested' means 'not interested' or 'bored'.",
+      "answer": false,
+      "explanation": "'Disinterested' означает 'непредвзятый, беспристрастный' (например, судья). Для значения 'не заинтересованный, скучающий' используется 'uninterested'."
+    },
+    {
+      "statement": "In the passive voice, the agent is always introduced by the preposition 'by'.",
+      "answer": true,
+      "explanation": "Если в пассивном залоге указывается исполнитель действия (agent), он вводится предлогом 'by'. С инструментами (instrument) используется 'with' (e.g., 'cut with a knife')."
+    },
+    {
+      "statement": "The sentence 'I look forward to hear from you' is grammatically correct.",
+      "answer": false,
+      "explanation": "После предлога 'to' в фразе 'look forward to' используется герундий (-ing форма). Правильно: 'I look forward to hearing from you'."
+    },
+    {
+      "statement": "The future perfect continuous tense emphasizes the duration of an action up to a certain point in the future.",
+      "answer": true,
+      "explanation": "Future Perfect Continuous (will have been doing) акцентирует внимание на продолжительности действия, которое начнется до и будет продолжаться вплоть до момента в будущем."
+    },
+    {
+      "statement": "The word 'advice' is countable; you can say 'an advice' or 'two advices'.",
+      "answer": false,
+      "explanation": "'Advice' — неисчисляемое существительное. Правильно: 'a piece of advice', 'some advice', 'good advice'."
+    },
+    {
+      "statement": "In reported speech, 'will' changes to 'would', 'can' changes to 'could', and 'must' changes to 'had to' (for obligation).",
+      "answer": true,
+      "explanation": "Это стандартные правила согласования времен (backshifting) в косвенной речи при переносе из прямой речи в прошедшее время."
+    },
+    {
+      "statement": "The construction 'There is a number of students' takes a singular verb because 'number' is singular.",
+      "answer": false,
+      "explanation": "Устойчивое выражение 'A number of' (ряд, много) требует глагола во множественном числе ('There are a number of students'). 'The number of' требует единственного числа."
+    },
+    {
+      "statement": "The verbs 'lay' (present) and 'lie' (past) are the same word form but have different meanings.",
+      "answer": true,
+      "explanation": "Это классическая путаница: 'lay' (класть — transit.) имеет прошедшее время 'laid'; 'lie' (лежать — intransit.) имеет прошедшее время 'lay' (совпадает с настоящим временем 'lay')."
+    },
+    {
+      "statement": "Using 'less' with countable nouns (e.g., 'less people') is strictly prohibited in all registers of English.",
+      "answer": false,
+      "explanation": "В формальном английском с исчисляемыми существительными используется 'fewer'. Однако в разговорной речи и на вывесках ('10 items or less') 'less' с исчисляемыми широко встречается."
+    },
+    {
+      "statement": "The sentence 'Rarely have I seen such a mess' demonstrates subject-auxiliary inversion.",
+      "answer": true,
+      "explanation": "Когда предложение начинается с наречий отрицательного значения (rarely, seldom, never, hardly), используется инверсия (вспомогательный глагол перед подлежащим)."
+    },
+    {
+      "statement": "The word 'since' can only be used as a preposition of time.",
+      "answer": false,
+      "explanation": "'Since' может быть предлогом (since Monday), союзом (since I met you) и наречием (I haven't seen him since)."
+    },
+    {
+      "statement": "In the sentence 'He denied stealing the money,' the verb 'deny' is followed by a gerund.",
+      "answer": true,
+      "explanation": "Глаголы типа 'deny, admit, avoid, enjoy, risk, suggest' требуют герундия после себя, а не инфинитива."
+    },
+    {
+      "statement": "The phrase 'due to' can be used interchangeably with 'because of' at the beginning of a sentence in formal writing.",
+      "answer": true,
+      "explanation": "Традиционно 'due to' — прилагательное (следует за be), а 'because of' — наречие. Но в современном формальном английском 'Due to bad weather, the match was cancelled' считается допустимым."
+    },
+    {
+      "statement": "The modal 'needn't have done' means the action was not necessary and was not performed.",
+      "answer": false,
+      "explanation": "'Needn't have done' означает, что действие НЕ БЫЛО НЕОБХОДИМЫМ, но БЫЛО СОВЕРШЕНО (зря). Если действие не совершалось — используется 'didn't need to do'."
+    }
+  ]
+}

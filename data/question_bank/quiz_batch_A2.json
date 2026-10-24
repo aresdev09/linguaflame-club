@@ -1,0 +1,338 @@
+{
+  "kind": "quiz_batch",
+  "level": "A2",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:04:08+00:00",
+  "items": [
+    {
+      "options": [
+        "She reads a book every day.",
+        "She is reading a book now.",
+        "She has read a book.",
+        "She will read a book tomorrow."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence is in the present simple tense?",
+      "explanation": "Present Simple используется для регулярных действий: \"reads\" — третье лицо единственного числа."
+    },
+    {
+      "options": [
+        "go",
+        "went",
+        "goes",
+        "going"
+      ],
+      "correct_index": 1,
+      "question": "Choose the correct form: \"They ____ to the park yesterday.\"",
+      "explanation": "Прошедшее простое время (Past Simple) для правильного глагола — добавляется -ed, для неправильного \"go\" — \"went\"."
+    },
+    {
+      "options": [
+        "childs",
+        "children",
+        "childes",
+        "childrens"
+      ],
+      "correct_index": 1,
+      "question": "What is the plural of \"child\"?",
+      "explanation": "Неправильное множественное число: child → children."
+    },
+    {
+      "options": [
+        "Do",
+        "Does",
+        "Are",
+        "Is"
+      ],
+      "correct_index": 0,
+      "question": "Select the correct question form: \"____ you like pizza?\"",
+      "explanation": "В вопросах Present Simple с местоимениями I/you/we/they используется вспомогательный \"do\"."
+    },
+    {
+      "options": [
+        "quickly",
+        "happy",
+        "run",
+        "book"
+      ],
+      "correct_index": 1,
+      "question": "Which word is an adjective?",
+      "explanation": "Прилагательное описывает существительное: \"happy\" — счастливый."
+    },
+    {
+      "options": [
+        "will",
+        "would",
+        "can",
+        "must"
+      ],
+      "correct_index": 0,
+      "question": "Complete the sentence: \"If it rains, we ____ stay at home.\"",
+      "explanation": "Первый условный тип (First Conditional): if + Present Simple, will + инфинитив."
+    },
+    {
+      "options": [
+        "at",
+        "in",
+        "on",
+        "for"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct preposition: \"She is good ____ math.\"",
+      "explanation": "Устойчивое выражение: \"good at\" — хорошо в чём-то."
+    },
+    {
+      "options": [
+        "wrote",
+        "written",
+        "writing",
+        "writes"
+      ],
+      "correct_index": 1,
+      "question": "What is the past participle of \"write\"?",
+      "explanation": "Неправильный глагол: write – wrote – written."
+    },
+    {
+      "options": [
+        "This book is more interesting than that one.",
+        "This book is interestinger than that one.",
+        "This book is most interesting than that one.",
+        "This book is interesting than that one."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence uses the comparative form correctly?",
+      "explanation": "Для длинных прилагательных сравнительная степень образуется с \"more\"."
+    },
+    {
+      "options": [
+        "a",
+        "an",
+        "the",
+        "no article"
+      ],
+      "correct_index": 1,
+      "question": "Choose the correct article: \"I saw ____ eagle in the sky.\"",
+      "explanation": "Перед словом, начинающимся с гласного звука, ставим \"an\"."
+    },
+    {
+      "options": [
+        "to start",
+        "to continue",
+        "to stop trying",
+        "to give a gift"
+      ],
+      "correct_index": 2,
+      "question": "What does the phrasal verb \"give up\" mean?",
+      "explanation": "\"Give up\" — бросать, прекращать попытки."
+    },
+    {
+      "options": [
+        "finishes",
+        "finished",
+        "finish",
+        "finishing"
+      ],
+      "correct_index": 1,
+      "question": "Select the correct form: \"He ____ his homework before dinner.\"",
+      "explanation": "Действие завершено в прошлом — Past Simple: finished."
+    },
+    {
+      "options": [
+        "water",
+        "rice",
+        "apple",
+        "music"
+      ],
+      "correct_index": 2,
+      "question": "Which word is a countable noun?",
+      "explanation": "\"Apple\" — исчисляемое существительное (an apple, two apples)."
+    },
+    {
+      "options": [
+        "since",
+        "for",
+        "from",
+        "in"
+      ],
+      "correct_index": 0,
+      "question": "Complete the sentence: \"She has lived here ____ 2010.\"",
+      "explanation": "\"Since\" указывает на начало периода времени."
+    },
+    {
+      "options": [
+        "do you",
+        "don't you",
+        "are you",
+        "aren't you"
+      ],
+      "correct_index": 1,
+      "question": "Choose the correct question tag: \"You like coffee, ____?\"",
+      "explanation": "Утвердительное предложение → отрицательный тег: \"don't you\"."
+    },
+    {
+      "options": [
+        "They play football.",
+        "They are playing football.",
+        "They played football.",
+        "They have played football."
+      ],
+      "correct_index": 1,
+      "question": "Which sentence is in the present continuous tense?",
+      "explanation": "Present Continuous: am/is/are + V-ing."
+    },
+    {
+      "options": [
+        "cheap",
+        "costly",
+        "rich",
+        "valuable"
+      ],
+      "correct_index": 0,
+      "question": "What is the opposite of \"expensive\"?",
+      "explanation": "Антоним \"expensive\" — \"cheap\" (дешёвый)."
+    },
+    {
+      "options": [
+        "am",
+        "were",
+        "was",
+        "be"
+      ],
+      "correct_index": 1,
+      "question": "Choose the correct form: \"If I ____ you, I would study harder.\"",
+      "explanation": "Второй условный тип: if + Past Simple (were для всех лиц)."
+    },
+    {
+      "options": [
+        "slow",
+        "slowly",
+        "slowness",
+        "slowlyness"
+      ],
+      "correct_index": 1,
+      "question": "Which word is an adverb?",
+      "explanation": "Наречие отвечает на вопрос \"how?\" и часто заканчивается на -ly: slowly."
+    },
+    {
+      "options": [
+        "any",
+        "some",
+        "many",
+        "much"
+      ],
+      "correct_index": 0,
+      "question": "Complete the sentence: \"There aren't ____ apples left.\"",
+      "explanation": "В отрицательных предложениях с исчисляемыми существительными используется \"any\"."
+    },
+    {
+      "options": [
+        "buyed",
+        "bought",
+        "buied",
+        "buying"
+      ],
+      "correct_index": 1,
+      "question": "What is the correct past form of \"buy\"?",
+      "explanation": "Неправильный глагол: buy – bought – bought."
+    },
+    {
+      "options": [
+        "He",
+        "His",
+        "Him",
+        "He's"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct pronoun: \"____ is my brother.\"",
+      "explanation": "Подлежащее в предложении — личное местоимение \"He\"."
+    },
+    {
+      "options": [
+        "You must wear a helmet.",
+        "You must be tired.",
+        "You must have seen him.",
+        "You must like it."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence uses \"must\" for obligation?",
+      "explanation": "\"Must\" выражает сильную обязанность или правило."
+    },
+    {
+      "options": [
+        "mouses",
+        "mice",
+        "mousees",
+        "mousen"
+      ],
+      "correct_index": 1,
+      "question": "What is the plural of \"mouse\" (animal)?",
+      "explanation": "Неправильное множественное число: mouse → mice."
+    },
+    {
+      "options": [
+        "go",
+        "goes",
+        "going",
+        "went"
+      ],
+      "correct_index": 1,
+      "question": "Select the correct form: \"She ____ to the gym every Monday.\"",
+      "explanation": "Present Simple, третье лицо единственного числа → добавляется -es."
+    },
+    {
+      "options": [
+        "explain",
+        "complicate",
+        "hide",
+        "ignore"
+      ],
+      "correct_index": 0,
+      "question": "Which word means \"to make something clear\"?",
+      "explanation": "\"Explain\" — объяснять, делать понятным."
+    },
+    {
+      "options": [
+        "already",
+        "yet",
+        "still",
+        "ever"
+      ],
+      "correct_index": 0,
+      "question": "Complete the sentence: \"I have ____ finished my homework.\"",
+      "explanation": "\"Already\" используется в утвердительных предложениях Present Perfect."
+    },
+    {
+      "options": [
+        "at",
+        "in",
+        "on",
+        "to"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct preposition: \"We arrived ____ the station at 5 pm.\"",
+      "explanation": "\"Arrive at\" используется для конкретных точек (станция, аэропорт)."
+    },
+    {
+      "options": [
+        "I will call you tomorrow.",
+        "I am calling you tomorrow.",
+        "I call you tomorrow.",
+        "I called you tomorrow."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence is a correct example of the future simple tense?",
+      "explanation": "Future Simple: will + инфинитив без \"to\"."
+    },
+    {
+      "options": [
+        "gooder",
+        "better",
+        "more good",
+        "best"
+      ],
+      "correct_index": 1,
+      "question": "What is the comparative form of \"good\"?",
+      "explanation": "Неправильная сравнительная степень: good → better."
+    }
+  ]
+}

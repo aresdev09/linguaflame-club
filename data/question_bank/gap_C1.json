@@ -1,0 +1,338 @@
+{
+  "kind": "gap",
+  "level": "C1",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:21:50+00:00",
+  "items": [
+    {
+      "options": [
+        "analyzed",
+        "analyzes",
+        "analyzing",
+        "analysis"
+      ],
+      "correct_index": 0,
+      "sentence": "The researcher ___ the data before publishing the results.",
+      "explanation": "Правильный ответ 'analyzed' — прошедшее время, так как действие уже завершено."
+    },
+    {
+      "options": [
+        "had",
+        "has",
+        "have",
+        "having"
+      ],
+      "correct_index": 0,
+      "sentence": "If she ___ more time, she would have finished the project.",
+      "explanation": "В условном предложении третьего типа используется 'had'."
+    },
+    {
+      "options": [
+        "postpone",
+        "postpones",
+        "postponed",
+        "postponing"
+      ],
+      "correct_index": 0,
+      "sentence": "The committee decided to ___ the proposal until further notice.",
+      "explanation": "После 'to' используется инфинитив 'postpone'."
+    },
+    {
+      "options": [
+        "went on",
+        "goes on",
+        "going on",
+        "gone on"
+      ],
+      "correct_index": 0,
+      "sentence": "Despite the heavy rain, the match ___ as scheduled.",
+      "explanation": "Фразовый глагол 'went on' в прошедшем времени означает 'продолжился'."
+    },
+    {
+      "options": [
+        "has been attending",
+        "attends",
+        "attended",
+        "attending"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ to the conference every year since 2015.",
+      "explanation": "Present Perfect Continuous 'has been attending' выражает регулярное действие с прошлого до настоящего."
+    },
+    {
+      "options": [
+        "was written",
+        "writes",
+        "written",
+        "writing"
+      ],
+      "correct_index": 0,
+      "sentence": "The novel ___ by the author in 1998.",
+      "explanation": "Пассивный залог в прошедшем времени: 'was written'."
+    },
+    {
+      "options": [
+        "must",
+        "should",
+        "could",
+        "might"
+      ],
+      "correct_index": 0,
+      "sentence": "You ___ not leave the building without signing out.",
+      "explanation": "Модальный глагол 'must' выражает сильную обязательность."
+    },
+    {
+      "options": [
+        "would be",
+        "will be",
+        "is",
+        "was"
+      ],
+      "correct_index": 0,
+      "sentence": "The manager asked whether the report ___ ready by Friday.",
+      "explanation": "В косвенной речи будущее в прошлом: 'would be'."
+    },
+    {
+      "options": [
+        "had",
+        "has",
+        "have",
+        "having"
+      ],
+      "correct_index": 0,
+      "sentence": "Hardly ___ the door opened when the alarm sounded.",
+      "explanation": "Инверсия после 'Hardly' требует 'had' (Past Perfect)."
+    },
+    {
+      "options": [
+        "had",
+        "has",
+        "have",
+        "having"
+      ],
+      "correct_index": 0,
+      "sentence": "The scientist's discovery ___ a major impact on modern medicine.",
+      "explanation": "Подлежащее единственного числа требует 'had' в прошедшем времени."
+    },
+    {
+      "options": [
+        "will have",
+        "would have",
+        "has",
+        "had"
+      ],
+      "correct_index": 0,
+      "sentence": "By the time we arrive, the meeting ___ already started.",
+      "explanation": "Future Perfect 'will have' указывает на действие, завершившееся к моменту в будущем."
+    },
+    {
+      "options": [
+        "learned",
+        "learns",
+        "learning",
+        "learn"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ to play the piano when she was five.",
+      "explanation": "Прошедшее простое 'learned' для законченного действия в прошлом."
+    },
+    {
+      "options": [
+        "comes",
+        "come",
+        "coming",
+        "came"
+      ],
+      "correct_index": 0,
+      "sentence": "The new policy ___ into effect next Monday.",
+      "explanation": "Present Simple 'comes' для запланированного будущего события."
+    },
+    {
+      "options": [
+        "was",
+        "were",
+        "is",
+        "are"
+      ],
+      "correct_index": 0,
+      "sentence": "Not only ___ the project completed, but it also received an award.",
+      "explanation": "Инверсия после 'Not only' требует вспомогательный глагол 'was'."
+    },
+    {
+      "options": [
+        "has been",
+        "have been",
+        "had been",
+        "were"
+      ],
+      "correct_index": 0,
+      "sentence": "The team ___ working on the solution for months.",
+      "explanation": "Подлежащее 'team' рассматривается как единственное, поэтому 'has been'."
+    },
+    {
+      "options": [
+        "were",
+        "was",
+        "am",
+        "be"
+      ],
+      "correct_index": 0,
+      "sentence": "If I ___ you, I would accept the offer.",
+      "explanation": "В условных предложениях второго типа используется 'were' для всех лиц."
+    },
+    {
+      "options": [
+        "covers",
+        "cover",
+        "covering",
+        "covered"
+      ],
+      "correct_index": 0,
+      "sentence": "The documentary ___ the history of the ancient civilization.",
+      "explanation": "Present Simple 'covers' для описания факта."
+    },
+    {
+      "options": [
+        "must have left",
+        "must leave",
+        "must be leaving",
+        "must left"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ her keys somewhere in the house.",
+      "explanation": "Модальный 'must have left' выражает логическое предположение о прошлом."
+    },
+    {
+      "options": [
+        "read",
+        "reads",
+        "reading",
+        "to read"
+      ],
+      "correct_index": 0,
+      "sentence": "The professor recommended that the student ___ the article again.",
+      "explanation": "После 'recommended that' используется субъюнктив 'read' (без 'to')."
+    },
+    {
+      "options": [
+        "will have completed",
+        "will complete",
+        "completed",
+        "complete"
+      ],
+      "correct_index": 0,
+      "sentence": "By next year, they ___ the construction of the bridge.",
+      "explanation": "Future Perfect 'will have completed' показывает завершение к моменту в будущем."
+    },
+    {
+      "options": [
+        "exerts",
+        "exert",
+        "exerting",
+        "exerted"
+      ],
+      "correct_index": 0,
+      "sentence": "The artist's work ___ a strong influence on contemporary painters.",
+      "explanation": "Present Simple 'exerts' для obecного воздействия."
+    },
+    {
+      "options": [
+        "do",
+        "does",
+        "did",
+        "doing"
+      ],
+      "correct_index": 0,
+      "sentence": "Rarely ___ we see such dedication in young athletes.",
+      "explanation": "Инверсия после 'Rarely' требует вспомогательный 'do'."
+    },
+    {
+      "options": [
+        "must be",
+        "must",
+        "must been",
+        "must being"
+      ],
+      "correct_index": 0,
+      "sentence": "The contract ___ signed before the deadline.",
+      "explanation": "Пассивный модальный 'must be signed'."
+    },
+    {
+      "options": [
+        "spoke",
+        "speaks",
+        "speaking",
+        "spoken"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ to the manager about the issue yesterday.",
+      "explanation": "Прошедшее простое 'spoke' для действия вчера."
+    },
+    {
+      "options": [
+        "is",
+        "are",
+        "be",
+        "being"
+      ],
+      "correct_index": 0,
+      "sentence": "The data suggests that the new method ___ more effective.",
+      "explanation": "Подлежащее 'method' единственное, поэтому 'is'."
+    },
+    {
+      "options": [
+        "would have acted",
+        "would act",
+        "acted",
+        "act"
+      ],
+      "correct_index": 0,
+      "sentence": "Had I known the truth, I ___ differently.",
+      "explanation": "Третий тип условного: 'would have acted'."
+    },
+    {
+      "options": [
+        "deferred",
+        "defers",
+        "deferring",
+        "defer"
+      ],
+      "correct_index": 0,
+      "sentence": "The committee ___ its decision until next week.",
+      "explanation": "Прошедшее простое 'deferred' для завершённого действия."
+    },
+    {
+      "options": [
+        "simplifies",
+        "simplify",
+        "simplifying",
+        "simplified"
+      ],
+      "correct_index": 0,
+      "sentence": "The new software ___ the process significantly.",
+      "explanation": "Present Simple 'simplifies' для описания свойства программы."
+    },
+    {
+      "options": [
+        "will have finished",
+        "will finish",
+        "finishes",
+        "finished"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ the book by the time you arrive.",
+      "explanation": "Future Perfect 'will have finished'."
+    },
+    {
+      "options": [
+        "be",
+        "is",
+        "was",
+        "being"
+      ],
+      "correct_index": 0,
+      "sentence": "The manager insisted that the report ___ submitted immediately.",
+      "explanation": "После 'insisted that' используется субъюнктив 'be'."
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "kind": "truefalse",
+  "level": "C2",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:31:32+00:00",
+  "items": [
+    {
+      "statement": "The verb \"to be\" is irregular.",
+      "answer": true,
+      "explanation": "Глагол \"to be\" имеет неправильные формы: am, is, are, was, were, been."
+    },
+    {
+      "statement": "She don't like apples.",
+      "answer": false,
+      "explanation": "Правильная форма: \"She doesn't like apples\" — для третьего лица единственного числа используется \"doesn't\"."
+    },
+    {
+      "statement": "The past tense of \"go\" is \"went\".",
+      "answer": true,
+      "explanation": "\"Go\" — неправильный глагол; прошедшее время — \"went\"."
+    },
+    {
+      "statement": "A comma is required before \"and\" in a list of three items.",
+      "answer": false,
+      "explanation": "Запятая перед \"and\" (Oxford comma) не обязательна, хотя часто используется для ясности."
+    },
+    {
+      "statement": "The word \"ubiquitous\" means \"found everywhere\".",
+      "answer": true,
+      "explanation": "\"Ubiquitous\" означает \"вездесущий\" или \"встречающийся повсюду\"."
+    },
+    {
+      "statement": "In English, adjectives usually come after the noun they modify.",
+      "answer": false,
+      "explanation": "В английском прилагательные обычно стоят перед существительным (например, \"a red car\")."
+    },
+    {
+      "statement": "The phrase \"I am used to waking up early\" uses the gerund form.",
+      "answer": true,
+      "explanation": "После \"used to\" следует герундий (\"waking\"), а не инфинитив."
+    },
+    {
+      "statement": "The modal verb \"must\" has a past form \"musted\".",
+      "answer": false,
+      "explanation": "У модального глагола \"must\" нет прошедшей формы; для выражения прошедшего обязательства используют \"had to\"."
+    },
+    {
+      "statement": "The definite article \"the\" is used before specific nouns.",
+      "answer": true,
+      "explanation": "Определённый артикль \"the\" указывает на конкретный, известный говорящему предмет."
+    },
+    {
+      "statement": "The word \"literally\" can be used figuratively in informal speech.",
+      "answer": true,
+      "explanation": "В разговорной речи \"literally\" часто применяется для усиления метафоры, хотя формально это считается ошибкой."
+    },
+    {
+      "statement": "A split infinitive is always grammatically incorrect.",
+      "answer": false,
+      "explanation": "Разделение инфинитива (например, \"to boldly go\") допустимо и часто стилистически оправдано."
+    },
+    {
+      "statement": "The plural of \"child\" is \"childs\".",
+      "answer": false,
+      "explanation": "Правильная форма множественного числа — \"children\"."
+    },
+    {
+      "statement": "The phrase \"If I were you, I would accept the offer\" uses the subjunctive mood.",
+      "answer": true,
+      "explanation": "\"Were\" в условных предложениях второго типа выражает сослагательное наклонение."
+    },
+    {
+      "statement": "The word \"affect\" is a noun meaning \"influence\".",
+      "answer": false,
+      "explanation": "\"Affect\" — глагол (\"воздействовать\"); существительное с таким значением — \"effect\"."
+    },
+    {
+      "statement": "In a passive construction, the object of the active sentence becomes the subject.",
+      "answer": true,
+      "explanation": "При пассиве дополнение активного зачёркивается и становится подлежащим (например, \"The book was read by her\")."
+    },
+    {
+      "statement": "The abbreviation \"e.g.\" stands for \"exempli gratia\" and means \"for example\".",
+      "answer": true,
+      "explanation": "\"E.g.\" происходит от латыни \"exempli gratia\" и используется для приведения примеров."
+    },
+    {
+      "statement": "The word \"irregardless\" is standard English.",
+      "answer": false,
+      "explanation": "\"Irregardless\" считается нестандартным; правильная форма — \"regardless\"."
+    },
+    {
+      "statement": "A semicolon can join two independent clauses without a conjunction.",
+      "answer": true,
+      "explanation": "Точка с запятой связывает два самостоятельных предложения, если союз опущен."
+    },
+    {
+      "statement": "The past participle of \"write\" is \"wrote\".",
+      "answer": false,
+      "explanation": "\"Wrote\" — прошедшее время; причастие прошедшего времени — \"written\"."
+    },
+    {
+      "statement": "The phrase \"a lot of\" can be used with both countable and uncountable nouns.",
+      "answer": true,
+      "explanation": "\"A lot of\" подходит для исчисляемых (\"a lot of books\") и неисчисляемых (\"a lot of water\") существительных."
+    },
+    {
+      "statement": "The word \"complement\" and \"compliment\" are spelled the same.",
+      "answer": false,
+      "explanation": "\"Complement\" — дополнение; \"compliment\" — комплимент. Они пишутся по-разному."
+    },
+    {
+      "statement": "In reported speech, the tense usually shifts one step back.",
+      "answer": true,
+      "explanation": "При косвенной речи настоящее простое становится прошедшим простым, прошедшее — прошедшим совершенным и т.д."
+    },
+    {
+      "statement": "The modal verb \"can\" has a future form \"will can\".",
+      "answer": false,
+      "explanation": "\"Can\" не имеет будущей формы; будущее выражается через \"will be able to\"."
+    },
+    {
+      "statement": "The phrase \"neither... nor\" requires a singular verb when both subjects are singular.",
+      "answer": true,
+      "explanation": "Если оба подлежащих единственного числа, глагол стоит в единственном (\"Neither John nor Mary is here\")."
+    },
+    {
+      "statement": "The word \"unique\" can be modified by \"very\".",
+      "answer": false,
+      "explanation": "\"Unique\" означает \"единственный в своём роде\" и не допускает степеней сравнения."
+    },
+    {
+      "statement": "A gerund functions as a noun in a sentence.",
+      "answer": true,
+      "explanation": "Герундий (форма глагола на -ing) выполняет роли подлежащего, дополнения и т.п."
+    },
+    {
+      "statement": "The prefix \"un-\" always creates an antonym.",
+      "answer": false,
+      "explanation": "\"Un-\" часто образует антонимы, но не всегда (например, \"unfold\" не антоним к \"fold\" в значении \"сложить\")."
+    },
+    {
+      "statement": "In conditional sentences type III, the if-clause uses the past perfect.",
+      "answer": true,
+      "explanation": "Третий тип условных предложений: \"If + Past Perfect, ... would have + V3\"."
+    },
+    {
+      "statement": "The word \"advice\" is countable.",
+      "answer": false,
+      "explanation": "\"Advice\" — неисчисляемое существительное; для подсчёта используют \"a piece of advice\"."
+    },
+    {
+      "statement": "A relative clause introduced by \"that\" can be omitted when it defines the subject.",
+      "answer": false,
+      "explanation": "Определительные придаточные с \"that\" можно опускать только когда они относятся к дополнению, а не к подлежащему."
+    }
+  ]
+}

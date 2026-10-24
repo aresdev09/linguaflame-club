@@ -1,0 +1,338 @@
+{
+  "kind": "gap",
+  "level": "B1",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:11:05+00:00",
+  "items": [
+    {
+      "options": [
+        "goes",
+        "go",
+        "going",
+        "gone"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ to school every day.",
+      "explanation": "В Present Simple для третьего лица единственного числа используется окончание -s."
+    },
+    {
+      "options": [
+        "watched",
+        "watch",
+        "watching",
+        "watches"
+      ],
+      "correct_index": 0,
+      "sentence": "They ___ the movie last night.",
+      "explanation": "Past Simple регулярного глагола добавляет -ed."
+    },
+    {
+      "options": [
+        "have finished",
+        "finished",
+        "finish",
+        "finishing"
+      ],
+      "correct_index": 0,
+      "sentence": "I ___ my homework already.",
+      "explanation": "Present Perfect используется с already."
+    },
+    {
+      "options": [
+        "will go",
+        "go",
+        "going",
+        "went"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ to the park tomorrow.",
+      "explanation": "Для будущего действия используется will + инфинитив."
+    },
+    {
+      "options": [
+        "can",
+        "could",
+        "cans",
+        "caned"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ play the piano very well.",
+      "explanation": "Модальный глагол can не меняется по лицам."
+    },
+    {
+      "options": [
+        "will",
+        "would",
+        "would have",
+        "were"
+      ],
+      "correct_index": 0,
+      "sentence": "If it rains, we ___ stay at home.",
+      "explanation": "В первом типе условных предложений после if present simple, в главной — will."
+    },
+    {
+      "options": [
+        "has",
+        "have",
+        "had",
+        "having"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ been waiting for an hour.",
+      "explanation": "Present Perfect Continuous: has + been + V-ing."
+    },
+    {
+      "options": [
+        "lies",
+        "lay",
+        "lying",
+        "lied"
+      ],
+      "correct_index": 0,
+      "sentence": "The book ___ on the table.",
+      "explanation": "Глагол lie (лежать) в Present Simple для 3-го лица — lies."
+    },
+    {
+      "options": [
+        "do",
+        "does",
+        "did",
+        "done"
+      ],
+      "correct_index": 0,
+      "sentence": "They ___ not like spicy food.",
+      "explanation": "В отрицании Present Simple используется вспомогательный do для I/you/we/they."
+    },
+    {
+      "options": [
+        "bought",
+        "buy",
+        "buys",
+        "buying"
+      ],
+      "correct_index": 0,
+      "sentence": "My brother ___ a new car last month.",
+      "explanation": "Past Simple неправильного глагола buy — bought."
+    },
+    {
+      "options": [
+        "have",
+        "has",
+        "had",
+        "having"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ never been to Japan.",
+      "explanation": "Present Perfect с never: have + past participle."
+    },
+    {
+      "options": [
+        "listens",
+        "listen",
+        "listening",
+        "listened"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ to music while studying.",
+      "explanation": "Present Simple 3-е лицо единственного числа — добавляется -s."
+    },
+    {
+      "options": [
+        "arrives",
+        "arrive",
+        "arriving",
+        "arrived"
+      ],
+      "correct_index": 0,
+      "sentence": "The train ___ at 6 p.m. every day.",
+      "explanation": "Расписание — Present Simple, 3-е лицо — arrives."
+    },
+    {
+      "options": [
+        "sent",
+        "send",
+        "sends",
+        "sending"
+      ],
+      "correct_index": 0,
+      "sentence": "I ___ you a message yesterday.",
+      "explanation": "Past Simple неправильного глагола send — sent."
+    },
+    {
+      "options": [
+        "are",
+        "is",
+        "am",
+        "were"
+      ],
+      "correct_index": 0,
+      "sentence": "They ___ going to the cinema tonight.",
+      "explanation": "Present Continuous: are + V-ing для they."
+    },
+    {
+      "options": [
+        "lost",
+        "loses",
+        "lose",
+        "losing"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ his keys somewhere.",
+      "explanation": "Past Simple неправильного глагола lose — lost."
+    },
+    {
+      "options": [
+        "will have",
+        "have",
+        "had",
+        "having"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ finish the project by Friday.",
+      "explanation": "Future Perfect: will have + past participle."
+    },
+    {
+      "options": [
+        "does",
+        "do",
+        "did",
+        "done"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ not understand the question.",
+      "explanation": "Отрицание Present Simple для 3-го лица — does not."
+    },
+    {
+      "options": [
+        "were",
+        "was",
+        "am",
+        "be"
+      ],
+      "correct_index": 0,
+      "sentence": "If I ___ you, I would call her.",
+      "explanation": "Второго типа условное: if + Past Simple (were для всех лиц)."
+    },
+    {
+      "options": [
+        "are",
+        "is",
+        "am",
+        "were"
+      ],
+      "correct_index": 0,
+      "sentence": "The children ___ playing in the garden.",
+      "explanation": "Present Continuous для множественного числа — are."
+    },
+    {
+      "options": [
+        "have",
+        "has",
+        "had",
+        "having"
+      ],
+      "correct_index": 0,
+      "sentence": "I ___ never seen such a big dog.",
+      "explanation": "Present Perfect с never: have + V3."
+    },
+    {
+      "options": [
+        "goes",
+        "go",
+        "going",
+        "went"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ to the gym three times a week.",
+      "explanation": "Present Simple 3-е лицо — goes."
+    },
+    {
+      "options": [
+        "finished",
+        "finish",
+        "finishes",
+        "finishing"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ our homework before dinner.",
+      "explanation": "Past Simple регулярного глагола — finished."
+    },
+    {
+      "options": [
+        "wrote",
+        "write",
+        "writes",
+        "writing"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ a letter to her friend yesterday.",
+      "explanation": "Past Simple неправильного глагола write — wrote."
+    },
+    {
+      "options": [
+        "have",
+        "has",
+        "had",
+        "having"
+      ],
+      "correct_index": 0,
+      "sentence": "They ___ been studying English for two years.",
+      "explanation": "Present Perfect Continuous: have + been + V-ing."
+    },
+    {
+      "options": [
+        "rises",
+        "rise",
+        "rising",
+        "rose"
+      ],
+      "correct_index": 0,
+      "sentence": "The sun ___ in the east.",
+      "explanation": "Факт общеизвестный — Present Simple, 3-е лицо — rises."
+    },
+    {
+      "options": [
+        "will",
+        "would",
+        "am going",
+        "go"
+      ],
+      "correct_index": 0,
+      "sentence": "I ___ to call you later.",
+      "explanation": "Будущее простое: will + инфинитив."
+    },
+    {
+      "options": [
+        "has",
+        "have",
+        "had",
+        "having"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ not finished his work yet.",
+      "explanation": "Present Perfect отрицание: has not + V3."
+    },
+    {
+      "options": [
+        "do",
+        "does",
+        "did",
+        "done"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ never eat meat.",
+      "explanation": "Present Simple отрицание для we — do not."
+    },
+    {
+      "options": [
+        "were",
+        "was",
+        "is",
+        "be"
+      ],
+      "correct_index": 0,
+      "sentence": "If she ___ here, she would help us.",
+      "explanation": "Второго типа условное: if + were."
+    }
+  ]
+}

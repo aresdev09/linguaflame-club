@@ -1,0 +1,308 @@
+{
+  "kind": "race",
+  "level": "A2",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:06:45+00:00",
+  "items": [
+    {
+      "options": [
+        "путешествие",
+        "поездка",
+        "маршрут",
+        "дорога"
+      ],
+      "correct_index": 0,
+      "word": "journey"
+    },
+    {
+      "options": [
+        "путешествовать",
+        "лететь",
+        "идти",
+        "плавать"
+      ],
+      "correct_index": 0,
+      "word": "travel"
+    },
+    {
+      "options": [
+        "билет",
+        "паспорт",
+        "виза",
+        "документ"
+      ],
+      "correct_index": 0,
+      "word": "ticket"
+    },
+    {
+      "options": [
+        "станция",
+        "аэропорт",
+        "порт",
+        "терминал"
+      ],
+      "correct_index": 0,
+      "word": "station"
+    },
+    {
+      "options": [
+        "платформа",
+        "перрон",
+        "вокзал",
+        "путь"
+      ],
+      "correct_index": 1,
+      "word": "platform"
+    },
+    {
+      "options": [
+        "багаж",
+        "рюкзак",
+        "чемодан",
+        "сумка"
+      ],
+      "correct_index": 0,
+      "word": "luggage"
+    },
+    {
+      "options": [
+        "паспорт",
+        "виза",
+        "билет",
+        "удостоверение"
+      ],
+      "correct_index": 0,
+      "word": "passport"
+    },
+    {
+      "options": [
+        "карта",
+        "план",
+        "схема",
+        "атлас"
+      ],
+      "correct_index": 0,
+      "word": "map"
+    },
+    {
+      "options": [
+        "гид",
+        "проводник",
+        "инструктор",
+        "учитель"
+      ],
+      "correct_index": 0,
+      "word": "guide"
+    },
+    {
+      "options": [
+        "отель",
+        "хостел",
+        "кемпинг",
+        "апартаменты"
+      ],
+      "correct_index": 0,
+      "word": "hotel"
+    },
+    {
+      "options": [
+        "номер",
+        "комната",
+        "квартира",
+        "студия"
+      ],
+      "correct_index": 0,
+      "word": "room"
+    },
+    {
+      "options": [
+        "завтрак",
+        "обед",
+        "ужин",
+        "перекус"
+      ],
+      "correct_index": 0,
+      "word": "breakfast"
+    },
+    {
+      "options": [
+        "меню",
+        "список",
+        "карта",
+        "программа"
+      ],
+      "correct_index": 0,
+      "word": "menu"
+    },
+    {
+      "options": [
+        "заказ",
+        "просьба",
+        "предложение",
+        "решение"
+      ],
+      "correct_index": 0,
+      "word": "order"
+    },
+    {
+      "options": [
+        "вкусный",
+        "сладкий",
+        "кислый",
+        "горький"
+      ],
+      "correct_index": 0,
+      "word": "delicious"
+    },
+    {
+      "options": [
+        "дружелюбный",
+        "веселый",
+        "серьезный",
+        "тихий"
+      ],
+      "correct_index": 0,
+      "word": "friendly"
+    },
+    {
+      "options": [
+        "погода",
+        "климат",
+        "температура",
+        "сезон"
+      ],
+      "correct_index": 0,
+      "word": "weather"
+    },
+    {
+      "options": [
+        "солнечный",
+        "дождливый",
+        "облачный",
+        "ветреный"
+      ],
+      "correct_index": 0,
+      "word": "sunny"
+    },
+    {
+      "options": [
+        "дождливый",
+        "солнечный",
+        "снежный",
+        "туманный"
+      ],
+      "correct_index": 0,
+      "word": "rainy"
+    },
+    {
+      "options": [
+        "облачный",
+        "ясный",
+        "пасмурный",
+        "ветреный"
+      ],
+      "correct_index": 0,
+      "word": "cloudy"
+    },
+    {
+      "options": [
+        "температура",
+        "влажность",
+        "давление",
+        "ветер"
+      ],
+      "correct_index": 0,
+      "word": "temperature"
+    },
+    {
+      "options": [
+        "сезон",
+        "месяц",
+        "неделя",
+        "день"
+      ],
+      "correct_index": 0,
+      "word": "season"
+    },
+    {
+      "options": [
+        "весна",
+        "лето",
+        "осень",
+        "зима"
+      ],
+      "correct_index": 0,
+      "word": "spring"
+    },
+    {
+      "options": [
+        "лето",
+        "весна",
+        "осень",
+        "зима"
+      ],
+      "correct_index": 0,
+      "word": "summer"
+    },
+    {
+      "options": [
+        "осень",
+        "весна",
+        "лето",
+        "зима"
+      ],
+      "correct_index": 0,
+      "word": "autumn"
+    },
+    {
+      "options": [
+        "зима",
+        "весна",
+        "лето",
+        "осень"
+      ],
+      "correct_index": 0,
+      "word": "winter"
+    },
+    {
+      "options": [
+        "праздник",
+        "выходной",
+        "отпуск",
+        "рабочий день"
+      ],
+      "correct_index": 0,
+      "word": "holiday"
+    },
+    {
+      "options": [
+        "празднование",
+        "собрание",
+        "мероприятие",
+        "встреча"
+      ],
+      "correct_index": 0,
+      "word": "celebration"
+    },
+    {
+      "options": [
+        "подарок",
+        "сувенир",
+        "приз",
+        "награда"
+      ],
+      "correct_index": 0,
+      "word": "gift"
+    },
+    {
+      "options": [
+        "вечеринка",
+        "концерт",
+        "спектакль",
+        "фестиваль"
+      ],
+      "correct_index": 0,
+      "word": "party"
+    }
+  ]
+}

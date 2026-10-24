@@ -1,0 +1,338 @@
+{
+  "kind": "gap",
+  "level": "A2",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:06:24+00:00",
+  "items": [
+    {
+      "options": [
+        "goes",
+        "go",
+        "going",
+        "gone"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ to school every day.",
+      "explanation": "Правильный ответ 'goes', так как подлежащее she требует окончание -s в Present Simple."
+    },
+    {
+      "options": [
+        "play",
+        "plays",
+        "playing",
+        "played"
+      ],
+      "correct_index": 0,
+      "sentence": "They ___ football on Sundays.",
+      "explanation": "В Present Simple для they используется форма без окончания."
+    },
+    {
+      "options": [
+        "bought",
+        "buy",
+        "buys",
+        "buying"
+      ],
+      "correct_index": 0,
+      "sentence": "I ___ a new book last week.",
+      "explanation": "Прошедшее время (Past Simple) требует глагола во второй форме."
+    },
+    {
+      "options": [
+        "are cooking",
+        "cook",
+        "cooks",
+        "cooked"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ dinner now.",
+      "explanation": "Present Continuous: am/is/are + V-ing."
+    },
+    {
+      "options": [
+        "did",
+        "do",
+        "does",
+        "doing"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ his homework yesterday.",
+      "explanation": "В Past Simple для he используется вспомогательный did."
+    },
+    {
+      "options": [
+        "sleeps",
+        "sleep",
+        "sleeping",
+        "slept"
+      ],
+      "correct_index": 0,
+      "sentence": "The cat ___ on the sofa.",
+      "explanation": "Подлежащее cat — единственное число, Present Simple."
+    },
+    {
+      "options": [
+        "will go",
+        "go",
+        "goes",
+        "going"
+      ],
+      "correct_index": 0,
+      "sentence": "My parents ___ to the cinema tomorrow.",
+      "explanation": "Future Simple: will + инфинитив."
+    },
+    {
+      "options": [
+        "studies",
+        "study",
+        "studying",
+        "studied"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ English every day.",
+      "explanation": "She + глагол с окончанием -s в Present Simple."
+    },
+    {
+      "options": [
+        "have",
+        "has",
+        "having",
+        "had"
+      ],
+      "correct_index": 0,
+      "sentence": "They ___ a big house.",
+      "explanation": "They требует форму have."
+    },
+    {
+      "options": [
+        "lost",
+        "lose",
+        "loses",
+        "losing"
+      ],
+      "correct_index": 0,
+      "sentence": "I ___ my keys.",
+      "explanation": "Past Simple: lost."
+    },
+    {
+      "options": [
+        "are playing",
+        "play",
+        "plays",
+        "played"
+      ],
+      "correct_index": 0,
+      "sentence": "The children ___ in the park.",
+      "explanation": "Present Continuous: are playing."
+    },
+    {
+      "options": [
+        "bought",
+        "buy",
+        "buys",
+        "buying"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ a car last year.",
+      "explanation": "Past Simple: bought."
+    },
+    {
+      "options": [
+        "are listening",
+        "listen",
+        "listens",
+        "listened"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ to music now.",
+      "explanation": "Present Continuous."
+    },
+    {
+      "options": [
+        "will meet",
+        "meet",
+        "meets",
+        "meeting"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ her friend tomorrow.",
+      "explanation": "Future Simple."
+    },
+    {
+      "options": [
+        "barks",
+        "bark",
+        "barking",
+        "barked"
+      ],
+      "correct_index": 0,
+      "sentence": "The dog ___ loudly.",
+      "explanation": "Dog — единственное число, Present Simple."
+    },
+    {
+      "options": [
+        "make",
+        "makes",
+        "making",
+        "made"
+      ],
+      "correct_index": 0,
+      "sentence": "I ___ a sandwich for lunch.",
+      "explanation": "I + форма без окончания."
+    },
+    {
+      "options": [
+        "will go",
+        "go",
+        "goes",
+        "going"
+      ],
+      "correct_index": 0,
+      "sentence": "They ___ to the museum next week.",
+      "explanation": "Future Simple."
+    },
+    {
+      "options": [
+        "rides",
+        "ride",
+        "riding",
+        "rode"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ his bike every morning.",
+      "explanation": "He + rides."
+    },
+    {
+      "options": [
+        "are doing",
+        "do",
+        "does",
+        "did"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ our homework now.",
+      "explanation": "Present Continuous."
+    },
+    {
+      "options": [
+        "wrote",
+        "write",
+        "writes",
+        "writing"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ a letter yesterday.",
+      "explanation": "Past Simple: wrote."
+    },
+    {
+      "options": [
+        "are taking",
+        "take",
+        "takes",
+        "took"
+      ],
+      "correct_index": 0,
+      "sentence": "The students ___ the test today.",
+      "explanation": "Present Continuous."
+    },
+    {
+      "options": [
+        "drink",
+        "drinks",
+        "drinking",
+        "drank"
+      ],
+      "correct_index": 0,
+      "sentence": "I ___ coffee in the morning.",
+      "explanation": "I + drink."
+    },
+    {
+      "options": [
+        "has",
+        "have",
+        "having",
+        "had"
+      ],
+      "correct_index": 0,
+      "sentence": "My brother ___ a new phone.",
+      "explanation": "He/She/It + has."
+    },
+    {
+      "options": [
+        "will watch",
+        "watch",
+        "watches",
+        "watching"
+      ],
+      "correct_index": 0,
+      "sentence": "They ___ a movie tonight.",
+      "explanation": "Future Simple."
+    },
+    {
+      "options": [
+        "checks",
+        "check",
+        "checking",
+        "checked"
+      ],
+      "correct_index": 0,
+      "sentence": "The teacher ___ the homework.",
+      "explanation": "Teacher — единственное число."
+    },
+    {
+      "options": [
+        "went",
+        "go",
+        "goes",
+        "going"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ to the beach last summer.",
+      "explanation": "Past Simple: went."
+    },
+    {
+      "options": [
+        "cleans",
+        "clean",
+        "cleaning",
+        "cleaned"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ his shoes.",
+      "explanation": "He + cleans."
+    },
+    {
+      "options": [
+        "bakes",
+        "bake",
+        "baking",
+        "baked"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ a cake for the party.",
+      "explanation": "She + bakes."
+    },
+    {
+      "options": [
+        "fly",
+        "flies",
+        "flying",
+        "flew"
+      ],
+      "correct_index": 0,
+      "sentence": "The birds ___ in the sky.",
+      "explanation": "Множественное число, Present Simple."
+    },
+    {
+      "options": [
+        "do",
+        "does",
+        "doing",
+        "did"
+      ],
+      "correct_index": 0,
+      "sentence": "I ___ my homework after school.",
+      "explanation": "I + do."
+    }
+  ]
+}

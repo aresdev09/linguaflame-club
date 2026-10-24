@@ -1,0 +1,338 @@
+{
+  "kind": "gap",
+  "level": "B2",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:15:30+00:00",
+  "items": [
+    {
+      "options": [
+        "had started",
+        "has started",
+        "started",
+        "was starting"
+      ],
+      "correct_index": 0,
+      "sentence": "By the time we arrived, the meeting ___ already.",
+      "explanation": "Past Perfect (had started) используется для действия, завершившегося до другого действия в прошлом (arrived)."
+    },
+    {
+      "options": [
+        "were",
+        "am",
+        "was",
+        "be"
+      ],
+      "correct_index": 0,
+      "sentence": "If I ___ you, I would accept the offer.",
+      "explanation": "Второго типа условное предложение (Second Conditional): if + Past Simple (were для всех лиц), would + инфинитив."
+    },
+    {
+      "options": [
+        "be submitted",
+        "submit",
+        "be submitting",
+        "have submitted"
+      ],
+      "correct_index": 0,
+      "sentence": "The report must ___ by Friday.",
+      "explanation": "Пассивный инфинитив (be + V3) после модального глагола must."
+    },
+    {
+      "options": [
+        "going",
+        "to go",
+        "go",
+        "went"
+      ],
+      "correct_index": 0,
+      "sentence": "She suggested ___ to the new restaurant.",
+      "explanation": "Глагол suggest требует герундия (going)."
+    },
+    {
+      "options": [
+        "was he",
+        "he was",
+        "is he",
+        "he is"
+      ],
+      "correct_index": 0,
+      "sentence": "Not only ___ late, but he also forgot his homework.",
+      "explanation": "Инверсия после 'Not only' в начале предложения: вспомогательный глагол перед подлежащим."
+    },
+    {
+      "options": [
+        "had",
+        "have",
+        "would have",
+        "am having"
+      ],
+      "correct_index": 0,
+      "sentence": "I wish I ___ more time to study.",
+      "explanation": "После 'I wish' для настоящего времени используется Past Simple (had)."
+    },
+    {
+      "options": [
+        "will have been completed",
+        "will be completed",
+        "is completed",
+        "has been completed"
+      ],
+      "correct_index": 0,
+      "sentence": "The project ___ by next month.",
+      "explanation": "Future Perfect Passive (will have been + V3) — действие будет завершено к моменту в будущем."
+    },
+    {
+      "options": [
+        "taking",
+        "to take",
+        "take",
+        "took"
+      ],
+      "correct_index": 0,
+      "sentence": "He denied ___ the money.",
+      "explanation": "Глагол deny требует герундия (taking)."
+    },
+    {
+      "options": [
+        "Although",
+        "Despite",
+        "In spite of",
+        "Because"
+      ],
+      "correct_index": 0,
+      "sentence": "___ it was raining, we went for a walk.",
+      "explanation": "Although вводит придаточное уступчивое предложение с подлежащим и глаголом. Despite/In spite of требуют существительного/герундия."
+    },
+    {
+      "options": [
+        "be",
+        "is",
+        "was",
+        "will be"
+      ],
+      "correct_index": 0,
+      "sentence": "The manager insisted that the report ___ ready by Monday.",
+      "explanation": "Субъективное наклонение (Subjunctive) после insist that: be для всех лиц."
+    },
+    {
+      "options": [
+        "seeing",
+        "see",
+        "be seeing",
+        "have seen"
+      ],
+      "correct_index": 0,
+      "sentence": "She's looking forward to ___ her friends again.",
+      "explanation": "После предлога 'to' в выражении 'look forward to' используется герундий (seeing)."
+    },
+    {
+      "options": [
+        "had I opened",
+        "I had opened",
+        "did I open",
+        "I opened"
+      ],
+      "correct_index": 0,
+      "sentence": "Hardly ___ the door when the phone rang.",
+      "explanation": "Инверсия после 'Hardly' + Past Perfect: had + подлежащее + V3."
+    },
+    {
+      "options": [
+        "turned out",
+        "turned up",
+        "turned off",
+        "turned down"
+      ],
+      "correct_index": 0,
+      "sentence": "The film ___ to be very interesting.",
+      "explanation": "Phrasal verb 'turn out' = оказаться, иметь результат."
+    },
+    {
+      "options": [
+        "told",
+        "tell",
+        "telling",
+        "would tell"
+      ],
+      "correct_index": 0,
+      "sentence": "I'd rather you ___ the truth.",
+      "explanation": "После 'would rather' с сменой подлежащего используется Past Simple (told)."
+    },
+    {
+      "options": [
+        "Had it not been",
+        "If it not been",
+        "If it wasn't",
+        "Unless it was"
+      ],
+      "correct_index": 0,
+      "sentence": "___ for the delay, we would have arrived on time.",
+      "explanation": "Инверсия в смешанном условии (Mixed Conditional) без 'if': Had it not been = If it hadn't been."
+    },
+    {
+      "options": [
+        "can't",
+        "mustn't",
+        "shouldn't",
+        "needn't"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ have left already — her car is still here.",
+      "explanation": "Can't для логического вывода о невозможности в настоящем/прошлом (can't have + V3)."
+    },
+    {
+      "options": [
+        "was being painted",
+        "was painted",
+        "has been painted",
+        "is being painted"
+      ],
+      "correct_index": 0,
+      "sentence": "The house ___ when we arrived.",
+      "explanation": "Past Continuous Passive (was being + V3) — процесс в прошлом в момент другого действия."
+    },
+    {
+      "options": [
+        "used",
+        "was used",
+        "would",
+        "got used"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ to play the piano when he was young.",
+      "explanation": "Used to + инфинитив для регулярных действий в прошлом. Would также возможен, но used to чаще для состояний/привычек."
+    },
+    {
+      "options": [
+        "made",
+        "make",
+        "will make",
+        "have made"
+      ],
+      "correct_index": 0,
+      "sentence": "It's high time we ___ a decision.",
+      "explanation": "После 'It's high time' используется Past Simple (made) с настоящим значением."
+    },
+    {
+      "options": [
+        "Despite",
+        "Although",
+        "Even though",
+        "Because"
+      ],
+      "correct_index": 0,
+      "sentence": "___ the risk, he decided to invest.",
+      "explanation": "Despite + существительное/герундий. Although/Even though требуют предложения с глаголом."
+    },
+    {
+      "options": [
+        "had",
+        "got",
+        "made",
+        "let"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ her car repaired yesterday.",
+      "explanation": "Конструкция have/get something done: have/get + объект + V3. Got более разговорный вариант."
+    },
+    {
+      "options": [
+        "had she heard",
+        "she had heard",
+        "did she hear",
+        "she heard"
+      ],
+      "correct_index": 0,
+      "sentence": "No sooner ___ the news than she called me.",
+      "explanation": "Инверсия после 'No sooner' + Past Perfect: had + подлежащее + V3."
+    },
+    {
+      "options": [
+        "the better",
+        "better",
+        "the best",
+        "best"
+      ],
+      "correct_index": 0,
+      "sentence": "The more you practice, ___ you become.",
+      "explanation": "Конструкция 'The + сравнительная степень..., the + сравнительная степень' (the more..., the better...)."
+    },
+    {
+      "options": [
+        "needn't",
+        "mustn't",
+        "couldn't",
+        "shouldn't"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ have told me — I already knew.",
+      "explanation": "Needn't have + V3 = не было необходимости, но действие совершено. Didn't need to = не было необходимости (неизвестно, делал или нет)."
+    },
+    {
+      "options": [
+        "Even though",
+        "Despite",
+        "In spite of",
+        "Because of"
+      ],
+      "correct_index": 0,
+      "sentence": "___ he is tired, he continues working.",
+      "explanation": "Even though/Although вводят предложение с глаголом. Despite/In spite of + существительное/герундий."
+    },
+    {
+      "options": [
+        "locking",
+        "to lock",
+        "lock",
+        "locked"
+      ],
+      "correct_index": 0,
+      "sentence": "I remember ___ the door before leaving.",
+      "explanation": "Remember + герундий = помню, что сделал (прошлый опыт). Remember to lock = не забыть сделать (будущее)."
+    },
+    {
+      "options": [
+        "has been put off",
+        "has been put up",
+        "has been put out",
+        "has been put down"
+      ],
+      "correct_index": 0,
+      "sentence": "The meeting ___ until next week.",
+      "explanation": "Phrasal verb 'put off' = отложить. Пассив: has been put off."
+    },
+    {
+      "options": [
+        "Should",
+        "If",
+        "When",
+        "Unless"
+      ],
+      "correct_index": 0,
+      "sentence": "___ you need any help, just let me know.",
+      "explanation": "Инверсия в условном предложении 1-го типа: Should you need = If you should need (более формально)."
+    },
+    {
+      "options": [
+        "handled",
+        "handled with",
+        "dealt",
+        "coped"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ the interview well.",
+      "explanation": "Handle (справиться с чем-то) не требует предлога. Deal with / cope with требуют with."
+    },
+    {
+      "options": [
+        "is expected",
+        "expects",
+        "is expecting",
+        "expected"
+      ],
+      "correct_index": 0,
+      "sentence": "It ___ that the company will expand next year.",
+      "explanation": "Impersonal Passive: It is expected that... = Ожидается, что..."
+    }
+  ]
+}

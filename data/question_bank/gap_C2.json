@@ -1,0 +1,338 @@
+{
+  "kind": "gap",
+  "level": "C2",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:29:15+00:00",
+  "items": [
+    {
+      "options": [
+        "endorsed",
+        "endorses",
+        "endorsing",
+        "endorse"
+      ],
+      "correct_index": 0,
+      "sentence": "The committee ___ the proposal unanimously after a lengthy debate.",
+      "explanation": "Правильный ответ 'endorsed' — прошедшее время, так как действие завершено в прошлом."
+    },
+    {
+      "options": [
+        "would",
+        "could",
+        "might",
+        "should"
+      ],
+      "correct_index": 0,
+      "sentence": "Had she known the consequences, she ___ have acted differently.",
+      "explanation": "В условных предложениях третьего типа используется 'would have'."
+    },
+    {
+      "options": [
+        "subverts",
+        "subverted",
+        "subverting",
+        "subvert"
+      ],
+      "correct_index": 0,
+      "sentence": "The novel's intricate narrative ___ the reader's expectations at every turn.",
+      "explanation": "Настоящее время 'subverts' соответствует общему утверждению."
+    },
+    {
+      "options": [
+        "does",
+        "did",
+        "has",
+        "had"
+      ],
+      "correct_index": 0,
+      "sentence": "Not only ___ the data reveal a trend, but it also suggests a causal link.",
+      "explanation": "Инверсия после 'Not only' требует вспомогательного 'does'."
+    },
+    {
+      "options": [
+        "validated",
+        "validates",
+        "validating",
+        "validate"
+      ],
+      "correct_index": 0,
+      "sentence": "The researcher ___ the hypothesis with rigorous statistical analysis.",
+      "explanation": "Прошедшее время 'validated' используется для описания выполненного действия."
+    },
+    {
+      "options": [
+        "yield",
+        "yields",
+        "yielded",
+        "yielding"
+      ],
+      "correct_index": 0,
+      "sentence": "Should the experiment ___ the expected results, the theory will be reconsidered.",
+      "explanation": "В условных предложениях с 'should' используется база глагола 'yield'."
+    },
+    {
+      "options": [
+        "veiled",
+        "veils",
+        "veiling",
+        "veil"
+      ],
+      "correct_index": 0,
+      "sentence": "The diplomat's speech ___ a subtle critique of the current policy.",
+      "explanation": "Причастие прошедшего времени 'veiled' функционирует как прилагательное."
+    },
+    {
+      "options": [
+        "has",
+        "have",
+        "had",
+        "having"
+      ],
+      "correct_index": 0,
+      "sentence": "Rarely ___ such a comprehensive analysis been presented in a single volume.",
+      "explanation": "Инверсия после 'Rarely' требует вспомогательного 'has'."
+    },
+    {
+      "options": [
+        "designed",
+        "designs",
+        "designing",
+        "design"
+      ],
+      "correct_index": 0,
+      "sentence": "The architect ___ the building's facade to reflect the surrounding landscape.",
+      "explanation": "Прошедшее время 'designed' указывает на завершенное действие."
+    },
+    {
+      "options": [
+        "to begin",
+        "begun",
+        "begin",
+        "begins"
+      ],
+      "correct_index": 1,
+      "sentence": "Were the negotiations ___ earlier, the crisis could have been averted.",
+      "explanation": "В условном предложении третьего типа используется 'had begun', но с инверсией 'Were ... begun'."
+    },
+    {
+      "options": [
+        "can",
+        "could",
+        "should",
+        "must"
+      ],
+      "correct_index": 2,
+      "sentence": "The philosopher argued that morality ___ not be reduced to mere utility.",
+      "explanation": "Модальный 'should' выражает моральный долг."
+    },
+    {
+      "options": [
+        "exhibits",
+        "exhibited",
+        "exhibiting",
+        "exhibit"
+      ],
+      "correct_index": 0,
+      "sentence": "The dataset ___ a significant correlation between the variables.",
+      "explanation": "Настоящее время 'exhibits' используется для описания текущего состояния данных."
+    },
+    {
+      "options": [
+        "had",
+        "has",
+        "was",
+        "were"
+      ],
+      "correct_index": 0,
+      "sentence": "No sooner ___ the announcement made than the audience erupted in applause.",
+      "explanation": "Конструкция 'No sooner had ... than' требует 'had'."
+    },
+    {
+      "options": [
+        "deconstructs",
+        "deconstructed",
+        "deconstructing",
+        "deconstruct"
+      ],
+      "correct_index": 0,
+      "sentence": "The journalist's article ___ the underlying assumptions of the policy.",
+      "explanation": "Настоящее время 'deconstructs' подходит для описания действия в статье."
+    },
+    {
+      "options": [
+        "heeded",
+        "heed",
+        "heeding",
+        "heeds"
+      ],
+      "correct_index": 0,
+      "sentence": "Had the government ___ the warnings, the disaster might have been mitigated.",
+      "explanation": "В третьем условном используется прошедшее причастие 'heeded'."
+    },
+    {
+      "options": [
+        "identifies",
+        "identified",
+        "identifying",
+        "identify"
+      ],
+      "correct_index": 0,
+      "sentence": "The algorithm ___ the optimal solution within milliseconds.",
+      "explanation": "Настоящее время 'identifies' описывает способность алгоритма."
+    },
+    {
+      "options": [
+        "had",
+        "has",
+        "was",
+        "were"
+      ],
+      "correct_index": 0,
+      "sentence": "Scarcely ___ the meeting commenced when the fire alarm sounded.",
+      "explanation": "Инверсия после 'Scarcely' требует 'had'."
+    },
+    {
+      "options": [
+        "weaves",
+        "wove",
+        "weaving",
+        "weave"
+      ],
+      "correct_index": 0,
+      "sentence": "The composer ___ the motif throughout the symphony to create cohesion.",
+      "explanation": "Настоящее время 'weaves' используется для описания художественного приема."
+    },
+    {
+      "options": [
+        "was completed",
+        "completed",
+        "completes",
+        "completing"
+      ],
+      "correct_index": 0,
+      "sentence": "Only after the audit ___ the discrepancies become apparent.",
+      "explanation": "Пассивный залог 'was completed' соответствует временной конструкции."
+    },
+    {
+      "options": [
+        "aims",
+        "aimed",
+        "aiming",
+        "aim"
+      ],
+      "correct_index": 0,
+      "sentence": "The policy ___ to address the systemic inequalities inherent in the system.",
+      "explanation": "Настоящее время 'aims' выражает цель политики."
+    },
+    {
+      "options": [
+        "to be",
+        "been",
+        "being",
+        "be"
+      ],
+      "correct_index": 1,
+      "sentence": "Were the findings ___ peer‑reviewed, they would carry more weight.",
+      "explanation": "Инверсия 'Were ... been' формирует условное предложение третьего типа."
+    },
+    {
+      "options": [
+        "employs",
+        "employed",
+        "employing",
+        "employ"
+      ],
+      "correct_index": 0,
+      "sentence": "The novelist ___ the unreliable narrator to challenge readers' perceptions.",
+      "explanation": "Настоящее время 'employs' описывает литературный прием."
+    },
+    {
+      "options": [
+        "does",
+        "did",
+        "has",
+        "had"
+      ],
+      "correct_index": 0,
+      "sentence": "Not until the final chapter ___ the protagonist's true motives are revealed.",
+      "explanation": "Инверсия после 'Not until' требует вспомогательного 'does'."
+    },
+    {
+      "options": [
+        "scrutinized",
+        "scrutinizes",
+        "scrutinizing",
+        "scrutinize"
+      ],
+      "correct_index": 0,
+      "sentence": "The scientist ___ the experimental data for any anomalies.",
+      "explanation": "Прошедшее время 'scrutinized' указывает на завершенное действие."
+    },
+    {
+      "options": [
+        "met",
+        "meet",
+        "meeting",
+        "meets"
+      ],
+      "correct_index": 0,
+      "sentence": "Had the team ___ the deadline, the project would have launched on schedule.",
+      "explanation": "Третье условное требует прошедшего причастия 'met'."
+    },
+    {
+      "options": [
+        "characterizes",
+        "characterized",
+        "characterizing",
+        "characterize"
+      ],
+      "correct_index": 0,
+      "sentence": "The critic's review ___ the film's narrative structure as convoluted.",
+      "explanation": "Настоящее время 'characterizes' описывает оценку критика."
+    },
+    {
+      "options": [
+        "does",
+        "do",
+        "did",
+        "done"
+      ],
+      "correct_index": 0,
+      "sentence": "Rarely ___ a manuscript undergo such extensive revisions before publication.",
+      "explanation": "Инверсия после 'Rarely' требует вспомогательного 'does'."
+    },
+    {
+      "options": [
+        "exploited",
+        "exploits",
+        "exploiting",
+        "exploit"
+      ],
+      "correct_index": 0,
+      "sentence": "The entrepreneur ___ the market gap by introducing an innovative platform.",
+      "explanation": "Прошедшее время 'exploited' указывает на совершенное действие."
+    },
+    {
+      "options": [
+        "become",
+        "becomes",
+        "became",
+        "becoming"
+      ],
+      "correct_index": 0,
+      "sentence": "Should the regulations ___ stricter, compliance costs will increase.",
+      "explanation": "В условных с 'should' используется база глагола 'become'."
+    },
+    {
+      "options": [
+        "triangulated",
+        "triangulates",
+        "triangulating",
+        "triangulate"
+      ],
+      "correct_index": 0,
+      "sentence": "The historian ___ the primary sources to reconstruct the event.",
+      "explanation": "Прошедшее время 'triangulated' описывает методологию."
+    }
+  ]
+}

@@ -1,0 +1,338 @@
+{
+  "kind": "quiz_batch",
+  "level": "B1",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:09:43+00:00",
+  "items": [
+    {
+      "options": [
+        "go",
+        "goes",
+        "going",
+        "gone"
+      ],
+      "correct_index": 1,
+      "question": "Choose the correct form: She ___ to the gym every morning.",
+      "explanation": "Правильный ответ — goes, так как субъект she требует третьего лица единственного числа в Present Simple."
+    },
+    {
+      "options": [
+        "sad",
+        "joyful",
+        "angry",
+        "tired"
+      ],
+      "correct_index": 1,
+      "question": "Which word is a synonym of 'happy'?",
+      "explanation": "Joyful означает «радостный», синоним happy."
+    },
+    {
+      "options": [
+        "will",
+        "would",
+        "can",
+        "must"
+      ],
+      "correct_index": 0,
+      "question": "Complete the sentence: If it rains, we ___ stay at home.",
+      "explanation": "В первом условном предложении после if present simple, в главной части will + инфинитив."
+    },
+    {
+      "options": [
+        "watch",
+        "watched",
+        "watching",
+        "watches"
+      ],
+      "correct_index": 1,
+      "question": "Choose the correct past tense: They ___ the movie last night.",
+      "explanation": "Прошедшее простое время для регулярных глаголов образуется добавлением -ed."
+    },
+    {
+      "options": [
+        "I have finished my homework.",
+        "I finished my homework.",
+        "I am finish my homework.",
+        "I will finished my homework."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence uses the present perfect correctly?",
+      "explanation": "Present Perfect: have/has + V3; действие завершено, результат важен сейчас."
+    },
+    {
+      "options": [
+        "at",
+        "in",
+        "on",
+        "with"
+      ],
+      "correct_index": 0,
+      "question": "Select the correct preposition: She is good ___ playing the piano.",
+      "explanation": "После good используется предлог at."
+    },
+    {
+      "options": [
+        "childs",
+        "children",
+        "childes",
+        "childrens"
+      ],
+      "correct_index": 1,
+      "question": "What is the plural of 'child'?",
+      "explanation": "Неправильное множественное число: child → children."
+    },
+    {
+      "options": [
+        "A",
+        "An",
+        "The",
+        "— (no article)"
+      ],
+      "correct_index": 2,
+      "question": "Choose the correct article: ___ sun rises in the east.",
+      "explanation": "Перед уникальными объектами (sun) используется определенный артикль the."
+    },
+    {
+      "options": [
+        "quick",
+        "quickly",
+        "quickness",
+        "quicken"
+      ],
+      "correct_index": 1,
+      "question": "Which word is an adverb?",
+      "explanation": "Adverb образуется добавлением -ly к прилагательному: quick → quickly."
+    },
+    {
+      "options": [
+        "go",
+        "will go",
+        "would go",
+        "went"
+      ],
+      "correct_index": 1,
+      "question": "Complete: I ___ to the party if I finish work early.",
+      "explanation": "Первое условное: if + Present Simple, will + инфинитив."
+    },
+    {
+      "options": [
+        "do",
+        "does",
+        "is",
+        "has"
+      ],
+      "correct_index": 1,
+      "question": "Choose the correct form: He ___ not like spicy food.",
+      "explanation": "В отрицании Present Simple для he/she/it используется does not."
+    },
+    {
+      "options": [
+        "The cake was eaten by the children.",
+        "The children ate the cake.",
+        "The cake eats the children.",
+        "The children are eating the cake."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence is in the passive voice?",
+      "explanation": "Passive: be + V3; объект становится подлежащим."
+    },
+    {
+      "options": [
+        "more interesting",
+        "interestinger",
+        "most interesting",
+        "interesting"
+      ],
+      "correct_index": 0,
+      "question": "Select the correct comparative: This book is ___ than that one.",
+      "explanation": "Для длинных прилагательных сравнительная степень: more + adjective."
+    },
+    {
+      "options": [
+        "Do",
+        "Does",
+        "Are",
+        "Is"
+      ],
+      "correct_index": 0,
+      "question": "What is the correct question form: ___ you like coffee?",
+      "explanation": "В вопросах Present Simple с I/you/we/they используется Do."
+    },
+    {
+      "options": [
+        "must",
+        "should",
+        "can",
+        "might"
+      ],
+      "correct_index": 1,
+      "question": "Choose the right modal for advice: You ___ see a doctor.",
+      "explanation": "Should выражает совет или рекомендацию."
+    },
+    {
+      "options": [
+        "worsen",
+        "improve",
+        "damage",
+        "ignore"
+      ],
+      "correct_index": 1,
+      "question": "Which word means 'to make something better'?",
+      "explanation": "Improve — улучшать, делать лучше."
+    },
+    {
+      "options": [
+        "had started",
+        "starts",
+        "started",
+        "has started"
+      ],
+      "correct_index": 0,
+      "question": "Complete the sentence: By the time we arrived, the show ___.",
+      "explanation": "Past Perfect используется для действия, завершившегося до другого прошлого действия."
+    },
+    {
+      "options": [
+        "He",
+        "His",
+        "Him",
+        "Himself"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct pronoun: ___ is my brother.",
+      "explanation": "Подлежащее лицо — He."
+    },
+    {
+      "options": [
+        "make a decision",
+        "do a decision",
+        "take a decision",
+        "create a decision"
+      ],
+      "correct_index": 0,
+      "question": "Which phrase uses the correct collocation?",
+      "explanation": "Коллокация: make a decision."
+    },
+    {
+      "options": [
+        "reads",
+        "is reading",
+        "read",
+        "has read"
+      ],
+      "correct_index": 1,
+      "question": "Select the correct tense: She ___ (read) a book now.",
+      "explanation": "Действие происходит сейчас → Present Continuous."
+    },
+    {
+      "options": [
+        "cheap",
+        "costly",
+        "pricey",
+        "valuable"
+      ],
+      "correct_index": 0,
+      "question": "What is the opposite of 'expensive'?",
+      "explanation": "Cheap — дешевый, антоним expensive."
+    },
+    {
+      "options": [
+        "have",
+        "has",
+        "had",
+        "are"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct form: They ___ been waiting for an hour.",
+      "explanation": "Present Perfect Continuous: have/has been + V-ing."
+    },
+    {
+      "options": [
+        "He don't like apples.",
+        "He doesn't like apples.",
+        "He not like apples.",
+        "He isn't like apples."
+      ],
+      "correct_index": 1,
+      "question": "Which sentence is correct?",
+      "explanation": "Для he/she/it в отрицании Present Simple используется doesn't."
+    },
+    {
+      "options": [
+        "am",
+        "was",
+        "were",
+        "be"
+      ],
+      "correct_index": 2,
+      "question": "Complete: If I ___ you, I would tell the truth.",
+      "explanation": "Второе условное: if + Past Simple (were для всех лиц), would + инфинитив."
+    },
+    {
+      "options": [
+        "water",
+        "information",
+        "apple",
+        "advice"
+      ],
+      "correct_index": 2,
+      "question": "Which word is a countable noun?",
+      "explanation": "Apple — исчисляемое существительное."
+    },
+    {
+      "options": [
+        "in",
+        "on",
+        "at",
+        "for"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct preposition: I'm interested ___ learning Spanish.",
+      "explanation": "После interested используется предлог in."
+    },
+    {
+      "options": [
+        "wrote",
+        "written",
+        "writing",
+        "writes"
+      ],
+      "correct_index": 1,
+      "question": "What is the past participle of 'write'?",
+      "explanation": "Past participle неправильного глагола write — written."
+    },
+    {
+      "options": [
+        "Have",
+        "Has",
+        "Did",
+        "Do"
+      ],
+      "correct_index": 0,
+      "question": "Select the correct sentence: ___ you ever been to Paris?",
+      "explanation": "Present Perfect вопрос: Have + подлежащее + V3."
+    },
+    {
+      "options": [
+        "could",
+        "can",
+        "will",
+        "must"
+      ],
+      "correct_index": 0,
+      "question": "Which modal expresses ability in the past?",
+      "explanation": "Could — прошлое от can, выражает способность в прошлом."
+    },
+    {
+      "options": [
+        "walked",
+        "was walking",
+        "walks",
+        "has walked"
+      ],
+      "correct_index": 1,
+      "question": "Complete: She ___ to the store when it started to rain.",
+      "explanation": "Действие шло в процессе в прошлом → Past Continuous."
+    }
+  ]
+}

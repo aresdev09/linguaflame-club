@@ -1,0 +1,158 @@
+{
+  "kind": "truefalse",
+  "level": "B2",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:18:14+00:00",
+  "items": [
+    {
+      "statement": "The sentence 'If I were you, I would accept the offer' uses the second conditional.",
+      "answer": true,
+      "explanation": "Второе условное выражает гипотетическую ситуацию в настоящем или будущем; конструкция: If + Past Simple, ... would + инфинитив."
+    },
+    {
+      "statement": "The phrase 'I am used to wake up early' is grammatically correct.",
+      "answer": false,
+      "explanation": "После 'used to' (в значении 'привыкнуть') используется герундий (-ing форма): 'I am used to waking up early'."
+    },
+    {
+      "statement": "In the sentence 'She suggested going to the cinema', the verb 'suggest' is followed by a gerund.",
+      "answer": true,
+      "explanation": "Глагол 'suggest' требует герундия после себя, а не инфинитива."
+    },
+    {
+      "statement": "The word 'advice' is a countable noun, so you can say 'an advice'.",
+      "answer": false,
+      "explanation": "'Advice' — неисчисляемое существительное; правильно: 'a piece of advice' или просто 'advice'."
+    },
+    {
+      "statement": "The past perfect tense is formed with 'had' + past participle.",
+      "answer": true,
+      "explanation": "Past Perfect образуется вспомогательным глаголом 'had' и третьей формой глагола (past participle)."
+    },
+    {
+      "statement": "You can say 'He explained me the rule' because 'explain' takes two objects.",
+      "answer": false,
+      "explanation": "Глагол 'explain' не используется с косвенным дополнением без предлога; правильно: 'He explained the rule to me'."
+    },
+    {
+      "statement": "The sentence 'Not only did he arrive late, but he also forgot his books' uses inversion.",
+      "answer": true,
+      "explanation": "Когда предложение начинается с 'Not only', используется инверсия (вспомогательный глагол перед подлежащим)."
+    },
+    {
+      "statement": "The modal verb 'must' has a past form 'musted'.",
+      "answer": false,
+      "explanation": "У 'must' нет формы прошедшего времени; для выражения необходимости в прошлом используется 'had to'."
+    },
+    {
+      "statement": "'Few people came to the meeting' means a small number came, emphasizing it is not enough.",
+      "answer": true,
+      "explanation": "'Few' (без артикля) имеет негативный оттенок — 'мало, практически никто'. 'A few' означает 'несколько, но есть'."
+    },
+    {
+      "statement": "The relative clause in 'The man who is speaking is my brother' is a non-defining clause.",
+      "answer": false,
+      "explanation": "Это ограничительное (defining) придаточное предложение — оно необходима для идентификации мужчины; запятые не нужны."
+    },
+    {
+      "statement": "You should use 'the' before 'Mount Everest' because it is a specific mountain.",
+      "answer": false,
+      "explanation": "Имена отдельных гор (Mount Everest, Mount Fuji) используются без артикля. 'The' используется с горными хребтами (the Alps)."
+    },
+    {
+      "statement": "In the passive voice, the object of the active sentence becomes the subject.",
+      "answer": true,
+      "explanation": "При переходе в пассивный залог объект активного предложения становится подлежащим."
+    },
+    {
+      "statement": "The sentence 'I look forward to hear from you' is correct.",
+      "answer": false,
+      "explanation": "После 'look forward to' нужен герундий: 'I look forward to hearing from you'. 'To' здесь предлог, а не частица инфинитива."
+    },
+    {
+      "statement": "'Despite of the rain, we went for a walk' is grammatically correct.",
+      "answer": false,
+      "explanation": "'Despite' не требует предлога 'of'. Правильно: 'Despite the rain' или 'In spite of the rain'."
+    },
+    {
+      "statement": "The word 'news' is singular and takes a singular verb.",
+      "answer": true,
+      "explanation": "'News' заканчивается на -s, но является неисчисляемым существительным в единственном числе: 'The news is good'."
+    },
+    {
+      "statement": "'If I had known, I would have told you' is an example of the third conditional.",
+      "answer": true,
+      "explanation": "Третье условное описывает несбывшуюся ситуацию в прошлом: If + Past Perfect, ... would + have + V3."
+    },
+    {
+      "statement": "You can say 'I have fewer money than you' because money is countable.",
+      "answer": false,
+      "explanation": "'Money' — неисчисляемое существительное; используется 'less money'. 'Fewer' используется с исчисляемыми (fewer coins)."
+    },
+    {
+      "statement": "The structure 'have something done' is used when someone does a service for you.",
+      "answer": true,
+      "explanation": "Конструкция 'have + объект + V3' (have something done) означает, что кто-то другой выполняет действие для вас (например, 'I had my hair cut')."
+    },
+    {
+      "statement": "'She is interesting in learning French' is the correct way to say she wants to learn.",
+      "answer": false,
+      "explanation": "Прилагательные на -ed описывают чувства человека ('interested'), на -ing — свойства объекта ('interesting'). Правильно: 'She is interested in learning French'."
+    },
+    {
+      "statement": "The sentence 'No sooner had I arrived than the phone rang' uses inversion correctly.",
+      "answer": true,
+      "explanation": "После 'No sooner' в начале предложения обязательна инверсия (had I arrived). Союз — 'than'."
+    },
+    {
+      "statement": "'Each of the students have a book' is correct because 'students' is plural.",
+      "answer": false,
+      "explanation": "Подлежащее 'Each' — единственное число, поэтому глагол тоже в единственном: 'Each of the students has a book'."
+    },
+    {
+      "statement": "The phrase 'a lot of' can be used with both countable and uncountable nouns.",
+      "answer": true,
+      "explanation": "'A lot of' / 'lots of' универсальны: 'a lot of friends' (исчисляемые) и 'a lot of water' (неисчисляемые)."
+    },
+    {
+      "statement": "'I wish I can fly' is the correct structure for a present wish.",
+      "answer": false,
+      "explanation": "После 'wish' о настоящем желаем изменении используется Past Simple: 'I wish I could fly'."
+    },
+    {
+      "statement": "The verbs 'make' and 'do' are interchangeable in collocations like 'make a decision'.",
+      "answer": false,
+      "explanation": "Это устойчивые коллокации: 'make a decision', 'make a mistake', но 'do homework', 'do a favour'. Их нельзя менять местами."
+    },
+    {
+      "statement": "In reported speech, 'I will call you' becomes 'He said he would call me'.",
+      "answer": true,
+      "explanation": "При косвенной речи 'will' меняется на 'would', местоимения и указатели времени/места адаптируются."
+    },
+    {
+      "statement": "The sentence 'The team are winning' is incorrect because 'team' is singular.",
+      "answer": false,
+      "explanation": "В британском английском собирательные существительные (team, family, government) могут употребляться с глаголом во множественном числе, если речь идет об отдельных членах группы."
+    },
+    {
+      "statement": "'By the time you arrive, I will have finished cooking' uses the future perfect tense.",
+      "answer": true,
+      "explanation": "Future Perfect (will have + V3) используется для действия, завершенного к определенному моменту в будущем."
+    },
+    {
+      "statement": "You use 'the' with 'breakfast', 'lunch', 'dinner' when talking about the meal in general.",
+      "answer": false,
+      "explanation": "Названия приемов пищи обычно употребляются без артикля: 'have breakfast'. 'The' нужен, если речь о конкретном событии: 'The breakfast we had yesterday'."
+    },
+    {
+      "statement": "The adjective order in 'a beautiful large old round wooden table' is correct.",
+      "answer": true,
+      "explanation": "Порядок прилагаений: мнение (beautiful), размер (large), возраст (old), форма (round), материал (wooden)."
+    },
+    {
+      "statement": "'He denied to steal the money' is the correct pattern after 'deny'.",
+      "answer": false,
+      "explanation": "Глагол 'deny' требует герундия: 'He denied stealing the money'."
+    }
+  ]
+}

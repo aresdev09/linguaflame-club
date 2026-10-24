@@ -1,0 +1,158 @@
+{
+  "kind": "truefalse",
+  "level": "B1",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:12:41+00:00",
+  "items": [
+    {
+      "statement": "The verb \"to be\" is the only verb that has different forms for each person in the present simple.",
+      "answer": true,
+      "explanation": "Глагол \"to be\" (am, is, are) меняется для каждого лица в Present Simple, в отличие от других глаголов."
+    },
+    {
+      "statement": "In the sentence \"She don't like coffee,\" the verb form is correct.",
+      "answer": false,
+      "explanation": "Для третьего лица единственного числа нужно использовать \"doesn't\": \"She doesn't like coffee.\""
+    },
+    {
+      "statement": "The plural of \"child\" is \"childs.\"",
+      "answer": false,
+      "explanation": "Правильный множественный номер — \"children\"."
+    },
+    {
+      "statement": "\"Advice\" is an uncountable noun.",
+      "answer": true,
+      "explanation": "Слово \"advice\" не имеет множественного числа и используется только в единственном."
+    },
+    {
+      "statement": "You can say \"I have been waiting for two hours\" to express an action that started in the past and continues now.",
+      "answer": true,
+      "explanation": "Это пример Present Perfect Continuous, который показывает продолжительность действия до настоящего момента."
+    },
+    {
+      "statement": "The past simple of \"go\" is \"goed.\"",
+      "answer": false,
+      "explanation": "Правильная форма прошедшего времени — \"went\"."
+    },
+    {
+      "statement": "\"Few\" is used with countable nouns, while \"little\" is used with uncountable nouns.",
+      "answer": true,
+      "explanation": "\"Few\" — с исчисляемыми, \"little\" — с неисчисляемыми существительными."
+    },
+    {
+      "statement": "The sentence \"If I will see him, I will tell him\" is grammatically correct.",
+      "answer": false,
+      "explanation": "В условных предложениях первого типа после \"if\" используется Present Simple: \"If I see him, I will tell him.\""
+    },
+    {
+      "statement": "\"Much\" can be used with plural countable nouns.",
+      "answer": false,
+      "explanation": "\"Much\" используется только с неисчисляемыми существительными; для исчисляемых — \"many\"."
+    },
+    {
+      "statement": "The comparative form of \"good\" is \"better.\"",
+      "answer": true,
+      "explanation": "Степень сравнения \"good\" — \"better\", превосходная — \"best\"."
+    },
+    {
+      "statement": "\"He suggested to go to the cinema\" is correct.",
+      "answer": false,
+      "explanation": "После \"suggest\" используется герундий: \"He suggested going to the cinema.\""
+    },
+    {
+      "statement": "The word \"information\" has a plural form \"informations.\"",
+      "answer": false,
+      "explanation": "\"Information\" — неисчисляемое существительное, множественного числа не имеет."
+    },
+    {
+      "statement": "In the passive voice, the object of an active sentence becomes the subject.",
+      "answer": true,
+      "explanation": "При переходе в пассивный залог объект активного предложения становится подлежащим."
+    },
+    {
+      "statement": "\"She is more taller than her brother\" is a correct comparative sentence.",
+      "answer": false,
+      "explanation": "Нельзя использовать одновременно \"more\" и суффикс \"-er\". Правильно: \"She is taller than her brother.\""
+    },
+    {
+      "statement": "The present perfect tense is formed with \"have/has\" + past participle.",
+      "answer": true,
+      "explanation": "Present Perfect = have/has + третья форма глагола (past participle)."
+    },
+    {
+      "statement": "\"Between\" is used for more than two items.",
+      "answer": false,
+      "explanation": "\"Between\" обычно используется для двух объектов; для большего числа — \"among\"."
+    },
+    {
+      "statement": "The phrase \"a lot of\" can be used with both countable and uncountable nouns.",
+      "answer": true,
+      "explanation": "\"A lot of\" подходит для исчисляемых и неисчисляемых существительных."
+    },
+    {
+      "statement": "\"He has been working here since five years\" is correct.",
+      "answer": false,
+      "explanation": "После \"since\" указывается момент времени (например, \"since 2019\"), а продолжительность — после \"for\": \"for five years\"."
+    },
+    {
+      "statement": "The past participle of \"write\" is \"wrote.\"",
+      "answer": false,
+      "explanation": "Past participle — \"written\"; \"wrote\" — это Past Simple."
+    },
+    {
+      "statement": "\"Neither... nor\" takes a singular verb when both subjects are singular.",
+      "answer": true,
+      "explanation": "Если оба подлежащих в единственном числе, глагол ставится в единственном: \"Neither Tom nor Ann is here.\""
+    },
+    {
+      "statement": "The word \"news\" is plural.",
+      "answer": false,
+      "explanation": "\"News\" — неисчисляемое существительное, хотя заканчивается на -s, оно требует единственного глагола."
+    },
+    {
+      "statement": "\"Would you mind opening the window?\" is a polite request.",
+      "answer": true,
+      "explanation": "Конструкция \"Would you mind + gerund\" используется для вежливых просьб."
+    },
+    {
+      "statement": "The adjective \"fast\" has the same form for adjective and adverb.",
+      "answer": true,
+      "explanation": "\"Fast\" может быть и прилагательным, и наречием без изменения формы."
+    },
+    {
+      "statement": "\"She didn't went to the party\" is correct.",
+      "answer": false,
+      "explanation": "После вспомогательного \"didn't\" используется инфинитив без \"to\": \"She didn't go to the party.\""
+    },
+    {
+      "statement": "The preposition \"in\" is used with months and years.",
+      "answer": true,
+      "explanation": "Месяцы и годы требуют предлога \"in\": \"in July\", \"in 2022\"."
+    },
+    {
+      "statement": "\"Each of the students have a book\" is grammatically correct.",
+      "answer": false,
+      "explanation": "\"Each\" требует единственного глагола: \"Each of the students has a book.\""
+    },
+    {
+      "statement": "The phrase \"used to\" expresses a past habit.",
+      "answer": true,
+      "explanation": "\"Used to + инфинитив\" обозначает регулярное действие в прошлом, которое больше не происходит."
+    },
+    {
+      "statement": "\"There is many people in the room\" is correct.",
+      "answer": false,
+      "explanation": "С исчисляемыми множественными существительными используется \"There are\": \"There are many people in the room.\""
+    },
+    {
+      "statement": "The word \"child\" is an irregular noun.",
+      "answer": true,
+      "explanation": "Множественное число \"child\" — \"children\", что является нерегулярной формой."
+    },
+    {
+      "statement": "\"If I were you, I would study harder\" uses the subjunctive mood.",
+      "answer": true,
+      "explanation": "В условных предложениях второго типа после \"if\" используется \"were\" для всех лиц (subjunctive)."
+    }
+  ]
+}

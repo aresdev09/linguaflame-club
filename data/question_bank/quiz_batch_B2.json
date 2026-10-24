@@ -1,0 +1,338 @@
+{
+  "kind": "quiz_batch",
+  "level": "B2",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:13:25+00:00",
+  "items": [
+    {
+      "options": [
+        "I suggest that he goes to the doctor",
+        "I suggest that he go to the doctor",
+        "I suggest that he is going to the doctor",
+        "I suggest that he will go to the doctor"
+      ],
+      "correct_index": 1,
+      "question": "Which sentence uses the correct form of the verb?",
+      "explanation": "После 'suggest that' используется субъунктив (базовая форма глагола без 'to') — 'he go'."
+    },
+    {
+      "options": [
+        "at",
+        "in",
+        "on",
+        "with"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct preposition: 'She is good _____ explaining complex ideas.'",
+      "explanation": "Глагол 'good' требует предлога 'at' перед герундием: 'good at doing something'."
+    },
+    {
+      "options": [
+        "To help someone walk",
+        "To tease or joke with someone",
+        "To physically pull a leg",
+        "To support someone's argument"
+      ],
+      "correct_index": 1,
+      "question": "What is the meaning of 'to pull someone's leg'?",
+      "explanation": "Идиома 'to pull someone's leg' означает подшучивать над кем-то или разыгрывать."
+    },
+    {
+      "options": [
+        "The chef cooked the meal",
+        "The meal was cooked by the chef",
+        "The chef has cooked the meal",
+        "The chef is cooking the meal"
+      ],
+      "correct_index": 1,
+      "question": "Which sentence is in the passive voice?",
+      "explanation": "Пассивный залог: объект становится подлежащим + 'to be' + причастие II (was cooked)."
+    },
+    {
+      "options": [
+        "am",
+        "was",
+        "were",
+        "would be"
+      ],
+      "correct_index": 2,
+      "question": "Complete: 'If I _____ you, I would accept the offer.'",
+      "explanation": "В условных предложениях 2 типа (Second Conditional) после 'if' для всех лиц используется 'were'."
+    },
+    {
+      "options": [
+        "Careless",
+        "Thorough",
+        "Quick",
+        "Lazy"
+      ],
+      "correct_index": 1,
+      "question": "Which word is a synonym for 'meticulous'?",
+      "explanation": "'Meticulous' означает дотошный, тщательный — синоним 'thorough'."
+    },
+    {
+      "options": [
+        "who",
+        "which",
+        "where",
+        "when"
+      ],
+      "correct_index": 1,
+      "question": "Choose the correct relative pronoun: 'The book _____ I borrowed is excellent.'",
+      "explanation": "Для неодушевленных предметов (book) используется 'which' (или 'that')."
+    },
+    {
+      "options": [
+        "To sit on a fence",
+        "To be undecided",
+        "To be very brave",
+        "To paint a fence"
+      ],
+      "correct_index": 1,
+      "question": "What does 'to be on the fence' mean?",
+      "explanation": "Идиома 'on the fence' означает не уметь решиться, находиться в нерешительности."
+    },
+    {
+      "options": [
+        "Despite of the rain, we went out",
+        "Despite the rain, we went out",
+        "Despite it was raining, we went out",
+        "Despite the rain was heavy, we went out"
+      ],
+      "correct_index": 1,
+      "question": "Which sentence correctly uses 'despite'?",
+      "explanation": "'Despite' используется без 'of' и требует существительного/герундия, не предложения."
+    },
+    {
+      "options": [
+        "see",
+        "seeing",
+        "saw",
+        "seen"
+      ],
+      "correct_index": 1,
+      "question": "Choose the correct form: 'I look forward to _____ you soon.'",
+      "explanation": "После предлога 'to' в фразе 'look forward to' используется герундий (seeing)."
+    },
+    {
+      "options": [
+        "Old",
+        "Modern",
+        "Broken",
+        "Expensive"
+      ],
+      "correct_index": 1,
+      "question": "What is the opposite of 'obsolete'?",
+      "explanation": "'Obsolete' означает устаревший; антоним — 'modern' (современный)."
+    },
+    {
+      "options": [
+        "My brother, who lives in London, is visiting",
+        "The man who called you is waiting",
+        "Paris, which is in France, is beautiful",
+        "She arrived late, which annoyed me"
+      ],
+      "correct_index": 1,
+      "question": "Which sentence has a defining relative clause?",
+      "explanation": "Ограничительное придаточное (без запятых) уточняет существительное: 'The man who called you'."
+    },
+    {
+      "options": [
+        "finish",
+        "will finish",
+        "will have finished",
+        "am finishing"
+      ],
+      "correct_index": 2,
+      "question": "Complete: 'By the time you arrive, I _____ the work.'",
+      "explanation": "Future Perfect (will have finished) используется для действия, завершённого к определённому моменту в будущем."
+    },
+    {
+      "options": [
+        "Call off",
+        "Call up",
+        "Call on",
+        "Call in"
+      ],
+      "correct_index": 0,
+      "question": "Which phrasal verb means 'to cancel'?",
+      "explanation": "'Call off' означает отменять (мероприятие, встречу и т.д.)."
+    },
+    {
+      "options": [
+        "A",
+        "An",
+        "The",
+        "No article"
+      ],
+      "correct_index": 3,
+      "question": "Choose the correct article: '_____ honesty is the best policy.'",
+      "explanation": "Абстрактные существительные (honesty) в обобщающем смысле используются без артикля."
+    },
+    {
+      "options": [
+        "Very often",
+        "Very rarely",
+        "Every month",
+        "During a full moon"
+      ],
+      "correct_index": 1,
+      "question": "What does 'once in a blue moon' mean?",
+      "explanation": "Идиома 'once in a blue moon' означает очень редко, изредка."
+    },
+    {
+      "options": [
+        "Where you are going?",
+        "Where are you going?",
+        "Where going you are?",
+        "Where going are you?"
+      ],
+      "correct_index": 1,
+      "question": "Which sentence uses the correct word order for a question?",
+      "explanation": "Прямой порядок в вопросе: вопросительное слово + вспомогательный глагол + подлежащий + основной глагол."
+    },
+    {
+      "options": [
+        "steal",
+        "to steal",
+        "stealing",
+        "stolen"
+      ],
+      "correct_index": 2,
+      "question": "Choose the correct form: 'He denied _____ the money.'",
+      "explanation": "Глагол 'deny' требует герундия после себя: 'deny doing something'."
+    },
+    {
+      "options": [
+        "Worsen",
+        "Relieve",
+        "Ignore",
+        "Cause"
+      ],
+      "correct_index": 1,
+      "question": "What is a synonym for 'alleviate'?",
+      "explanation": "'Alleviate' означает облегчать, смягчать — синоним 'relieve'."
+    },
+    {
+      "options": [
+        "Walking home, I saw a fox",
+        "I walked home and saw a fox",
+        "When I walked home, I saw a fox",
+        "I saw a fox while walking home"
+      ],
+      "correct_index": 0,
+      "question": "Which sentence contains a participle clause?",
+      "explanation": "'Walking home, I saw a fox' — причастный оборот (Participle Clause) в начале предложения."
+    },
+    {
+      "options": [
+        "he was",
+        "was he",
+        "he is",
+        "is he"
+      ],
+      "correct_index": 1,
+      "question": "Complete: 'Not only _____ late, but he also forgot his homework.'",
+      "explanation": "После 'Not only' в начале предложения используется инверсия: вспомогательный глагол + подлежащий."
+    },
+    {
+      "options": [
+        "To waste oil",
+        "To work late into the night",
+        "To light a lamp",
+        "To cook at midnight"
+      ],
+      "correct_index": 1,
+      "question": "What does 'to burn the midnight oil' mean?",
+      "explanation": "Идиома 'burn the midnight oil' означает работать или учиться допоздна."
+    },
+    {
+      "options": [
+        "Quick",
+        "Quickly",
+        "Quickness",
+        "Quicken"
+      ],
+      "correct_index": 1,
+      "question": "Which word is an adverb?",
+      "explanation": "'Quickly' — наречие (adverb), отвечает на вопрос 'how?'. 'Quick' — прилагательное."
+    },
+    {
+      "options": [
+        "studied",
+        "studies",
+        "had studied",
+        "would study"
+      ],
+      "correct_index": 2,
+      "question": "Choose the correct conditional: 'If she _____ harder, she would have passed.'",
+      "explanation": "Третий тип условных предложений (Third Conditional): If + Past Perfect, would have + V3."
+    },
+    {
+      "options": [
+        "Clear",
+        "Having multiple meanings",
+        "Simple",
+        "Obvious"
+      ],
+      "correct_index": 1,
+      "question": "What is the meaning of 'ambiguous'?",
+      "explanation": "'Ambiguous' означает двусмысленный, неясный, имеющий несколько значений."
+    },
+    {
+      "options": [
+        "I have few money",
+        "I have a few friends",
+        "I have few water",
+        "I have a few advices"
+      ],
+      "correct_index": 1,
+      "question": "Which sentence uses 'few' correctly?",
+      "explanation": "'Few' / 'a few' используются со счётными существительными во множественном числе (friends)."
+    },
+    {
+      "options": [
+        "have",
+        "had",
+        "will have",
+        "am having"
+      ],
+      "correct_index": 1,
+      "question": "Complete: 'I wish I _____ more time for reading.'",
+      "explanation": "После 'I wish' для настоящего/будущего используется Past Simple: 'I wish I had...'."
+    },
+    {
+      "options": [
+        "Take after",
+        "Take off",
+        "Take up",
+        "Take in"
+      ],
+      "correct_index": 0,
+      "question": "Which phrasal verb means 'to resemble'?",
+      "explanation": "'Take after' означает быть похожим на кого-то (обычно родителя) по характеру или внешности."
+    },
+    {
+      "options": [
+        "He said he is tired",
+        "He said he was tired",
+        "He said he has been tired",
+        "He said he will be tired"
+      ],
+      "correct_index": 1,
+      "question": "What is the correct reported speech: He said, 'I am tired.'",
+      "explanation": "При переходе в косвенную речь Present Simple меняется на Past Simple: 'am' → 'was'."
+    },
+    {
+      "options": [
+        "Aggravate",
+        "Mitigate",
+        "Intensify",
+        "Worsen"
+      ],
+      "correct_index": 1,
+      "question": "Which word means 'to make something less severe'?",
+      "explanation": "'Mitigate' означает смягчать, облегчать (например, обстоятельства)."
+    }
+  ]
+}

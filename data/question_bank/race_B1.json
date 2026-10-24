@@ -1,0 +1,308 @@
+{
+  "kind": "race",
+  "level": "B1",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:11:37+00:00",
+  "items": [
+    {
+      "options": [
+        "путешествие",
+        "поездка",
+        "маршрут",
+        "дорога"
+      ],
+      "correct_index": 0,
+      "word": "journey"
+    },
+    {
+      "options": [
+        "приключение",
+        "риск",
+        "путешествие",
+        "опыт"
+      ],
+      "correct_index": 0,
+      "word": "adventure"
+    },
+    {
+      "options": [
+        "решение",
+        "выбор",
+        "план",
+        "мнение"
+      ],
+      "correct_index": 0,
+      "word": "decision"
+    },
+    {
+      "options": [
+        "опыт",
+        "эксперимент",
+        "путешествие",
+        "знание"
+      ],
+      "correct_index": 0,
+      "word": "experience"
+    },
+    {
+      "options": [
+        "возможность",
+        "шанс",
+        "предложение",
+        "вариант"
+      ],
+      "correct_index": 0,
+      "word": "opportunity"
+    },
+    {
+      "options": [
+        "вызов",
+        "проблема",
+        "задача",
+        "трудность"
+      ],
+      "correct_index": 0,
+      "word": "challenge"
+    },
+    {
+      "options": [
+        "достижение",
+        "успех",
+        "результат",
+        "победа"
+      ],
+      "correct_index": 0,
+      "word": "achievement"
+    },
+    {
+      "options": [
+        "развитие",
+        "рост",
+        "изменение",
+        "прогресс"
+      ],
+      "correct_index": 0,
+      "word": "development"
+    },
+    {
+      "options": [
+        "окружающая среда",
+        "среда",
+        "природа",
+        "атмосфера"
+      ],
+      "correct_index": 0,
+      "word": "environment"
+    },
+    {
+      "options": [
+        "оборудование",
+        "инструменты",
+        "машины",
+        "приборы"
+      ],
+      "correct_index": 0,
+      "word": "equipment"
+    },
+    {
+      "options": [
+        "объяснение",
+        "описание",
+        "инструкция",
+        "ответ"
+      ],
+      "correct_index": 0,
+      "word": "explanation"
+    },
+    {
+      "options": [
+        "информация",
+        "данные",
+        "новости",
+        "сведения"
+      ],
+      "correct_index": 0,
+      "word": "information"
+    },
+    {
+      "options": [
+        "инструкция",
+        "указание",
+        "совет",
+        "правило"
+      ],
+      "correct_index": 0,
+      "word": "instruction"
+    },
+    {
+      "options": [
+        "знание",
+        "информация",
+        "опыт",
+        "навык"
+      ],
+      "correct_index": 0,
+      "word": "knowledge"
+    },
+    {
+      "options": [
+        "язык",
+        "речь",
+        "диалект",
+        "коммуникация"
+      ],
+      "correct_index": 0,
+      "word": "language"
+    },
+    {
+      "options": [
+        "обслуживание",
+        "ремонт",
+        "забота",
+        "поддержка"
+      ],
+      "correct_index": 0,
+      "word": "maintenance"
+    },
+    {
+      "options": [
+        "измерение",
+        "размер",
+        "вес",
+        "длина"
+      ],
+      "correct_index": 0,
+      "word": "measurement"
+    },
+    {
+      "options": [
+        "операция",
+        "работа",
+        "функция",
+        "действие"
+      ],
+      "correct_index": 0,
+      "word": "operation"
+    },
+    {
+      "options": [
+        "организация",
+        "компания",
+        "планирование",
+        "структура"
+      ],
+      "correct_index": 0,
+      "word": "organization"
+    },
+    {
+      "options": [
+        "выполнение",
+        "представление",
+        "результат",
+        "производительность"
+      ],
+      "correct_index": 0,
+      "word": "performance"
+    },
+    {
+      "options": [
+        "подготовка",
+        "планирование",
+        "обучение",
+        "репетиция"
+      ],
+      "correct_index": 0,
+      "word": "preparation"
+    },
+    {
+      "options": [
+        "презентация",
+        "доклад",
+        "показ",
+        "выступление"
+      ],
+      "correct_index": 0,
+      "word": "presentation"
+    },
+    {
+      "options": [
+        "производство",
+        "создание",
+        "изготовление",
+        "выпуск"
+      ],
+      "correct_index": 0,
+      "word": "production"
+    },
+    {
+      "options": [
+        "рекомендация",
+        "совет",
+        "предложение",
+        "отзыв"
+      ],
+      "correct_index": 0,
+      "word": "recommendation"
+    },
+    {
+      "options": [
+        "требование",
+        "необходимость",
+        "условие",
+        "правило"
+      ],
+      "correct_index": 0,
+      "word": "requirement"
+    },
+    {
+      "options": [
+        "ответственность",
+        "обязанность",
+        "задача",
+        "роль"
+      ],
+      "correct_index": 0,
+      "word": "responsibility"
+    },
+    {
+      "options": [
+        "решение",
+        "ответ",
+        "способ",
+        "метод"
+      ],
+      "correct_index": 0,
+      "word": "solution"
+    },
+    {
+      "options": [
+        "предложение",
+        "совет",
+        "идея",
+        "просьба"
+      ],
+      "correct_index": 0,
+      "word": "suggestion"
+    },
+    {
+      "options": [
+        "поддержка",
+        "помощь",
+        "опора",
+        "подкрепление"
+      ],
+      "correct_index": 0,
+      "word": "support"
+    },
+    {
+      "options": [
+        "технология",
+        "техника",
+        "наука",
+        "инновация"
+      ],
+      "correct_index": 0,
+      "word": "technology"
+    }
+  ]
+}

@@ -1,0 +1,338 @@
+{
+  "kind": "gap",
+  "level": "A1",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:01:06+00:00",
+  "items": [
+    {
+      "options": [
+        "goes",
+        "go",
+        "going",
+        "gone"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ to school every day.",
+      "explanation": "Правильный ответ 'goes', так как в Present Simple с местоимением she глагол получает окончание -s."
+    },
+    {
+      "options": [
+        "play",
+        "plays",
+        "playing",
+        "played"
+      ],
+      "correct_index": 0,
+      "sentence": "They ___ football on Sundays.",
+      "explanation": "В Present Simple с they используется форма глагола без окончания."
+    },
+    {
+      "options": [
+        "has",
+        "have",
+        "having",
+        "had"
+      ],
+      "correct_index": 0,
+      "sentence": "My brother ___ a cat.",
+      "explanation": "С he/she/it в Present Simple глагол have становится has."
+    },
+    {
+      "options": [
+        "have",
+        "has",
+        "having",
+        "had"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ breakfast at 7 o'clock.",
+      "explanation": "С we используется форма have."
+    },
+    {
+      "options": [
+        "rises",
+        "rise",
+        "rising",
+        "rose"
+      ],
+      "correct_index": 0,
+      "sentence": "The sun ___ in the east.",
+      "explanation": "Подлежащее it требует форму rises."
+    },
+    {
+      "options": [
+        "study",
+        "studies",
+        "studying",
+        "studied"
+      ],
+      "correct_index": 0,
+      "sentence": "I ___ English every day.",
+      "explanation": "С I глагол не меняется."
+    },
+    {
+      "options": [
+        "does",
+        "do",
+        "doing",
+        "did"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ his homework now.",
+      "explanation": "В Present Simple с he используется does."
+    },
+    {
+      "options": [
+        "play",
+        "plays",
+        "playing",
+        "played"
+      ],
+      "correct_index": 0,
+      "sentence": "The children ___ in the park.",
+      "explanation": "С множественным подлежащим children используется play."
+    },
+    {
+      "options": [
+        "wears",
+        "wear",
+        "wearing",
+        "wore"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ a red dress today.",
+      "explanation": "С she в Present Simple глагол получает окончание -s."
+    },
+    {
+      "options": [
+        "is",
+        "are",
+        "am",
+        "be"
+      ],
+      "correct_index": 0,
+      "sentence": "It ___ very hot in summer.",
+      "explanation": "Подлежащее it требует форму is."
+    },
+    {
+      "options": [
+        "are",
+        "is",
+        "am",
+        "be"
+      ],
+      "correct_index": 0,
+      "sentence": "You ___ my friend.",
+      "explanation": "С you всегда используется are."
+    },
+    {
+      "options": [
+        "barks",
+        "bark",
+        "barking",
+        "barked"
+      ],
+      "correct_index": 0,
+      "sentence": "The dog ___ loudly at night.",
+      "explanation": "С он/она/оно (dog) в Present Simple добавляется -s."
+    },
+    {
+      "options": [
+        "go",
+        "goes",
+        "going",
+        "went"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ to the cinema tomorrow.",
+      "explanation": "Для запланированного будущего с we используется go."
+    },
+    {
+      "options": [
+        "makes",
+        "make",
+        "making",
+        "made"
+      ],
+      "correct_index": 0,
+      "sentence": "My mother ___ delicious cakes.",
+      "explanation": "С she (mother) в Present Simple глагол получает -s."
+    },
+    {
+      "options": [
+        "arrives",
+        "arrive",
+        "arriving",
+        "arrived"
+      ],
+      "correct_index": 0,
+      "sentence": "The train ___ at 6 pm.",
+      "explanation": "Подлежащее it требует форму arrives."
+    },
+    {
+      "options": [
+        "bought",
+        "buy",
+        "buys",
+        "buying"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ a new bike last week.",
+      "explanation": "Прошедшее время глагола buy — bought."
+    },
+    {
+      "options": [
+        "were",
+        "was",
+        "are",
+        "be"
+      ],
+      "correct_index": 0,
+      "sentence": "They ___ happy yesterday.",
+      "explanation": "В прошедшем времени с they используется were."
+    },
+    {
+      "options": [
+        "read",
+        "reads",
+        "reading",
+        "readed"
+      ],
+      "correct_index": 0,
+      "sentence": "I ___ a book now.",
+      "explanation": "С I в Present Simple используется форма read."
+    },
+    {
+      "options": [
+        "lost",
+        "lose",
+        "loses",
+        "losing"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ her keys.",
+      "explanation": "Прошедшее время глагола lose — lost."
+    },
+    {
+      "options": [
+        "are",
+        "is",
+        "am",
+        "be"
+      ],
+      "correct_index": 0,
+      "sentence": "The flowers ___ beautiful.",
+      "explanation": "Множественное подлежащее flowers требует are."
+    },
+    {
+      "options": [
+        "do",
+        "does",
+        "doing",
+        "did"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ our homework together.",
+      "explanation": "С we в Present Simple используется do."
+    },
+    {
+      "options": [
+        "listens",
+        "listen",
+        "listening",
+        "listened"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ to music every evening.",
+      "explanation": "С he в Present Simple глагол получает -s."
+    },
+    {
+      "options": [
+        "cries",
+        "cry",
+        "crying",
+        "cried"
+      ],
+      "correct_index": 0,
+      "sentence": "The baby ___ when he is hungry.",
+      "explanation": "Подлежащее baby (it) требует форму cries."
+    },
+    {
+      "options": [
+        "close",
+        "closes",
+        "closing",
+        "closed"
+      ],
+      "correct_index": 0,
+      "sentence": "You ___ the door, please.",
+      "explanation": "В повелительном наклонении используется базовая форма глагола."
+    },
+    {
+      "options": [
+        "asks",
+        "ask",
+        "asking",
+        "asked"
+      ],
+      "correct_index": 0,
+      "sentence": "The teacher ___ the question.",
+      "explanation": "С he/she (teacher) в Present Simple добавляется -s."
+    },
+    {
+      "options": [
+        "drives",
+        "drive",
+        "driving",
+        "drove"
+      ],
+      "correct_index": 0,
+      "sentence": "My father ___ a car.",
+      "explanation": "С he (father) в Present Simple глагол получает -s."
+    },
+    {
+      "options": [
+        "fly",
+        "flies",
+        "flying",
+        "flew"
+      ],
+      "correct_index": 0,
+      "sentence": "The birds ___ in the sky.",
+      "explanation": "Множественное подлежащее birds требует fly."
+    },
+    {
+      "options": [
+        "writes",
+        "write",
+        "writing",
+        "wrote"
+      ],
+      "correct_index": 0,
+      "sentence": "She ___ a letter to her friend.",
+      "explanation": "С she в Present Simple добавляется -s."
+    },
+    {
+      "options": [
+        "have",
+        "has",
+        "having",
+        "had"
+      ],
+      "correct_index": 0,
+      "sentence": "We ___ a picnic next Saturday.",
+      "explanation": "Для планов на будущее с we используется have."
+    },
+    {
+      "options": [
+        "brushes",
+        "brush",
+        "brushing",
+        "brushed"
+      ],
+      "correct_index": 0,
+      "sentence": "He ___ his teeth twice a day.",
+      "explanation": "С he в Present Simple глагол получает -es."
+    }
+  ]
+}

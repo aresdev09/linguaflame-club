@@ -1,0 +1,128 @@
+{
+  "kind": "scramble",
+  "level": "A2",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:04:30+00:00",
+  "items": [
+    {
+      "word": "apple",
+      "hint": "яблоко"
+    },
+    {
+      "word": "banana",
+      "hint": "банан"
+    },
+    {
+      "word": "orange",
+      "hint": "апельсин"
+    },
+    {
+      "word": "garden",
+      "hint": "сад"
+    },
+    {
+      "word": "school",
+      "hint": "школа"
+    },
+    {
+      "word": "market",
+      "hint": "рынок"
+    },
+    {
+      "word": "animal",
+      "hint": "животное"
+    },
+    {
+      "word": "family",
+      "hint": "семья"
+    },
+    {
+      "word": "friend",
+      "hint": "друг"
+    },
+    {
+      "word": "teacher",
+      "hint": "учитель"
+    },
+    {
+      "word": "student",
+      "hint": "студент"
+    },
+    {
+      "word": "window",
+      "hint": "окно"
+    },
+    {
+      "word": "kitchen",
+      "hint": "кухня"
+    },
+    {
+      "word": "bedroom",
+      "hint": "спальня"
+    },
+    {
+      "word": "library",
+      "hint": "библиотека"
+    },
+    {
+      "word": "morning",
+      "hint": "утро"
+    },
+    {
+      "word": "evening",
+      "hint": "вечер"
+    },
+    {
+      "word": "sunshine",
+      "hint": "солнце"
+    },
+    {
+      "word": "holiday",
+      "hint": "праздник"
+    },
+    {
+      "word": "computer",
+      "hint": "компьютер"
+    },
+    {
+      "word": "bicycle",
+      "hint": "велосипед"
+    },
+    {
+      "word": "building",
+      "hint": "здание"
+    },
+    {
+      "word": "mountain",
+      "hint": "гора"
+    },
+    {
+      "word": "river",
+      "hint": "река"
+    },
+    {
+      "word": "forest",
+      "hint": "лес"
+    },
+    {
+      "word": "flower",
+      "hint": "цветок"
+    },
+    {
+      "word": "picture",
+      "hint": "картина"
+    },
+    {
+      "word": "music",
+      "hint": "музыка"
+    },
+    {
+      "word": "travel",
+      "hint": "путешествие"
+    },
+    {
+      "word": "village",
+      "hint": "деревня"
+    }
+  ]
+}

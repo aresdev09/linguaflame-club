@@ -1,0 +1,158 @@
+{
+  "kind": "truefalse",
+  "level": "A1",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:03:05+00:00",
+  "items": [
+    {
+      "statement": "The sentence 'She is happy' is correct.",
+      "answer": true,
+      "explanation": "Предложение построено правильно: подлежащее 'She', глагол-связка 'is' и прилагательное 'happy'."
+    },
+    {
+      "statement": "We use 'a' before 'apple'.",
+      "answer": false,
+      "explanation": "Перед словом 'apple', начинающимся на гласный звук, используется артикль 'an'."
+    },
+    {
+      "statement": "The plural of 'child' is 'childs'.",
+      "answer": false,
+      "explanation": "Существительное 'child' имеет неправильную форму множественного числа — 'children'."
+    },
+    {
+      "statement": "'I am a student' is a correct sentence.",
+      "answer": true,
+      "explanation": "Предложение грамматически верно: 'I' + 'am' + артикль 'a' + существительное."
+    },
+    {
+      "statement": "We say 'He like pizza'.",
+      "answer": false,
+      "explanation": "Для третьего лица единственного числа (he, she, it) глаголу добавляется окончание -s: 'He likes pizza'."
+    },
+    {
+      "statement": "The opposite of 'big' is 'small'.",
+      "answer": true,
+      "explanation": "Антонимом прилагательного 'big' (большой) является 'small' (маленький)."
+    },
+    {
+      "statement": "'There are two mans' is correct.",
+      "answer": false,
+      "explanation": "Множественное число слова 'man' — 'men', поэтому правильно: 'There are two men'."
+    },
+    {
+      "statement": "We use 'on' for days of the week.",
+      "answer": true,
+      "explanation": "Предлог 'on' используется с днями недели (on Monday, on Friday)."
+    },
+    {
+      "statement": "'She don't like coffee' is correct.",
+      "answer": false,
+      "explanation": "Для 'she' нужно использовать 'doesn't': 'She doesn't like coffee'."
+    },
+    {
+      "statement": "The past tense of 'go' is 'went'.",
+      "answer": true,
+      "explanation": "Глагол 'go' неправильный, его прошедшая форма — 'went'."
+    },
+    {
+      "statement": "'A' is used before consonant sounds.",
+      "answer": true,
+      "explanation": "Артикль 'a' ставится перед словами, начинающимися со согласного звука (a book, a cat)."
+    },
+    {
+      "statement": "'They is friends' is correct.",
+      "answer": false,
+      "explanation": "Для местоимения 'they' используется глагол 'are': 'They are friends'."
+    },
+    {
+      "statement": "We use 'in' for months.",
+      "answer": true,
+      "explanation": "Предлог 'in' используется с названиями месяцев (in January, in May)."
+    },
+    {
+      "statement": "The plural of 'box' is 'boxs'.",
+      "answer": false,
+      "explanation": "Существительные на -x в множественном числе получают окончание -es: 'boxes'."
+    },
+    {
+      "statement": "'Can you swim?' is a correct question.",
+      "answer": true,
+      "explanation": "Вопрос с модальным глаголом 'can' строится без вспомогательного глагола: 'Can + подлежащее + глагол'."
+    },
+    {
+      "statement": "'He has got a car' means the same as 'He has a car'.",
+      "answer": true,
+      "explanation": "Конструкции 'have got' и 'have' в значении владения эквивалентны."
+    },
+    {
+      "statement": "We say 'I am agree'.",
+      "answer": false,
+      "explanation": "Глагол 'agree' не требует глагола-связки 'am'. Правильно: 'I agree'."
+    },
+    {
+      "statement": "'Those' is the plural of 'that'.",
+      "answer": true,
+      "explanation": "Указательное местоимение 'that' (тот) во множественном числе становится 'those' (те)."
+    },
+    {
+      "statement": "'She is more taller than me' is correct.",
+      "answer": false,
+      "explanation": "Нельзя одновременно использовать 'more' и окончание '-er'. Правильно: 'She is taller than me'."
+    },
+    {
+      "statement": "We use 'at' for specific times.",
+      "answer": true,
+      "explanation": "Предлог 'at' используется с точным временем (at 5 o'clock, at noon)."
+    },
+    {
+      "statement": "The past of 'buy' is 'buyed'.",
+      "answer": false,
+      "explanation": "Глагол 'buy' неправильный, его прошедшая форма — 'bought'."
+    },
+    {
+      "statement": "'How much' is used with uncountable nouns.",
+      "answer": true,
+      "explanation": "'How much' (сколько) используется с неисчисляемыми существительными (water, money)."
+    },
+    {
+      "statement": "'My brother work in a bank' is correct.",
+      "answer": false,
+      "explanation": "Для третьего лица единственного числа нужен глагол с -s: 'My brother works in a bank'."
+    },
+    {
+      "statement": "'A lot of' can be used with countable and uncountable nouns.",
+      "answer": true,
+      "explanation": "Выражение 'a lot of' (много) подходит и для исчисляемых, и для неисчисляемых существительных."
+    },
+    {
+      "statement": "'He didn't went' is correct past negative.",
+      "answer": false,
+      "explanation": "После 'didn't' используется начальная форма глагола: 'He didn't go'."
+    },
+    {
+      "statement": "'Whose' asks about possession.",
+      "answer": true,
+      "explanation": "Вопросительное слово 'whose' (чей) используется для вопросов о принадлежности."
+    },
+    {
+      "statement": "'The childs are playing' is correct.",
+      "answer": false,
+      "explanation": "Множественное число 'child' — 'children'. Правильно: 'The children are playing'."
+    },
+    {
+      "statement": "We use 'some' in positive sentences.",
+      "answer": true,
+      "explanation": "'Some' (некоторое количество) обычно используется в утвердительных предложениях."
+    },
+    {
+      "statement": "'Any' is used in positive sentences usually.",
+      "answer": false,
+      "explanation": "'Any' обычно используется в отрицательных и вопросительных предложениях."
+    },
+    {
+      "statement": "'I have been learning English since 2020' is correct.",
+      "answer": true,
+      "explanation": "Present Perfect Continuous с 'since' указывает на начало действия в прошлом."
+    }
+  ]
+}

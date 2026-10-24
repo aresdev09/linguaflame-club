@@ -1,0 +1,158 @@
+{
+  "kind": "truefalse",
+  "level": "A2",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:08:12+00:00",
+  "items": [
+    {
+      "statement": "He goes to school every day.",
+      "answer": true,
+      "explanation": "Правильно: с he используется goes."
+    },
+    {
+      "statement": "She don't like coffee.",
+      "answer": false,
+      "explanation": "Неверно: с she нужно does not (doesn't)."
+    },
+    {
+      "statement": "The cat is sleeping on the sofa.",
+      "answer": true,
+      "explanation": "Правильное использование Present Continuous."
+    },
+    {
+      "statement": "We was happy yesterday.",
+      "answer": false,
+      "explanation": "Неверно: we требует were."
+    },
+    {
+      "statement": "There are many books on the shelf.",
+      "answer": true,
+      "explanation": "There are используется с множественным числом."
+    },
+    {
+      "statement": "I have been waiting for two hours.",
+      "answer": true,
+      "explanation": "Present Perfect Continuous для действия, продолжающегося до настоящего."
+    },
+    {
+      "statement": "He can to swim.",
+      "answer": false,
+      "explanation": "После can не используется to."
+    },
+    {
+      "statement": "They were playing football when it started to rain.",
+      "answer": true,
+      "explanation": "Past Continuous + Past Simple для прерывания действия."
+    },
+    {
+      "statement": "My brother is taller than me.",
+      "answer": true,
+      "explanation": "Сравнительная степень taller than."
+    },
+    {
+      "statement": "She has got a new car.",
+      "answer": true,
+      "explanation": "Have got = have (в британском английском)."
+    },
+    {
+      "statement": "We doesn't know the answer.",
+      "answer": false,
+      "explanation": "We требует don't."
+    },
+    {
+      "statement": "The children are playing in the park.",
+      "answer": true,
+      "explanation": "Present Continuous для действия сейчас."
+    },
+    {
+      "statement": "He have finished his homework.",
+      "answer": false,
+      "explanation": "He requires has."
+    },
+    {
+      "statement": "I am going to visit my grandparents tomorrow.",
+      "answer": true,
+      "explanation": "Be going to для планов."
+    },
+    {
+      "statement": "There is a lot of people at the concert.",
+      "answer": false,
+      "explanation": "People — множественное, нужно there are."
+    },
+    {
+      "statement": "She would like some tea.",
+      "answer": true,
+      "explanation": "Would like — вежливая просьба."
+    },
+    {
+      "statement": "We must to finish the project.",
+      "answer": false,
+      "explanation": "После must не используется to."
+    },
+    {
+      "statement": "The movie was boring.",
+      "answer": true,
+      "explanation": "Прилагательное boring описывает фильм."
+    },
+    {
+      "statement": "He didn't went to the party.",
+      "answer": false,
+      "explanation": "После didn't используется первая форма глагола go."
+    },
+    {
+      "statement": "I have never seen such a beautiful sunset.",
+      "answer": true,
+      "explanation": "Present Perfect с never."
+    },
+    {
+      "statement": "They are looking forward to meet you.",
+      "answer": false,
+      "explanation": "После looking forward to используется герундий meeting."
+    },
+    {
+      "statement": "My phone is more expensive than yours.",
+      "answer": true,
+      "explanation": "Сравнительная степень more expensive than."
+    },
+    {
+      "statement": "She can speaks three languages.",
+      "answer": false,
+      "explanation": "После can используется база глагола speak."
+    },
+    {
+      "statement": "We have been friends since childhood.",
+      "answer": true,
+      "explanation": "Present Perfect с since."
+    },
+    {
+      "statement": "There aren't any milk in the fridge.",
+      "answer": false,
+      "explanation": "Milk — неисчисляемое, нужно isn't any milk."
+    },
+    {
+      "statement": "He is used to wake up early.",
+      "answer": false,
+      "explanation": "После used to используется герундий waking."
+    },
+    {
+      "statement": "The book which I read was interesting.",
+      "answer": true,
+      "explanation": "Определительное предложение с which."
+    },
+    {
+      "statement": "She doesn't knows the answer.",
+      "answer": false,
+      "explanation": "После doesn't используется база know."
+    },
+    {
+      "statement": "We will go to the beach if it is sunny.",
+      "answer": true,
+      "explanation": "First conditional: will + if + Present Simple."
+    },
+    {
+      "statement": "I am agree with you.",
+      "answer": false,
+      "explanation": "Правильно: I agree with you (без am)."
+    }
+  ]
+}

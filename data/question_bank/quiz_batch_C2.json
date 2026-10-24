@@ -1,0 +1,338 @@
+{
+  "kind": "quiz_batch",
+  "level": "C2",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:25:54+00:00",
+  "items": [
+    {
+      "options": [
+        "If I were you, I would accept.",
+        "If I was you, I would accept.",
+        "If I am you, I will accept.",
+        "If I be you, I accept."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence uses the subjunctive mood to express a wish contrary to fact?",
+      "explanation": "Правильный вариант использует 'were' для выражения irréального условия."
+    },
+    {
+      "options": [
+        "Never have I seen such chaos.",
+        "Never I have seen such chaos.",
+        "Never have seen I such chaos.",
+        "Never I seen have such chaos."
+      ],
+      "correct_index": 0,
+      "question": "Select the phrase that correctly uses the inversion after a negative adverbial.",
+      "explanation": "Инверсия после отрицательного наречия требует вспомогательного глагола перед подлежащим."
+    },
+    {
+      "options": [
+        "make a research",
+        "conduct a research",
+        "carry out research",
+        "do a research"
+      ],
+      "correct_index": 2,
+      "question": "Which collocation is standard in academic writing?",
+      "explanation": "В академическом стиле принято 'carry out research'."
+    },
+    {
+      "options": [
+        "The book written by her won the prize.",
+        "The book writing by her won the prize.",
+        "The book wrote by her won the prize.",
+        "The book writes by her won the prize."
+      ],
+      "correct_index": 0,
+      "question": "Identify the sentence with a correctly placed reduced relative clause.",
+      "explanation": "Причастный оборот 'written by her' заменяет полный придаточный."
+    },
+    {
+      "options": [
+        "must have been",
+        "should have been",
+        "could have been",
+        "might have been"
+      ],
+      "correct_index": 0,
+      "question": "Choose the appropriate modal verb for a strong deduction about the past.",
+      "explanation": "'Must have been' выражает высокую степень уверенности о прошлом."
+    },
+    {
+      "options": [
+        "It was the manager who approved the plan.",
+        "The manager approved the plan.",
+        "Approved the plan the manager.",
+        "The plan was approved by the manager."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence demonstrates the use of a cleft structure for emphasis?",
+      "explanation": "Клефтовое предложение 'It was ... who' выделяет субъект."
+    },
+    {
+      "options": [
+        "If she had known, she would have come.",
+        "If she knew, she would have come.",
+        "If she knows, she would have come.",
+        "If she had known, she would come."
+      ],
+      "correct_index": 0,
+      "question": "Select the correct form of the verb in the third conditional.",
+      "explanation": "Третье условие требует past perfect в if-придаточном и would have + V3 в главном."
+    },
+    {
+      "options": [
+        "responsible for",
+        "responsible to",
+        "responsible with",
+        "responsible about"
+      ],
+      "correct_index": 0,
+      "question": "Which phrase uses the correct preposition with 'responsible'?",
+      "explanation": "Глагол 'responsible' сочетается с предлогом 'for'."
+    },
+    {
+      "options": [
+        "Although tired, she finished the marathon.",
+        "She finished the marathon although tired.",
+        "Tired although, she finished the marathon.",
+        "She although tired finished the marathon."
+      ],
+      "correct_index": 0,
+      "question": "Identify the sentence containing a fronted adverbial clause of concession.",
+      "explanation": "Придаточное уступки 'Although tired' вынесено в начало предложения."
+    },
+    {
+      "options": [
+        "suggest that he go",
+        "suggest that he goes",
+        "suggest that he went",
+        "suggest that he going"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct form of the verb after 'suggest' in a that‑clause.",
+      "explanation": "После 'suggest' используется subjunctive (bare infinitive) в that‑придаточном."
+    },
+    {
+      "options": [
+        "What she said surprised everyone.",
+        "She said what surprised everyone.",
+        "That she said surprised everyone.",
+        "She said that surprised everyone."
+      ],
+      "correct_index": 0,
+      "question": "Which of the following is an example of a nominal relative clause?",
+      "explanation": "Номинальный относительный придаточный начинается с 'what' и выполняет роль подлежащего."
+    },
+    {
+      "options": [
+        "a beautiful large old wooden table",
+        "a large beautiful old wooden table",
+        "a wooden large beautiful old table",
+        "a old wooden large beautiful table"
+      ],
+      "correct_index": 0,
+      "question": "Select the appropriate adjective order for the noun phrase.",
+      "explanation": "Порядок прилагательных: opinion, size, age, shape, color, origin, material."
+    },
+    {
+      "options": [
+        "By next year, I will have been working here for a decade.",
+        "By next year, I will be working here for a decade.",
+        "By next year, I will have worked here for a decade.",
+        "By next year, I will work here for a decade."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence correctly uses the future perfect continuous?",
+      "explanation": "Future perfect continuous выражает продолжительность действия к моменту в будущем."
+    },
+    {
+      "options": [
+        "He was given a book by her.",
+        "He was given a book to her.",
+        "A book was given him by her.",
+        "A book was given to he by her."
+      ],
+      "correct_index": 0,
+      "question": "Identify the correct use of the passive voice with a ditransitive verb.",
+      "explanation": "В пассиве с дитранзитивным глаголом получатель становится подлежащим."
+    },
+    {
+      "options": [
+        "Not only did she win, but she also broke the record.",
+        "Not only she won, but also she broke the record.",
+        "Not only did she win, but also broke the record.",
+        "Not only she did win, but also she broke the record."
+      ],
+      "correct_index": 0,
+      "question": "Which phrase demonstrates the correct use of 'not only ... but also' with inversion?",
+      "explanation": "После 'Not only' требуется инверсия вспомогательного глагола."
+    },
+    {
+      "options": [
+        "averse to",
+        "averse from",
+        "averse with",
+        "averse against"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct preposition after 'averse'.",
+      "explanation": "Прилагательное 'averse' сочетается с предлогом 'to'."
+    },
+    {
+      "options": [
+        "Having finished the report, she left early.",
+        "Finished the report, she left early.",
+        "Having finish the report, she left early.",
+        "Finish the report, she left early."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence contains a correctly formed participle clause expressing reason?",
+      "explanation": "Perfect participle 'Having finished' показывает предшествующую причину."
+    },
+    {
+      "options": [
+        "∅ (zero article)",
+        "the",
+        "a",
+        "some"
+      ],
+      "correct_index": 0,
+      "question": "Select the appropriate determiner for a non‑specific plural noun in a generic statement.",
+      "explanation": "Обобщающие утверждения о множественном числе используют нулевой артикль."
+    },
+    {
+      "options": [
+        "The more you practice, the better you become.",
+        "More you practice, the better you become.",
+        "The more you practice, better you become.",
+        "More you practice, better you become."
+      ],
+      "correct_index": 0,
+      "question": "Identify the sentence with a correctly used 'the more ... the more' comparative structure.",
+      "explanation": "Конструкция 'the more ... the more' требует определенный артикль перед сравнительной степенью."
+    },
+    {
+      "options": [
+        "I would rather you stayed.",
+        "I would rather you stay.",
+        "I would rather you have stayed.",
+        "I would rather you will stay."
+      ],
+      "correct_index": 0,
+      "question": "Which of the following illustrates a correct use of 'would rather' with a past subjunctive?",
+      "explanation": "'Would rather' с другим субъектом требует past simple (subjunctive)."
+    },
+    {
+      "options": [
+        "it is essential that he be informed",
+        "it is essential that he is informed",
+        "it is essential that he was informed",
+        "it is essential that he will be informed"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct form of the verb after 'it is essential that'.",
+      "explanation": "После выражений необходимости используется настоящий субъунктив (bare infinitive)."
+    },
+    {
+      "options": [
+        "Rarely do we see such dedication.",
+        "Rarely we do see such dedication.",
+        "Rarely do we sees such dedication.",
+        "Rarely we see such dedication."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence uses a fronted negative adverbial with inversion correctly?",
+      "explanation": "Отрицательное наречие 'Rarely' в начале вызывает инверсию."
+    },
+    {
+      "options": [
+        "reach a decision",
+        "take a decision",
+        "do a decision",
+        "make a decision"
+      ],
+      "correct_index": 0,
+      "question": "Select the correct collocation for 'make a decision' in formal writing.",
+      "explanation": "В официальном стиле предпочтительнее 'reach a decision'."
+    },
+    {
+      "options": [
+        "She is extremely intelligent.",
+        "She extremely is intelligent.",
+        "She is intelligent extremely.",
+        "Extremely she is intelligent."
+      ],
+      "correct_index": 0,
+      "question": "Identify the sentence with a correctly placed adverb of degree modifying an adjective.",
+      "explanation": "Наречия степени обычно стоят перед прилагательным."
+    },
+    {
+      "options": [
+        "He acts as if he were the boss.",
+        "He acts as if he was the boss.",
+        "He acts as if he is the boss.",
+        "He acts as if he be the boss."
+      ],
+      "correct_index": 0,
+      "question": "Which phrase correctly uses the subjunctive after 'as if'?",
+      "explanation": "'As if' с irréальным сравнением требует past subjunctive 'were'."
+    },
+    {
+      "options": [
+        "She asked whether I had finished.",
+        "She asked whether I have finished.",
+        "She asked whether I finish.",
+        "She asked whether I will finish."
+      ],
+      "correct_index": 0,
+      "question": "Choose the appropriate form for a reported question with 'whether'.",
+      "explanation": "В косвенной речи времена сдвигаются назад: past perfect."
+    },
+    {
+      "options": [
+        "My brother, who lives in London, is visiting.",
+        "My brother who lives in London is visiting.",
+        "My brother, that lives in London, is visiting.",
+        "My brother that lives in London is visiting."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence demonstrates the use of a non‑defining relative clause with commas?",
+      "explanation": "Определительные придаточные с запятыми являются неограничивающими."
+    },
+    {
+      "options": [
+        "You had better leave now.",
+        "You had better leaving now.",
+        "You had better to leave now.",
+        "You had better left now."
+      ],
+      "correct_index": 0,
+      "question": "Select the correct verb form after 'had better'.",
+      "explanation": "'Had better' требует bare infinitive без 'to'."
+    },
+    {
+      "options": [
+        "It was so cold that the lake froze.",
+        "It was so cold that the lake freezes.",
+        "It was so cold that the lake would freeze.",
+        "It was so cold that the lake had frozen."
+      ],
+      "correct_index": 0,
+      "question": "Identify the sentence with a correctly used 'so ... that' result clause.",
+      "explanation": "Конструкция 'so ... that' выражает реальный результат в простом прошедшем."
+    },
+    {
+      "options": [
+        "You need not worry.",
+        "You don't need worry.",
+        "You need not to worry.",
+        "You don't need to worry."
+      ],
+      "correct_index": 0,
+      "question": "Which of the following shows the correct use of 'need' as a modal verb in negative?",
+      "explanation": "Модальный 'need' в отрицании используется без 'to'."
+    }
+  ]
+}

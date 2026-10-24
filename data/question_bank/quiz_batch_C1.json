@@ -1,0 +1,338 @@
+{
+  "kind": "quiz_batch",
+  "level": "C1",
+  "language": "ru",
+  "generated_at": "2026-10-24T06:19:51+00:00",
+  "items": [
+    {
+      "options": [
+        "If I were you, I would accept.",
+        "If I was you, I would accept.",
+        "If I am you, I would accept.",
+        "If I be you, I would accept."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence correctly uses the subjunctive mood?",
+      "explanation": "Правильная форма — 'If I were you' (сослагательное наклонение)."
+    },
+    {
+      "options": [
+        "was being written",
+        "was written",
+        "has been written",
+        "had been written"
+      ],
+      "correct_index": 1,
+      "question": "Choose the correct form of the verb in the passive voice: 'The report ______ by the committee yesterday.'",
+      "explanation": "Прошедшее простое пассивного залога: 'was written'."
+    },
+    {
+      "options": [
+        "however",
+        "therefore",
+        "moreover",
+        "consequently"
+      ],
+      "correct_index": 0,
+      "question": "Select the appropriate connector: 'She was exhausted; ______, she continued working.'",
+      "explanation": "'However' выражает противопоставление."
+    },
+    {
+      "options": [
+        "It was John who called.",
+        "John called it.",
+        "John was called.",
+        "Called John it."
+      ],
+      "correct_index": 0,
+      "question": "Which phrase is an example of a cleft sentence?",
+      "explanation": "Клефтовое предложение начинается с 'It was ... who/that'."
+    },
+    {
+      "options": [
+        "Despite of the rain, we went out.",
+        "Despite the rain, we went out.",
+        "Despite that the rain, we went out.",
+        "Despite rain, we went out."
+      ],
+      "correct_index": 1,
+      "question": "Identify the correct use of 'despite'.",
+      "explanation": "'Despite' не требует предлога 'of'."
+    },
+    {
+      "options": [
+        "will have finished",
+        "will finish",
+        "have finished",
+        "finish"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct form: 'By the time you arrive, I ______ the project.'",
+      "explanation": "Future Perfect: 'will have finished'."
+    },
+    {
+      "options": [
+        "Never have I seen such beauty.",
+        "Never I have seen such beauty.",
+        "Have never I seen such beauty.",
+        "I have never seen such beauty."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence uses an inversion correctly?",
+      "explanation": "Инверсия после отрицательного наречия в начале предложения."
+    },
+    {
+      "options": [
+        "at",
+        "in",
+        "on",
+        "for"
+      ],
+      "correct_index": 0,
+      "question": "Select the appropriate preposition: 'She is adept ______ solving complex problems.'",
+      "explanation": "'Adept at' — устойчивое сочетание."
+    },
+    {
+      "options": [
+        "The man standing by the door is my uncle.",
+        "The man who stands by the door is my uncle.",
+        "The man, who stands by the door, is my uncle.",
+        "The man stands by the door is my uncle."
+      ],
+      "correct_index": 0,
+      "question": "Which of the following is a reduced relative clause?",
+      "explanation": "Причастный оборот 'standing' заменяет 'who is standing'."
+    },
+    {
+      "options": [
+        "must",
+        "might",
+        "could",
+        "should"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct modal for deduction: 'He ______ be at home; his car is in the driveway.'",
+      "explanation": "'Must' выражает сильную уверенность."
+    },
+    {
+      "options": [
+        "She has been studying for three hours.",
+        "She has studied for three hours.",
+        "She is studying for three hours.",
+        "She studied for three hours."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence correctly uses the present perfect continuous?",
+      "explanation": "Present Perfect Continuous: 'has been studying'."
+    },
+    {
+      "options": [
+        "beautiful large",
+        "large beautiful",
+        "beautifully large",
+        "large beautifully"
+      ],
+      "correct_index": 0,
+      "question": "Identify the correct order of adjectives: 'a ______ wooden Italian table.'",
+      "explanation": "Порядок: мнение (beautiful), размер (large), происхождение (Italian), материал (wooden)."
+    },
+    {
+      "options": [
+        "had studied",
+        "studied",
+        "would study",
+        "study"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct form of the verb in the third conditional: 'If I ______ harder, I would have passed.'",
+      "explanation": "Third conditional использует Past Perfect в if-придаточном."
+    },
+    {
+      "options": [
+        "Running quickly, he caught the bus.",
+        "He caught the bus running quickly.",
+        "He running quickly caught the bus.",
+        "Caught the bus he running quickly."
+      ],
+      "correct_index": 0,
+      "question": "Which phrase demonstrates a fronted adverbial clause?",
+      "explanation": "Придаточное обстоятельство в начале предложения."
+    },
+    {
+      "options": [
+        "Not only she sings, but also dances.",
+        "Not only does she sing, but she also dances.",
+        "Not only she does sing, but also she dances.",
+        "Not only sings she, but also dances."
+      ],
+      "correct_index": 1,
+      "question": "Select the correct use of 'not only ... but also':",
+      "explanation": "Инверсия после 'Not only' требует вспомогательный глагол."
+    },
+    {
+      "options": [
+        "deferred",
+        "defer",
+        "deferring",
+        "defers"
+      ],
+      "correct_index": 0,
+      "question": "Which word best completes the sentence: 'The committee ______ its decision until next week.'",
+      "explanation": "Глагол в прошедшем времени 'deferred'."
+    },
+    {
+      "options": [
+        "The",
+        "An",
+        "A",
+        "— (no article)"
+      ],
+      "correct_index": 3,
+      "question": "Choose the correct article usage: '______ honesty is the best policy.'",
+      "explanation": "Абстрактные существительные в общем смысле не требуют артикля."
+    },
+    {
+      "options": [
+        "Walking to work, the rain soaked me.",
+        "Walking to work, I got soaked by the rain.",
+        "The rain soaked me while I walked to work.",
+        "I got soaked by the rain walking to work."
+      ],
+      "correct_index": 0,
+      "question": "Identify the sentence with a dangling modifier:",
+      "explanation": "Модификатор 'Walking to work' относится к подлежащему 'the rain', что нелогично."
+    },
+    {
+      "options": [
+        "I suggest that he study harder.",
+        "I suggest that he studies harder.",
+        "I suggest that he studied harder.",
+        "I suggest that he would study harder."
+      ],
+      "correct_index": 0,
+      "question": "Which phrase uses the subjunctive correctly in a recommendation?",
+      "explanation": "После 'suggest that' используется bare infinitive (subjunctive)."
+    },
+    {
+      "options": [
+        "decision",
+        "choice",
+        "plan",
+        "mistake"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct collocation: 'make a ______'.",
+      "explanation": "'Make a decision' — устойчивое сочетание."
+    },
+    {
+      "options": [
+        "By 2026, I will have been working here for ten years.",
+        "By 2026, I will be working here for ten years.",
+        "By 2026, I will work here for ten years.",
+        "By 2026, I have been working here for ten years."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence uses the future perfect continuous correctly?",
+      "explanation": "Future Perfect Continuous: 'will have been working'."
+    },
+    {
+      "options": [
+        "repaired",
+        "repair",
+        "repairing",
+        "to repair"
+      ],
+      "correct_index": 0,
+      "question": "Select the correct form of the verb in the passive causative: 'She had her car ______.'",
+      "explanation": "Конструкция 'have something done' требует причастие II."
+    },
+    {
+      "options": [
+        "She can play the piano; he can, too.",
+        "She can play the piano; he can too.",
+        "She can play the piano; he can also.",
+        "She can play the piano; he can play too."
+      ],
+      "correct_index": 0,
+      "question": "Which of the following is a correct example of ellipsis?",
+      "explanation": "Пропуск повторяющегося глагола после 'can'."
+    },
+    {
+      "options": [
+        "who",
+        "which",
+        "that",
+        "whom"
+      ],
+      "correct_index": 0,
+      "question": "Choose the appropriate relative pronoun: 'The scientist ______ discovered the element won a Nobel Prize.'",
+      "explanation": "Для людей используется 'who'."
+    },
+    {
+      "options": [
+        "few",
+        "a few",
+        "little",
+        "a little"
+      ],
+      "correct_index": 0,
+      "question": "Identify the correct use of 'few' vs 'a few': 'There were ______ people at the meeting, so it was cancelled.'",
+      "explanation": "'Few' означает 'мало, почти никто'."
+    },
+    {
+      "options": [
+        "They had been waiting for two hours when the bus arrived.",
+        "They have been waiting for two hours when the bus arrived.",
+        "They were waiting for two hours when the bus arrived.",
+        "They waited for two hours when the bus arrived."
+      ],
+      "correct_index": 0,
+      "question": "Which sentence correctly uses the past perfect continuous?",
+      "explanation": "Past Perfect Continuous: 'had been waiting'."
+    },
+    {
+      "options": [
+        "would",
+        "will",
+        "can",
+        "shall"
+      ],
+      "correct_index": 0,
+      "question": "Select the correct form for reported speech: 'He said, \"I will finish it tomorrow.\"' -> He said that he ______ finish it the next day.",
+      "explanation": "В косвенной речи 'will' становится 'would'."
+    },
+    {
+      "options": [
+        "If I had known, I would be there now.",
+        "If I knew, I would have been there.",
+        "If I know, I will be there.",
+        "If I would know, I would be there."
+      ],
+      "correct_index": 0,
+      "question": "Which phrase demonstrates a mixed conditional?",
+      "explanation": "Mixed conditional: прошлое условие, настоящее последствие."
+    },
+    {
+      "options": [
+        "in",
+        "on",
+        "at",
+        "for"
+      ],
+      "correct_index": 0,
+      "question": "Choose the correct preposition after 'interested': 'She is interested ______ learning Japanese.'",
+      "explanation": "'Interested in' — устойчивое сочетание."
+    },
+    {
+      "options": [
+        "She likes reading, writing, and to paint.",
+        "She likes reading, writing, and painting.",
+        "She likes to read, write, and painting.",
+        "She likes reading, to write, and paint."
+      ],
+      "correct_index": 1,
+      "question": "Identify the sentence with correct parallel structure:",
+      "explanation": "Все элементы должны быть в одной форме (герундий)."
+    }
+  ]
+}

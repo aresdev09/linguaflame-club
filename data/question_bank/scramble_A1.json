@@ -1,0 +1,128 @@
+{
+  "kind": "scramble",
+  "level": "A1",
+  "language": "ru",
+  "generated_at": "2026-10-24T05:59:54+00:00",
+  "items": [
+    {
+      "word": "apple",
+      "hint": "яблоко"
+    },
+    {
+      "word": "banana",
+      "hint": "банан"
+    },
+    {
+      "word": "orange",
+      "hint": "апельсин"
+    },
+    {
+      "word": "school",
+      "hint": "школа"
+    },
+    {
+      "word": "friend",
+      "hint": "друг"
+    },
+    {
+      "word": "family",
+      "hint": "семья"
+    },
+    {
+      "word": "garden",
+      "hint": "сад"
+    },
+    {
+      "word": "house",
+      "hint": "дом"
+    },
+    {
+      "word": "water",
+      "hint": "вода"
+    },
+    {
+      "word": "music",
+      "hint": "музыка"
+    },
+    {
+      "word": "happy",
+      "hint": "счастливый"
+    },
+    {
+      "word": "angry",
+      "hint": "злой"
+    },
+    {
+      "word": "animal",
+      "hint": "животное"
+    },
+    {
+      "word": "doctor",
+      "hint": "врач"
+    },
+    {
+      "word": "teacher",
+      "hint": "учитель"
+    },
+    {
+      "word": "student",
+      "hint": "студент"
+    },
+    {
+      "word": "computer",
+      "hint": "компьютер"
+    },
+    {
+      "word": "window",
+      "hint": "окно"
+    },
+    {
+      "word": "kitchen",
+      "hint": "кухня"
+    },
+    {
+      "word": "bedroom",
+      "hint": "спальня"
+    },
+    {
+      "word": "bathroom",
+      "hint": "ванная"
+    },
+    {
+      "word": "library",
+      "hint": "библиотека"
+    },
+    {
+      "word": "market",
+      "hint": "рынок"
+    },
+    {
+      "word": "station",
+      "hint": "станция"
+    },
+    {
+      "word": "airport",
+      "hint": "аэропорт"
+    },
+    {
+      "word": "museum",
+      "hint": "музей"
+    },
+    {
+      "word": "forest",
+      "hint": "лес"
+    },
+    {
+      "word": "river",
+      "hint": "река"
+    },
+    {
+      "word": "mountain",
+      "hint": "гора"
+    },
+    {
+      "word": "beach",
+      "hint": "пляж"
+    }
+  ]
+}
