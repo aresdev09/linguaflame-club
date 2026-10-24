@@ -162,7 +162,9 @@ async def test_leaderboard_order_and_opt_out(session: AsyncSession) -> None:
 
     top = await scores.leaderboard(CHAT_ID)
     # При равенстве выше тот, кто набрал очки раньше (111 отвечал первым).
-    assert top == [(111, 15), (222, 15)]
+    assert [entry.user_id for entry in top] == [111, 222]
+    assert [entry.points for entry in top] == [15, 15]
+    assert [entry.display_name for entry in top] == ["Anna", "Bekzod"]
     assert await scores.total(CHAT_ID, 111) == 15
     assert await scores.total(CHAT_ID, 222, until=datetime.now(UTC)) == 15
     assert await scores.total(CHAT_ID, 222, since=datetime.now(UTC)) == 0

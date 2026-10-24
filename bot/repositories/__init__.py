@@ -5,7 +5,7 @@ from bot.repositories.chat import ChatRepo
 from bot.repositories.content import ContentRepo
 from bot.repositories.game import GameRepo
 from bot.repositories.member import MemberRepo
-from bot.repositories.score import ScoreRepo
+from bot.repositories.score import LeaderboardEntry, ScoreRepo
 from bot.repositories.streak import StreakRepo
 from bot.repositories.usage import UsageRepo
 
@@ -14,6 +14,7 @@ __all__ = [
     "ChatRepo",
     "ContentRepo",
     "GameRepo",
+    "LeaderboardEntry",
     "MemberRepo",
     "ScoreRepo",
     "StreakRepo",

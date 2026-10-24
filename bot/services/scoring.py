@@ -1,8 +1,8 @@
-"""Очки и рейтинг: начисление очков в журнал `score_events`.
+"""Очки и рейтинг: начисление в журнал и агрегаты по периодам.
 
 Очки никогда не хранятся счётчиками: единственный источник правды —
-журнал, а рейтинг считается агрегатом запроса. Дневной лимит считается
-по календарному дню часового пояса чата.
+журнал `score_events`, а рейтинг считается агрегатом запроса. Неделя и
+день считаются по часовому поясу чата, сбрасывать счётчики не нужно.
 """
 
 import logging
@@ -15,10 +15,14 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from bot.config import Settings
-from bot.models import utcnow
-from bot.repositories import ChatRepo, ScoreRepo
+from bot.models import Chat, utcnow
+from bot.repositories import ChatRepo, LeaderboardEntry, ScoreRepo
 
 logger = logging.getLogger(__name__)
+
+# Периоды рейтинга для /top.
+PERIOD_WEEK = "week"
+PERIOD_ALL = "all"
 
 
 def resolve_timezone(name: str) -> ZoneInfo:
@@ -38,8 +42,17 @@ def day_bounds(timezone_name: str, now: datetime) -> tuple[datetime, datetime]:
     return start.astimezone(UTC), (start + timedelta(days=1)).astimezone(UTC)
 
 
+def week_start(timezone_name: str, now: datetime) -> datetime:
+    """Начало текущей недели чата (понедельник 00:00) в UTC."""
+    tz = resolve_timezone(timezone_name)
+    local_now = now.astimezone(tz)
+    monday = local_now.date() - timedelta(days=local_now.weekday())
+    start = datetime.combine(monday, dt_time.min, tzinfo=tz)
+    return start.astimezone(UTC)
+
+
 class ScoringService:
-    """Начисляет очки через журнал `score_events`."""
+    """Начисляет очки через журнал и читает агрегаты рейтинга."""
 
     def __init__(
         self,
@@ -99,3 +112,18 @@ class ScoringService:
                 chat_id,
             )
         return awarded
+
+    async def top(self, chat: Chat, period: str = PERIOD_WEEK) -> list[LeaderboardEntry]:
+        """Топ участников чата за период (`week` или `all`)."""
+        since, until = self._period_bounds(chat.timezone, period)
+        async with self._session_factory() as session:
+            return await ScoreRepo(session).leaderboard(
+                chat.id, since=since, until=until
+            )
+
+    def _period_bounds(
+        self, timezone_name: str, period: str
+    ) -> tuple[datetime | None, datetime | None]:
+        if period == PERIOD_ALL:
+            return None, None
+        return week_start(timezone_name, self._now()), None
