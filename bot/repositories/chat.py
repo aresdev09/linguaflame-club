@@ -19,8 +19,13 @@ from bot.repositories.base import BaseRepo
 class ChatRepo(BaseRepo):
     """Доступ к таблице `chats`."""
 
-    async def get(self, chat_id: int) -> Chat | None:
-        return await self.session.get(Chat, chat_id)
+    async def get(self, chat_id: int, *, for_update: bool = False) -> Chat | None:
+        """Читает чат; `for_update` блокирует строку до конца транзакции.
+
+        Блокировка нужна там, где по текущему состоянию гонок (например,
+        дневной лимит очков в ScoringService).
+        """
+        return await self.session.get(Chat, chat_id, with_for_update=for_update)
 
     async def get_or_create(
         self,
