@@ -89,7 +89,9 @@ class Settings(BaseSettings):
     score_participation: int = 2  # участие в игре до конца сессии
     score_daily_bonus: int = 3  # кнопка «Got it» под постом дня
     score_streak_bonus: int = 2  # бонус активным в день общего огонька
-    score_daily_cap: int = 300  # максимум очков на участника в день
+    score_daily_cap: int = 300  # максимум очков на участника в день (0 — без лимита)
+    # Сколько участников показывать в /top.
+    leaderboard_top_limit: int = Field(default=10, ge=1, le=50)
 
     # --- Лимиты Telegram и антиспам ---
     limit_messages_per_minute: int = 20  # сообщений на один чат в минуту

@@ -56,3 +56,4 @@ def test_defaults_are_applied(monkeypatch, tmp_path):
     assert settings.limit_messages_per_minute == 20
     assert settings.score_quiz_correct == 10
     assert settings.score_daily_cap == 300
+    assert settings.leaderboard_top_limit == 10

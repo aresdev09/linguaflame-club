@@ -150,7 +150,10 @@ class ScoringService:
         since, until = self._period_bounds(chat.timezone, period)
         async with self._session_factory() as session:
             return await ScoreRepo(session).leaderboard(
-                chat.id, since=since, until=until
+                chat.id,
+                since=since,
+                until=until,
+                limit=self._settings.leaderboard_top_limit,
             )
 
     async def member_stats(self, chat: Chat, user_id: int) -> MemberStats:
