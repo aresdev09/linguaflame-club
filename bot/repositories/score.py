@@ -159,6 +159,35 @@ class ScoreRepo(BaseRepo):
         )
         return int(ahead.scalar_one()) + 1
 
+    async def best_source(
+        self,
+        chat_id: int,
+        user_id: int,
+        *,
+        sources: tuple[str, ...] | None = None,
+        since: datetime | None = None,
+        until: datetime | None = None,
+    ) -> str | None:
+        """Источник, за который участник набрал больше всего очков."""
+        points_sum = func.sum(ScoreEvent.points)
+        stmt = select(ScoreEvent.source, points_sum).where(
+            ScoreEvent.chat_id == chat_id, ScoreEvent.user_id == user_id
+        )
+        if sources is not None:
+            stmt = stmt.where(ScoreEvent.source.in_(sources))
+        if since is not None:
+            stmt = stmt.where(ScoreEvent.created_at >= since)
+        if until is not None:
+            stmt = stmt.where(ScoreEvent.created_at < until)
+        stmt = (
+            stmt.group_by(ScoreEvent.source)
+            .order_by(points_sum.desc(), ScoreEvent.source.asc())
+            .limit(1)
+        )
+        result = await self.session.execute(stmt)
+        row = result.first()
+        return row[0] if row is not None else None
+
     def _totals_subquery(
         self,
         chat_id: int,

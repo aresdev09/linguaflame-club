@@ -43,6 +43,20 @@ TEXTS: dict[str, str] = {
     "top.empty": "No scores yet. Start with /quiz",
     "top.entry": "{place} {name} — {points} pts",
     "top.unknown_player": "Player {user_id}",
+    # --- Личная статистика (/me) ---
+    "me.title": "📊 Your stats",
+    "me.week_points": "Points this week: {points}",
+    "me.all_time_points": "Points all time: {points}",
+    "me.place": "Place: #{place}",
+    "me.no_place": "Place: —",
+    "me.answers": "Answers: {answers} ({accuracy}% correct)",
+    "me.best_game": "Best game: {game}",
+    # --- Названия игр ---
+    "game.quiz": "Quiz",
+    "game.scramble": "Word scramble",
+    "game.gap": "Fill the gap",
+    "game.race": "Translation race",
+    "game.truefalse": "True or false",
     # --- Названия языков ---
     "lang.en": "English",
     "lang.ru": "Русский",

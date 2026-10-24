@@ -3,7 +3,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import select
+from sqlalchemy import case, func, select
 
 from bot.models import GameAnswer, GameSession, utcnow
 from bot.repositories.base import BaseRepo
@@ -127,3 +127,29 @@ class GameRepo(BaseRepo):
         )
         result = await self.session.execute(stmt)
         return result.scalars().first()
+
+    async def answer_stats(
+        self,
+        chat_id: int,
+        user_id: int,
+        *,
+        since: datetime | None = None,
+        until: datetime | None = None,
+    ) -> tuple[int, int]:
+        """Сколько ответов дал участник в играх чата и сколько из них верных.
+
+        Ответы лежат в `game_answers`, игры сессии привязывают их к чату.
+        """
+        correct_flag = case((GameAnswer.is_correct.is_(True), 1), else_=0)
+        stmt = (
+            select(func.count(GameAnswer.id), func.coalesce(func.sum(correct_flag), 0))
+            .join(GameSession, GameSession.id == GameAnswer.session_id)
+            .where(GameSession.chat_id == chat_id, GameAnswer.user_id == user_id)
+        )
+        if since is not None:
+            stmt = stmt.where(GameAnswer.created_at >= since)
+        if until is not None:
+            stmt = stmt.where(GameAnswer.created_at < until)
+        result = await self.session.execute(stmt)
+        answers, correct = result.one()
+        return int(answers), int(correct)

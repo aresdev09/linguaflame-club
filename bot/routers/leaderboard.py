@@ -1,8 +1,9 @@
-"""Рейтинг группы: `/top` с переключателем периода.
+"""Рейтинг группы: `/top` с переключателем периода и `/me`.
 
 Роутер собирается фабрикой `build_router()`: обработчики остаются
-обычными функциями, их удобно вызывать в тестах напрямую. Участники
-с `opted_out` скрыты в самом запросе рейтинга.
+обычными функциями, их удобно вызывать в тестах напрямую. Показ
+рейтинга никого не обходит: участники с `opted_out` скрыты в запросе,
+имена очищаются и экранируются в сервисе.
 """
 
 from aiogram import F, Router
@@ -18,6 +19,7 @@ from bot.services.scoring import (
     PERIOD_ALL,
     PERIOD_WEEK,
     ScoringService,
+    format_me,
     format_top,
 )
 
@@ -63,6 +65,23 @@ async def switch_top(
     await sender.answer_callback(callback)
 
 
+async def show_me(
+    message: Message,
+    session_factory: async_sessionmaker[AsyncSession],
+    chat: Chat,
+    lang: str,
+    sender: Sender,
+    settings: Settings,
+) -> None:
+    """Показывает личную статистику участника в группе."""
+    if message.from_user is None:
+        return
+    stats = await ScoringService(session_factory, settings).member_stats(
+        chat, message.from_user.id
+    )
+    await sender.reply(message, format_me(stats, lang))
+
+
 def build_router() -> Router:
     """Собирает роутер рейтинга."""
     router = Router(name="leaderboard")
@@ -71,5 +90,6 @@ def build_router() -> Router:
     router.callback_query.filter(F.message.chat.type.in_(GROUP_CHAT_TYPES))
 
     router.message.register(show_top, Command("top"))
+    router.message.register(show_me, Command("me"))
     router.callback_query.register(switch_top, F.data.startswith("top:"))
     return router
