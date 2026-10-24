@@ -21,6 +21,7 @@ from typing import Any, TypeVar
 import httpx
 from pydantic import BaseModel
 
+from bot.config import Settings
 from bot.prompts import tasks
 from bot.prompts.base import build_system_prompt
 from bot.services.ai_errors import (
@@ -388,3 +389,14 @@ class AIClient:
             usage.prompt_tokens,
             usage.completion_tokens,
         )
+
+
+def build_ai_client(settings: Settings) -> AIClient:
+    """Клиент из настроек: адрес, ключ и модели только из конфига."""
+    return AIClient(
+        base_url=settings.ai_server_url,
+        api_key=settings.ai_api_key,
+        model=settings.ai_model,
+        fallback_model=settings.ai_model_fallback or None,
+        timeout=settings.ai_timeout_seconds,
+    )
