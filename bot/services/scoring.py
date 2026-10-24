@@ -5,6 +5,7 @@
 день считаются по часовому поясу чата, сбрасывать счётчики не нужно.
 """
 
+import html
 import logging
 import uuid
 from collections.abc import Callable
@@ -31,6 +32,9 @@ GAME_SOURCES: tuple[str, ...] = ("quiz", "scramble", "gap", "race", "truefalse")
 
 # Медали для первых трёх мест, дальше номера.
 MEDALS: tuple[str, ...] = ("🥇", "🥈", "🥉")
+
+# Имя в рейтинге обрезается до этой длины (после удаления упоминаний).
+NAME_MAX_LENGTH = 20
 
 
 def resolve_timezone(name: str) -> ZoneInfo:
@@ -176,6 +180,26 @@ class ScoringService:
         return week_start(timezone_name, self._now()), None
 
 
+def clean_display_name(
+    name: str | None,
+    user_id: int,
+    lang: str,
+    *,
+    max_length: int = NAME_MAX_LENGTH,
+) -> str:
+    """Имя для рейтинга: без `@`, обрезанное и безопасное для HTML.
+
+    Отображаемые имена приходят от пользователей: экранирование обязательно,
+    упоминания удаляются, чтобы бот не пинговал людей.
+    """
+    raw = (name or "").strip().replace("@", "").strip()
+    if not raw:
+        return html.escape(t("top.unknown_player", lang, user_id=user_id))
+    if len(raw) > max_length:
+        raw = raw[: max_length - 1] + "…"
+    return html.escape(raw)
+
+
 def format_top(entries: list[LeaderboardEntry], lang: str, period: str = PERIOD_WEEK) -> str:
     """Текст /top: медали для первых трёх, номера дальше."""
     title = t(f"top.title_{period}", lang)
@@ -184,8 +208,15 @@ def format_top(entries: list[LeaderboardEntry], lang: str, period: str = PERIOD_
     lines = [title, ""]
     for index, entry in enumerate(entries, start=1):
         place = MEDALS[index - 1] if index <= len(MEDALS) else f"{index}."
-        name = entry.display_name or t("top.unknown_player", lang, user_id=entry.user_id)
-        lines.append(t("top.entry", lang, place=place, name=name, points=entry.points))
+        lines.append(
+            t(
+                "top.entry",
+                lang,
+                place=place,
+                name=clean_display_name(entry.display_name, entry.user_id, lang),
+                points=entry.points,
+            )
+        )
     return "\n".join(lines)
 
 
