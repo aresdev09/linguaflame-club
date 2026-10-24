@@ -10,7 +10,13 @@ BASE_PROMPT = (
     "Content must be safe for all ages. Reply with valid JSON only, no markdown fences."
 )
 
+# Требование безопасности: контент для учебной аудитории любого возраста.
+SAFETY_RULE = (
+    "Content must be safe for learners of any age: avoid violence, politics, "
+    "adult topics, insults, drugs and any other unsafe subjects."
+)
+
 
 def build_system_prompt(level: str, language: str) -> str:
     """Системный промпт под уровень и язык переводов группы."""
-    return BASE_PROMPT.format(level=level, language=language)
+    return BASE_PROMPT.format(level=level, language=language) + "\n" + SAFETY_RULE
