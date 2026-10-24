@@ -17,8 +17,13 @@ from bot.logging_setup import setup_logging
 from bot.middlewares.errors import ErrorMiddleware
 from bot.middlewares.group import GroupContextMiddleware
 from bot.middlewares.throttle import ThrottleMiddleware
-from bot.routers import group_admin, leaderboard
+from bot.routers import group_admin, leaderboard, quiz
 from bot.sender import Sender
+from bot.services.ai_client import build_ai_client
+from bot.services.content import ContentService
+from bot.services.games.manager import GameManager
+from bot.services.scoring import ScoringService
+from bot.services.streak import StreakService
 
 logger = logging.getLogger(__name__)
 
@@ -34,6 +39,7 @@ def build_dispatcher(
     """Собирает диспетчер: роутеры и middleware. FSM пока в памяти процесса."""
     dispatcher = Dispatcher()
     dispatcher.include_router(group_admin.build_router())
+    dispatcher.include_router(quiz.build_router())
     dispatcher.include_router(leaderboard.build_router())
 
     # Ошибки ловим снаружи всех: они не должны ронять бота.
@@ -62,12 +68,26 @@ async def main(settings: Settings) -> None:
         global_limit=max(int(settings.limit_global_per_second), 1),
     )
     admins = AdminCache(bot)
+    ai_client = build_ai_client(settings)
+    content = ContentService(session_factory, ai_client, settings)
+    scoring = ScoringService(session_factory, settings)
+    streak = StreakService(session_factory)
+    games = GameManager(
+        session_factory=session_factory,
+        settings=settings,
+        sender=sender,
+        content=content,
+        scoring=scoring,
+        streak=streak,
+    )
     dispatcher = build_dispatcher(session_factory, sender, settings)
 
     me = await bot.get_me()
     logger.info("Бот @%s запускается в режиме long polling", me.username)
 
     try:
+        # До первого апдейта: закрыть просроченные игры, возобновить живые.
+        await games.recover()
         await dispatcher.start_polling(
             bot,
             allowed_updates=ALLOWED_UPDATES,
@@ -75,8 +95,11 @@ async def main(settings: Settings) -> None:
             sender=sender,
             admins=admins,
             settings=settings,
+            games=games,
         )
     finally:
+        await games.shutdown()
+        await ai_client.close()
         await bot.session.close()
         logger.info("Бот остановлен")
 
