@@ -89,3 +89,18 @@ def settings_menu(chat: Chat, lang: str) -> InlineKeyboardMarkup:
 
     builder.adjust(6, 2, 3, 2, 6, 3, 3, 1, 4, 1, 4)
     return builder.as_markup()
+
+
+def top_period_keyboard(lang: str, period: str) -> InlineKeyboardMarkup:
+    """Клавиатура /top: переключатель «This week / All time»."""
+    builder = InlineKeyboardBuilder()
+    builder.button(
+        text=_mark(period == "week", t("top.period_week", lang)),
+        callback_data="top:week",
+    )
+    builder.button(
+        text=_mark(period == "all", t("top.period_all", lang)),
+        callback_data="top:all",
+    )
+    builder.adjust(2)
+    return builder.as_markup()

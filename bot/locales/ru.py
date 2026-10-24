@@ -39,6 +39,14 @@ TEXTS: dict[str, str] = {
     ),
     "setup.bad_time": "Время должно выглядеть так: 09:00.",
     "setup.saved": "Сохранено ✅",
+    # --- Рейтинг (/top) ---
+    "top.title_week": "🏆 Рейтинг — за неделю",
+    "top.title_all": "🏆 Рейтинг — за всё время",
+    "top.period_week": "За неделю",
+    "top.period_all": "За всё время",
+    "top.empty": "Очков пока нет. Начните с /quiz",
+    "top.entry": "{place} {name} — {points} очк.",
+    "top.unknown_player": "Игрок {user_id}",
     # --- Названия языков ---
     "lang.en": "English",
     "lang.ru": "Русский",

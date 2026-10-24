@@ -35,6 +35,14 @@ TEXTS: dict[str, str] = {
     "setup.bad_timezone": "I don't know this timezone. Try, for example, UTC or Asia/Samarkand.",
     "setup.bad_time": "The time should look like 09:00.",
     "setup.saved": "Saved ✅",
+    # --- Рейтинг (/top) ---
+    "top.title_week": "🏆 Leaderboard — this week",
+    "top.title_all": "🏆 Leaderboard — all time",
+    "top.period_week": "This week",
+    "top.period_all": "All time",
+    "top.empty": "No scores yet. Start with /quiz",
+    "top.entry": "{place} {name} — {points} pts",
+    "top.unknown_player": "Player {user_id}",
     # --- Названия языков ---
     "lang.en": "English",
     "lang.ru": "Русский",

@@ -1,4 +1,4 @@
-"""Очки и рейтинг: начисление в журнал и агрегаты по периодам.
+"""Очки и рейтинг: начисление в журнал, агрегаты и форматирование.
 
 Очки никогда не хранятся счётчиками: единственный источник правды —
 журнал `score_events`, а рейтинг считается агрегатом запроса. Неделя и
@@ -15,6 +15,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from bot.config import Settings
+from bot.locales import t
 from bot.models import Chat, utcnow
 from bot.repositories import ChatRepo, LeaderboardEntry, ScoreRepo
 
@@ -23,6 +24,9 @@ logger = logging.getLogger(__name__)
 # Периоды рейтинга для /top.
 PERIOD_WEEK = "week"
 PERIOD_ALL = "all"
+
+# Медали для первых трёх мест, дальше номера.
+MEDALS: tuple[str, ...] = ("🥇", "🥈", "🥉")
 
 
 def resolve_timezone(name: str) -> ZoneInfo:
@@ -127,3 +131,16 @@ class ScoringService:
         if period == PERIOD_ALL:
             return None, None
         return week_start(timezone_name, self._now()), None
+
+
+def format_top(entries: list[LeaderboardEntry], lang: str, period: str = PERIOD_WEEK) -> str:
+    """Текст /top: медали для первых трёх, номера дальше."""
+    title = t(f"top.title_{period}", lang)
+    if not entries:
+        return f"{title}\n\n{t('top.empty', lang)}"
+    lines = [title, ""]
+    for index, entry in enumerate(entries, start=1):
+        place = MEDALS[index - 1] if index <= len(MEDALS) else f"{index}."
+        name = entry.display_name or t("top.unknown_player", lang, user_id=entry.user_id)
+        lines.append(t("top.entry", lang, place=place, name=name, points=entry.points))
+    return "\n".join(lines)

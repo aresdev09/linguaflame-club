@@ -17,7 +17,7 @@ from bot.logging_setup import setup_logging
 from bot.middlewares.errors import ErrorMiddleware
 from bot.middlewares.group import GroupContextMiddleware
 from bot.middlewares.throttle import ThrottleMiddleware
-from bot.routers import group_admin
+from bot.routers import group_admin, leaderboard
 from bot.sender import Sender
 
 logger = logging.getLogger(__name__)
@@ -34,6 +34,7 @@ def build_dispatcher(
     """Собирает диспетчер: роутеры и middleware. FSM пока в памяти процесса."""
     dispatcher = Dispatcher()
     dispatcher.include_router(group_admin.build_router())
+    dispatcher.include_router(leaderboard.build_router())
 
     # Ошибки ловим снаружи всех: они не должны ронять бота.
     dispatcher.update.outer_middleware(ErrorMiddleware(session_factory, sender))
@@ -73,6 +74,7 @@ async def main(settings: Settings) -> None:
             session_factory=session_factory,
             sender=sender,
             admins=admins,
+            settings=settings,
         )
     finally:
         await bot.session.close()
