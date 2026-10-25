@@ -17,10 +17,11 @@ from bot.logging_setup import setup_logging
 from bot.middlewares.errors import ErrorMiddleware
 from bot.middlewares.group import GroupContextMiddleware
 from bot.middlewares.throttle import ThrottleMiddleware
-from bot.routers import games, group_admin, leaderboard, quiz
+from bot.routers import daily, games, group_admin, leaderboard, quiz
 from bot.sender import Sender
 from bot.services.ai_client import build_ai_client
 from bot.services.content import ContentService
+from bot.services.daily import DailyService
 from bot.services.games.manager import GameManager
 from bot.services.scoring import ScoringService
 from bot.services.streak import StreakService
@@ -41,6 +42,7 @@ def build_dispatcher(
     dispatcher.include_router(group_admin.build_router())
     dispatcher.include_router(quiz.build_router())
     dispatcher.include_router(games.build_router())
+    dispatcher.include_router(daily.build_router())
     dispatcher.include_router(leaderboard.build_router())
 
     # Ошибки ловим снаружи всех: они не должны ронять бота.
@@ -81,6 +83,13 @@ async def main(settings: Settings) -> None:
         scoring=scoring,
         streak=streak,
     )
+    daily_service = DailyService(
+        session_factory=session_factory,
+        settings=settings,
+        content=content,
+        scoring=scoring,
+        streak=streak,
+    )
     dispatcher = build_dispatcher(session_factory, sender, settings)
 
     me = await bot.get_me()
@@ -97,6 +106,7 @@ async def main(settings: Settings) -> None:
             admins=admins,
             settings=settings,
             games=games,
+            daily=daily_service,
         )
     finally:
         await games.shutdown()
