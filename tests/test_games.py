@@ -13,6 +13,7 @@ from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace
 
+import pytest
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
@@ -23,8 +24,12 @@ from bot.services.ai_errors import AIError
 from bot.services.content import ContentService
 from bot.services.fake_ai_client import FakeAIClient
 from bot.services.games.callbacks import build_answer_callback, parse_answer_callback
+from bot.services.games.gap import GapGame, gap_points
 from bot.services.games.manager import GameManager
 from bot.services.games.quiz import quiz_points
+from bot.services.games.race import RaceGame, race_points
+from bot.services.games.scramble import ScrambleGame, scramble_points
+from bot.services.games.truefalse import TrueFalseGame, truefalse_points
 from bot.services.scoring import PERIOD_ALL, ScoringService
 from bot.services.streak import StreakService
 
@@ -724,3 +729,247 @@ def test_answer_callback_roundtrip() -> None:
     assert parse_answer_callback("g:not-a-uuid:1:1") is None
     assert parse_answer_callback("g:abc:1") is None
     assert parse_answer_callback(None) is None
+
+
+# --- 7.8: мини-игры ---
+
+
+async def _active_game_state(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> tuple[uuid.UUID, dict]:
+    async with session_factory() as session:
+        row = await GameRepo(session).get_active(CHAT_ID)
+    assert row is not None
+    return row.id, row.state
+
+
+def test_mini_game_point_rules() -> None:
+    settings = _settings()
+
+    assert (
+        scramble_points(
+            settings, answer_time_ms=6000, duration_seconds=30, is_correct=True, is_first=True
+        )
+        == 9
+    )
+    assert (
+        scramble_points(
+            settings, answer_time_ms=6000, duration_seconds=30, is_correct=True, is_first=False
+        )
+        == 0
+    )
+    # Слишком быстрый ответ получает базу, но без бонуса скорости.
+    assert (
+        scramble_points(
+            settings, answer_time_ms=100, duration_seconds=30, is_correct=True, is_first=True
+        )
+        == 5
+    )
+    assert (
+        scramble_points(
+            settings, answer_time_ms=6000, duration_seconds=30, is_correct=False, is_first=True
+        )
+        == 0
+    )
+
+    assert gap_points(settings, is_correct=True, is_first=True) == 10
+    assert gap_points(settings, is_correct=True, is_first=False) == 8
+    assert gap_points(settings, is_correct=False, is_first=True) == 0
+
+    assert race_points(settings, answer_time_ms=0, duration_seconds=12, is_correct=True) == 6
+    assert race_points(settings, answer_time_ms=6000, duration_seconds=12, is_correct=True) == 3
+    assert race_points(settings, answer_time_ms=11500, duration_seconds=12, is_correct=True) == 1
+    assert race_points(settings, answer_time_ms=2000, duration_seconds=12, is_correct=False) == 0
+
+    assert truefalse_points(settings, is_correct=True) == 5
+    assert truefalse_points(settings, is_correct=False) == 0
+
+
+async def test_invalid_content_is_dropped_not_repaired(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    chat = await _chat(session_factory)
+    clock = FakeClock()
+    settings = _settings()
+    scoring = ScoringService(session_factory, settings, now=clock)
+
+    def build(game_class: type) -> object:
+        return game_class(
+            session_factory=session_factory,
+            settings=settings,
+            scoring=scoring,
+            now=clock,
+        )
+
+    scramble = await build(ScrambleGame).prepare(
+        chat,
+        [
+            {"word": "cat", "hint": "too short"},
+            {"word": "two words", "hint": "not a word"},
+            {"word": "apple", "hint": "fruit"},
+            {"word": "Apple", "hint": "duplicate"},
+        ],
+    )
+    assert len(scramble) == 1
+    assert scramble[0]["word"] == "apple"
+    assert sorted(scramble[0]["scrambled"]) == sorted("apple")
+
+    gap = await build(GapGame).prepare(
+        chat,
+        [
+            {
+                "sentence": "No gap here.",
+                "options": ["a", "b", "c", "d"],
+                "correct_index": 0,
+                "explanation": "x",
+            },
+            {
+                "sentence": "Two ___ and ___ gaps.",
+                "options": ["a", "b", "c", "d"],
+                "correct_index": 0,
+                "explanation": "x",
+            },
+            {
+                "sentence": "She ___ home.",
+                "options": ["walks", "walk", "walked", "walking"],
+                "correct_index": 0,
+                "explanation": "Present simple.",
+            },
+        ],
+    )
+    assert len(gap) == 1
+    assert gap[0]["sentence"] == "She ___ home."
+
+    race = await build(RaceGame).prepare(
+        chat,
+        [
+            {"word": "journey", "options": ["a", "b", "c"], "correct_index": 0},
+            {"word": "letter", "options": ["a", "b", "b", "c"], "correct_index": 0},
+            {"word": "morning", "options": ["x1", "x2", "x3", "x4"], "correct_index": 3},
+        ],
+    )
+    assert len(race) == 1
+    assert race[0]["word"] == "morning"
+
+    truefalse = await build(TrueFalseGame).prepare(
+        chat,
+        [
+            {"statement": "", "answer": True, "explanation": "x"},
+            {"statement": "Cats can fly.", "answer": False, "explanation": "They cannot."},
+        ],
+    )
+    assert len(truefalse) == 1
+    assert truefalse[0]["answer"] is False
+
+
+@pytest.mark.parametrize(
+    ("kind", "title", "expected_points"),
+    [
+        ("gap", "Fill the gap — 1/1", 10),
+        ("race", "Translation race — 1/5", 5),
+        ("truefalse", "True or false — 1/5", 5),
+    ],
+)
+async def test_mini_game_starts_and_awards_points(
+    session_factory: async_sessionmaker[AsyncSession],
+    kind: str,
+    title: str,
+    expected_points: int,
+) -> None:
+    async with _engine(session_factory) as (sender, clock, games):
+        await _chat(session_factory)
+        await _member(session_factory, 1, "Anna")
+
+        outcome = await games.start_mini_game(
+            await _chat(session_factory), kind, started_by=1, thread_id=None
+        )
+        assert outcome.result.value == "started"
+
+        first = sender.sent[0]
+        assert title in first.text
+        buttons = [b for row in first.reply_markup.inline_keyboard for b in row]
+        assert len(buttons) == (2 if kind == "truefalse" else 4)
+        session_id, round_no, choice = parse_answer_callback(buttons[0].callback_data)
+        assert round_no == 1
+
+        clock.advance(2)
+        answer = await games.submit_answer(
+            session_id, chat_id=CHAT_ID, user_id=1, round_no=1, payload=str(choice)
+        )
+        assert answer.result.value == "correct"
+        assert answer.points == expected_points
+
+
+async def test_scramble_reply_must_target_round_message(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    async with _engine(session_factory) as (sender, clock, games):
+        await _chat(session_factory)
+        await _member(session_factory, 1, "Anna")
+        await _member(session_factory, 2, "Bekzod")
+
+        outcome = await games.start_mini_game(
+            await _chat(session_factory), "scramble", started_by=1, thread_id=None
+        )
+        assert outcome.result.value == "started"
+
+        first = sender.sent[0]
+        assert "Word scramble" in first.text
+        assert "Hint:" in first.text
+        assert first.reply_markup is None
+
+        session_id, state = await _active_game_state(session_factory)
+        message_id = int(state["messages"]["1"])
+
+        # Reply на чужое сообщение не считается ответом игре.
+        foreign = await games.submit_text_answer(
+            chat_id=CHAT_ID, user_id=1, reply_to_message_id=message_id + 1, text="apple"
+        )
+        assert foreign is None
+
+        clock.advance(6)
+        answer = await games.submit_text_answer(
+            chat_id=CHAT_ID, user_id=1, reply_to_message_id=message_id, text=" APPLE "
+        )
+        assert answer is not None
+        assert answer.result.value == "correct"
+        # База 5 плюс скорость: 5 * 24/30 = 4.
+        assert answer.points == 9
+
+        # Первый верный закрывает раунд: второй ответ уже не принимается.
+        late = await games.submit_text_answer(
+            chat_id=CHAT_ID, user_id=2, reply_to_message_id=message_id, text="apple"
+        )
+        assert late is None
+
+        assert len(sender.edited) == 1
+        _edited_chat, edited_id, text, markup = sender.edited[0]
+        assert edited_id == message_id
+        assert markup is None
+        assert "Word: <b>apple</b>" in text
+        assert "Anna" in text
+        assert "Bekzod" not in text
+
+        # После паузы сессия завершается, очки видны в итогах.
+        clock.advance(10)
+        await games.advance(session_id)
+        results = sender.sent[-1]
+        assert "Word scramble finished!" in results.text
+        assert "Anna" in results.text
+
+    async with session_factory() as session:
+        total = await ScoreRepo(session).total(CHAT_ID, 1)
+    assert total == 9 + 2  # очки раунда и участие
+
+
+async def test_mini_game_is_refused_while_quiz_runs(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    async with _engine(session_factory) as (_sender, _clock, games):
+        chat = await _chat(session_factory)
+        await _seed_bank(session_factory, count=1)
+        started = await games.start_quiz(chat, started_by=1, rounds=1, thread_id=None)
+        assert started.result.value == "started"
+
+        refused = await games.start_mini_game(chat, "race", started_by=1, thread_id=None)
+        assert refused.result.value == "already_running"

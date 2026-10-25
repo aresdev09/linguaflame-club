@@ -153,6 +153,25 @@ def _callback_update(user_id: int, data: str, message_id: int = 500) -> Update:
     )
 
 
+def _reply_update(user_id: int, text: str, reply_to_message_id: int) -> Update:
+    return Update(
+        update_id=_next_update_id(),
+        message=Message(
+            message_id=_next_update_id(),
+            date=datetime.now(UTC),
+            chat=GROUP,
+            from_user=User(id=user_id, is_bot=False, first_name=f"User{user_id}"),
+            text=text,
+            reply_to_message=Message(
+                message_id=reply_to_message_id,
+                date=datetime.now(UTC),
+                chat=GROUP,
+                from_user=BOT_USER,
+            ),
+        ),
+    )
+
+
 async def test_dispatcher_greets_when_bot_is_added(
     session_factory: async_sessionmaker[AsyncSession],
 ) -> None:
@@ -339,6 +358,104 @@ async def test_dispatcher_runs_quiz_and_answers_buttons(
         assert row is not None and row.id == session_id
         answers = await GameRepo(session).round_answers(session_id, 1)
     assert [a.user_id for a in answers] == [11]
+
+
+async def test_dispatcher_game_menu_starts_selected_game(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """/games показывает меню, кнопка запускает выбранную мини-игру."""
+    bot, sender, admins, dispatcher, games = _harness(session_factory)
+    try:
+        await _feed(
+            dispatcher,
+            bot,
+            sender,
+            admins,
+            session_factory,
+            _command_update(user_id=11, text="/games"),
+            games,
+        )
+        bot.send_message.assert_awaited_once()
+        kwargs = bot.send_message.await_args.kwargs
+        assert "Games" in kwargs["text"]
+        buttons = [
+            button
+            for row in kwargs["reply_markup"].inline_keyboard
+            for button in row
+        ]
+        assert [button.callback_data for button in buttons] == [
+            "games:scramble",
+            "games:gap",
+            "games:race",
+            "games:truefalse",
+        ]
+
+        # Выбор игры: «часики» убираются сразу, затем приходит первый раунд.
+        bot.send_message.reset_mock()
+        await _feed(
+            dispatcher,
+            bot,
+            sender,
+            admins,
+            session_factory,
+            _callback_update(user_id=11, data="games:gap"),
+            games,
+        )
+        bot.send_message.assert_awaited_once()
+        kwargs = bot.send_message.await_args.kwargs
+        assert "Fill the gap — 1/1" in kwargs["text"]
+        assert "___" in kwargs["text"]
+    finally:
+        await games.shutdown()
+
+
+async def test_dispatcher_scramble_takes_only_reply_to_round_message(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """Ответ учитывается только в reply на сообщение игры, регистр не важен."""
+    bot, sender, admins, dispatcher, games = _harness(session_factory)
+    try:
+        await _feed(
+            dispatcher,
+            bot,
+            sender,
+            admins,
+            session_factory,
+            _command_update(user_id=11, text="/scramble"),
+            games,
+        )
+        bot.send_message.assert_awaited_once()
+        kwargs = bot.send_message.await_args.kwargs
+        assert "Word scramble" in kwargs["text"]
+        game_message_id = 1  # замоканный Telegram возвращает message_id=1
+
+        # Reply на чужое сообщение бот молча игнорирует.
+        bot.send_message.reset_mock()
+        await _feed(
+            dispatcher,
+            bot,
+            sender,
+            admins,
+            session_factory,
+            _reply_update(user_id=11, text="apple", reply_to_message_id=999),
+            games,
+        )
+        bot.send_message.assert_not_awaited()
+
+        # Reply на сообщение игры с верным словом: ответ и очки.
+        await _feed(
+            dispatcher,
+            bot,
+            sender,
+            admins,
+            session_factory,
+            _reply_update(user_id=11, text="APPLE", reply_to_message_id=game_message_id),
+            games,
+        )
+        bot.send_message.assert_awaited_once()
+        assert "Correct" in bot.send_message.await_args.kwargs["text"]
+    finally:
+        await games.shutdown()
 
 
 def test_parse_rounds_defaults_and_maximum() -> None:
