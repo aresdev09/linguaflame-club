@@ -315,6 +315,23 @@ async def _chat_active(
 # --- время поста в разных часовых поясах ---
 
 
+async def test_scheduler_start_and_shutdown(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """start() включает задачу tick, shutdown() её выключает."""
+    scheduler = _scheduler(
+        session_factory, clock=FakeClock(), sender=RecordingSender()
+    )
+
+    assert scheduler.running is False
+    scheduler.start()
+    try:
+        assert scheduler.running is True
+    finally:
+        scheduler.shutdown()
+    assert scheduler.running is False
+
+
 async def test_post_goes_out_at_local_time(
     session_factory: async_sessionmaker[AsyncSession],
 ) -> None:

@@ -126,6 +126,11 @@ class GroupScheduler:
             self._scheduler.shutdown(wait=False)
             self._scheduler = None
 
+    @property
+    def running(self) -> bool:
+        """True, если задача `tick` уже включена."""
+        return self._scheduler is not None
+
     def now(self) -> datetime:
         """«Сейчас» планировщика: системные часы плюс сдвиг из окружения.
 
