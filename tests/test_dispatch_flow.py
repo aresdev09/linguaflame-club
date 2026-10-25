@@ -28,10 +28,12 @@ from bot.admins import AdminCache
 from bot.config import Settings
 from bot.locales import en
 from bot.main import build_dispatcher
-from bot.repositories import ChatRepo, GameRepo, MemberRepo
+from bot.repositories import ChatRepo, GameRepo, MemberRepo, ScoreRepo
 from bot.routers.quiz import parse_rounds
 from bot.sender import Sender
 from bot.services.content import ContentService
+from bot.services.daily import DailyService
+from bot.services.daily_callbacks import parse_daily_callback
 from bot.services.fake_ai_client import FakeAIClient
 from bot.services.games.callbacks import parse_answer_callback
 from bot.services.games.manager import GameManager
@@ -73,6 +75,23 @@ def _games(
     )
 
 
+def _daily(
+    session_factory: async_sessionmaker[AsyncSession],
+    sender: Sender,
+    settings: Settings,
+    client: FakeAIClient | None = None,
+) -> DailyService:
+    """Сервис дня как в продакшене, но с фальшивым ИИ."""
+    content = ContentService(session_factory, client or FakeAIClient(), settings)
+    return DailyService(
+        session_factory=session_factory,
+        settings=settings,
+        content=content,
+        scoring=ScoringService(session_factory, settings),
+        streak=StreakService(session_factory),
+    )
+
+
 def _harness(
     session_factory: async_sessionmaker[AsyncSession],
     member_status: str = ChatMemberStatus.MEMBER,
@@ -98,6 +117,7 @@ async def _feed(
     session_factory: async_sessionmaker[AsyncSession],
     update: Update,
     games: GameManager,
+    daily: DailyService | None = None,
 ) -> None:
     await dispatcher.feed_update(
         bot,
@@ -107,6 +127,7 @@ async def _feed(
         admins=admins,
         settings=_settings(),
         games=games,
+        daily=daily or _daily(session_factory, sender, _settings()),
     )
 
 
@@ -456,6 +477,79 @@ async def test_dispatcher_scramble_takes_only_reply_to_round_message(
         assert "Correct" in bot.send_message.await_args.kwargs["text"]
     finally:
         await games.shutdown()
+
+
+async def test_dispatcher_word_post_and_got_it_award(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """/word публикует пост дня, кнопка «Got it» даёт очки один раз в день."""
+    bot, sender, admins, dispatcher, games = _harness(session_factory)
+    client = FakeAIClient()
+    daily = _daily(session_factory, sender, _settings(), client)
+
+    await _feed(
+        dispatcher,
+        bot,
+        sender,
+        admins,
+        session_factory,
+        _command_update(user_id=11, text="/word"),
+        games,
+        daily,
+    )
+
+    bot.send_message.assert_awaited_once()
+    kwargs = bot.send_message.await_args.kwargs
+    assert "Words of the day (B1)" in kwargs["text"]
+    buttons = [button for row in kwargs["reply_markup"].inline_keyboard for button in row]
+    assert [button.text for button in buttons] == ["Got it"]
+    action, _post_id = parse_daily_callback(buttons[0].callback_data)
+    assert action == "got"
+
+    # Нажатие кнопки: «часики» убраны, очки в журнале.
+    bot.reset_mock()
+    await _feed(
+        dispatcher,
+        bot,
+        sender,
+        admins,
+        session_factory,
+        _callback_update(user_id=11, data=buttons[0].callback_data),
+        games,
+        daily,
+    )
+    assert bot.await_args.args[0].text == "✅ +3"
+    async with session_factory() as session:
+        assert await ScoreRepo(session).total(GROUP.id, 11) == 3
+
+    # Повторное нажатие: очков не прибавляет, ИИ не вызывался.
+    await _feed(
+        dispatcher,
+        bot,
+        sender,
+        admins,
+        session_factory,
+        _callback_update(user_id=11, data=buttons[0].callback_data),
+        games,
+        daily,
+    )
+    assert "already got today's points" in bot.await_args.args[0].text
+    async with session_factory() as session:
+        assert await ScoreRepo(session).total(GROUP.id, 11) == 3
+    assert len(client.calls_of("words")) == 1
+
+    # Очки кнопки видны в рейтинге группы.
+    await _feed(
+        dispatcher,
+        bot,
+        sender,
+        admins,
+        session_factory,
+        _command_update(user_id=12, text="/top"),
+        games,
+        daily,
+    )
+    assert "🥇 User11 — 3 pts" in bot.send_message.await_args.kwargs["text"]
 
 
 def test_parse_rounds_defaults_and_maximum() -> None:
