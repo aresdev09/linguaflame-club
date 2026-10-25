@@ -30,7 +30,7 @@ from bot.locales import t
 from bot.models import Chat, utcnow
 from bot.repositories import ChatRepo, GameRepo
 from bot.sender import ChatUnavailable, Sender
-from bot.services.content import ContentService
+from bot.services.content import ContentResult, ContentService
 from bot.services.games.base import (
     PHASE_BREAK,
     PHASE_QUESTION,
@@ -45,11 +45,18 @@ from bot.services.games.base import (
     StartResult,
     aware,
 )
+from bot.services.games.gap import GapGame
 from bot.services.games.quiz import QuizGame
+from bot.services.games.race import RaceGame
+from bot.services.games.scramble import ScrambleGame
+from bot.services.games.truefalse import TrueFalseGame
 from bot.services.scoring import ScoringService, day_bounds
 from bot.services.streak import StreakService
 
 logger = logging.getLogger(__name__)
+
+# Мини-игры, доступные через `/games` и отдельные команды.
+MINI_GAME_KINDS: tuple[str, ...] = ("scramble", "gap", "race", "truefalse")
 
 
 class GameManager:
@@ -79,33 +86,65 @@ class GameManager:
         self._timers: dict[uuid.UUID, asyncio.Task[None]] = {}
         self._locks: dict[uuid.UUID, asyncio.Lock] = {}
         self._games: dict[str, Game] = {}
-        quiz = QuizGame(
-            session_factory=session_factory,
-            settings=settings,
-            scoring=scoring,
-            now=now,
-        )
-        self._games[quiz.kind] = quiz
+        for game_class in (QuizGame, ScrambleGame, GapGame, RaceGame, TrueFalseGame):
+            game = game_class(
+                session_factory=session_factory,
+                settings=settings,
+                scoring=scoring,
+                now=now,
+            )
+            self._games[game.kind] = game
 
-    # --- Запуск квиза ---
+    # --- Запуск игр ---
 
     async def start_quiz(
         self, chat: Chat, *, started_by: int, rounds: int, thread_id: int | None
     ) -> StartOutcome:
         """Запускает квиз: проверки, контент, сессия в БД, первый раунд."""
+        return await self._start_game(
+            chat,
+            "quiz",
+            started_by=started_by,
+            thread_id=thread_id,
+            rounds=rounds,
+        )
+
+    async def start_mini_game(
+        self, chat: Chat, kind: str, *, started_by: int, thread_id: int | None
+    ) -> StartOutcome:
+        """Запускает мини-игру из /games или отдельной команды."""
+        if kind not in MINI_GAME_KINDS:
+            return StartOutcome(StartResult.NO_CONTENT, "unknown")
+        return await self._start_game(chat, kind, started_by=started_by, thread_id=thread_id)
+
+    async def _start_game(
+        self,
+        chat: Chat,
+        kind: str,
+        *,
+        started_by: int,
+        thread_id: int | None,
+        rounds: int | None = None,
+    ) -> StartOutcome:
+        """Общий старт: проверки, контент, сессия в БД, первый раунд."""
+        game = self._games.get(kind)
+        if game is None:
+            logger.warning("Неизвестная игра %r", kind)
+            return StartOutcome(StartResult.NO_CONTENT, "unknown")
+
         refusal = await self._start_refusal(chat)
         if refusal is not None:
             return refusal
 
         # Контент готовится вне блокировок: ИИ может думать секунды.
-        content = await self._content.get_quiz(chat, rounds)
+        content = await self._fetch_content(chat, kind, rounds)
         if not content.items:
             return StartOutcome(StartResult.NO_CONTENT, content.reason)
-        quiz = self._games["quiz"]
-        items = await quiz.prepare(chat, content.items)
+        items = await game.prepare(chat, content.items)
         if not items:
             return StartOutcome(StartResult.NO_CONTENT, "empty")
 
+        duration = int(getattr(self._settings, game.duration_setting))
         now = self._now()
         state = {
             "phase": PHASE_QUESTION,
@@ -114,19 +153,19 @@ class GameManager:
             "items": items,
             "messages": {},
             "round_started": now.isoformat(),
-            "duration": self._settings.quiz_round_seconds,
+            "duration": duration,
             "break": self._settings.quiz_break_seconds,
             "lang": chat.ui_language,
             "thread_id": thread_id,
         }
-        ends_at = now + timedelta(seconds=self._settings.quiz_round_seconds)
+        ends_at = now + timedelta(seconds=duration)
         try:
             async with self._gate:
                 async with self._session_factory() as session:
                     async with session.begin():
                         created = await GameRepo(session).create_session(
                             chat.id,
-                            kind="quiz",
+                            kind=kind,
                             started_by=started_by,
                             state=state,
                             ends_at=ends_at,
@@ -136,9 +175,16 @@ class GameManager:
             # Гонка запуска: кто-то уже начал игру в этом чате.
             return StartOutcome(StartResult.ALREADY_RUNNING)
 
-        if not await self._launch_round(quiz, session_id, chat.id, state, ends_at):
+        if not await self._launch_round(game, session_id, chat.id, state, ends_at):
             return StartOutcome(StartResult.NO_CONTENT, "send_failed")
         return StartOutcome(StartResult.STARTED)
+
+    async def _fetch_content(self, chat: Chat, kind: str, rounds: int | None) -> ContentResult:
+        """Контент конкретной игры: квиз берёт нужное число раундов."""
+        if kind == "quiz":
+            return await self._content.get_quiz(chat, rounds or 1)
+        getter = getattr(self._content, f"get_{kind}")
+        return await getter(chat)
 
     async def _start_refusal(self, chat: Chat) -> StartOutcome | None:
         """Проверки до запуска: активная игра, кулдаун, дневной лимит."""
@@ -208,13 +254,55 @@ class GameManager:
             game = await self._game_of_session(session_id)
             if game is None:
                 return AnswerOutcome(AnswerResult.NO_GAME)
-            return await game.handle_answer(
+            outcome = await game.handle_answer(
                 session_id,
                 chat_id=chat_id,
                 user_id=user_id,
                 round_no=round_no,
                 payload=payload,
             )
+        if outcome.result is AnswerResult.CORRECT and game.close_on_correct:
+            await self._close_round(game, session_id, round_no)
+        return outcome
+
+    async def submit_text_answer(
+        self,
+        *,
+        chat_id: int,
+        user_id: int,
+        reply_to_message_id: int,
+        text: str,
+    ) -> AnswerOutcome | None:
+        """Текстовый ответ на сообщение игры; None — это не ответ игре.
+
+        Privacy mode: бот видит только reply на свои сообщения. Совпадение
+        с сообщением текущего раунда проверяется по состоянию сессии.
+        """
+        async with self._gate:
+            async with self._session_factory() as session:
+                row = await GameRepo(session).get_active(chat_id)
+            if row is None:
+                return None
+            game = self._games.get(row.kind)
+            if game is None or not game.accepts_text:
+                return None
+            state = row.state or {}
+            if state.get("phase") != PHASE_QUESTION:
+                return None
+            round_no = int(state.get("current", 0))
+            message_id = (state.get("messages") or {}).get(str(round_no))
+            if message_id is None or int(message_id) != reply_to_message_id:
+                return None
+            outcome = await game.handle_answer(
+                row.id,
+                chat_id=chat_id,
+                user_id=user_id,
+                round_no=round_no,
+                payload=text,
+            )
+        if outcome.result is AnswerResult.CORRECT and game.close_on_correct:
+            await self._close_round(game, row.id, round_no)
+        return outcome
 
     # --- Шаги сессии: advance ---
 

@@ -12,7 +12,7 @@ from aiogram.types import CallbackQuery, Message
 from bot.locales import t
 from bot.models import Chat
 from bot.sender import Sender
-from bot.services.games.base import AnswerOutcome, AnswerResult, StartOutcome, StartResult
+from bot.services.games.base import AnswerOutcome, AnswerResult, StartResult, refusal_key
 from bot.services.games.callbacks import parse_answer_callback
 from bot.services.games.manager import GameManager
 
@@ -65,23 +65,7 @@ async def quiz_command(
     )
     if outcome.result is StartResult.STARTED:
         return  # первый раунд уже в чате
-    key = _refusal_key(outcome)
-    await sender.reply(message, t(key, lang))
-
-
-def _refusal_key(outcome: StartOutcome) -> str:
-    """Ключ локализации для причины, по которой игра не началась."""
-    if outcome.result is StartResult.ALREADY_RUNNING:
-        return "game.already_running"
-    if outcome.result is StartResult.COOLDOWN:
-        return "game.cooldown"
-    if outcome.result is StartResult.DAILY_LIMIT:
-        return "game.daily_limit"
-    if outcome.reason == "quota":
-        return "game.no_content_quota"
-    if outcome.reason == "send_failed":
-        return "common.error"
-    return "game.no_content"
+    await sender.reply(message, t(refusal_key(outcome), lang))
 
 
 async def game_answer(

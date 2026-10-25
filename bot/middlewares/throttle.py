@@ -17,7 +17,15 @@ from aiogram.types import Message, Update
 logger = logging.getLogger(__name__)
 
 # Команды, которые дёргают ИИ или запускают игры: общий кулдаун на чат.
-HEAVY_COMMANDS = {"quiz", "word", "grammar"}
+HEAVY_COMMANDS = {
+    "quiz",
+    "scramble",
+    "gap",
+    "race",
+    "truefalse",
+    "word",
+    "grammar",
+}
 
 _PRUNE_THRESHOLD = 1024
 _MAX_IDLE_SECONDS = 3600.0
