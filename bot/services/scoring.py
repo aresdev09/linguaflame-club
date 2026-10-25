@@ -190,8 +190,13 @@ class ScoringService:
         if points <= 0:
             return 0
         day_start, day_end = day_bounds(timezone_name, self._now())
+        # Отмены сброса не заработаны участником: дневной лимит их не видит.
         earned = await ScoreRepo(session).total(
-            chat_id, user_id, since=day_start, until=day_end
+            chat_id,
+            user_id,
+            since=day_start,
+            until=day_end,
+            exclude_sources=("reset",),
         )
         awarded = points
         cap = self._settings.score_daily_cap

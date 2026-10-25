@@ -4,9 +4,9 @@ import uuid
 from dataclasses import dataclass
 from datetime import datetime
 
-from sqlalchemy import and_, func, or_, select
+from sqlalchemy import and_, delete, func, or_, select
 
-from bot.models import Member, ScoreEvent
+from bot.models import Member, ScoreEvent, ScoreReset, utcnow
 from bot.repositories.base import BaseRepo
 
 
@@ -32,14 +32,16 @@ class ScoreRepo(BaseRepo):
         points: int,
         source: str,
         session_id: uuid.UUID | None = None,
+        reset_id: int | None = None,
     ) -> ScoreEvent:
-        """Записывает начисление очков."""
+        """Записывает начисление очков (или отмену при `source='reset'`)."""
         event = ScoreEvent(
             chat_id=chat_id,
             user_id=user_id,
             points=points,
             source=source,
             session_id=session_id,
+            reset_id=reset_id,
         )
         self.session.add(event)
         await self.session.flush()
@@ -52,8 +54,13 @@ class ScoreRepo(BaseRepo):
         *,
         since: datetime | None = None,
         until: datetime | None = None,
+        exclude_sources: tuple[str, ...] | None = None,
     ) -> int:
-        """Сумма очков участника за период (без границ — за всё время)."""
+        """Сумма очков участника за период (без границ — за всё время).
+
+        `exclude_sources` позволяет не учитывать отмены сброса: дневной
+        лимит считает только реально заработанные очки.
+        """
         stmt = select(func.coalesce(func.sum(ScoreEvent.points), 0)).where(
             ScoreEvent.chat_id == chat_id,
             ScoreEvent.user_id == user_id,
@@ -62,8 +69,73 @@ class ScoreRepo(BaseRepo):
             stmt = stmt.where(ScoreEvent.created_at >= since)
         if until is not None:
             stmt = stmt.where(ScoreEvent.created_at < until)
+        if exclude_sources:
+            stmt = stmt.where(ScoreEvent.source.not_in(exclude_sources))
         result = await self.session.execute(stmt)
         return int(result.scalar_one())
+
+    # --- Сброс рейтинга и откат ---
+
+    async def totals_by_user(self, chat_id: int) -> dict[int, int]:
+        """Сумма очков каждого участника чата за всё время."""
+        stmt = (
+            select(ScoreEvent.user_id, func.sum(ScoreEvent.points))
+            .where(ScoreEvent.chat_id == chat_id)
+            .group_by(ScoreEvent.user_id)
+        )
+        result = await self.session.execute(stmt)
+        return {int(user_id): int(points) for user_id, points in result.all()}
+
+    async def create_reset(
+        self,
+        chat_id: int,
+        admin_user_id: int,
+        *,
+        created_at: datetime | None = None,
+    ) -> ScoreReset:
+        """Открывает запись сброса рейтинга группы."""
+        reset = ScoreReset(
+            chat_id=chat_id,
+            admin_user_id=admin_user_id,
+            created_at=created_at or utcnow(),
+        )
+        self.session.add(reset)
+        await self.session.flush()
+        return reset
+
+    async def latest_active_reset(self, chat_id: int) -> ScoreReset | None:
+        """Последний сброс чата, который ещё можно откатить."""
+        stmt = (
+            select(ScoreReset)
+            .where(ScoreReset.chat_id == chat_id, ScoreReset.undone_at.is_(None))
+            .order_by(ScoreReset.created_at.desc(), ScoreReset.id.desc())
+            .limit(1)
+        )
+        result = await self.session.execute(stmt)
+        return result.scalars().first()
+
+    async def reset_cancelled_points(self, reset_id: int) -> int:
+        """Сколько очков отменено сбросом (положительное число)."""
+        stmt = select(func.coalesce(func.sum(ScoreEvent.points), 0)).where(
+            ScoreEvent.reset_id == reset_id
+        )
+        result = await self.session.execute(stmt)
+        return -int(result.scalar_one())
+
+    async def delete_reset_events(self, reset_id: int) -> int:
+        """Удаляет события отмены конкретного сброса; возвращает их число."""
+        result = await self.session.execute(
+            delete(ScoreEvent).where(ScoreEvent.reset_id == reset_id)
+        )
+        return int(result.rowcount or 0)
+
+    async def mark_reset_undone(self, reset_id: int) -> None:
+        """Помечает сброс отменённым: повторный откат невозможен."""
+        reset = await self.session.get(ScoreReset, reset_id)
+        if reset is None:
+            return
+        reset.undone_at = utcnow()
+        await self.session.flush()
 
     async def has_event(
         self,
@@ -127,6 +199,8 @@ class ScoreRepo(BaseRepo):
             stmt = stmt.where(ScoreEvent.created_at < until)
         stmt = (
             stmt.group_by(ScoreEvent.user_id, Member.display_name)
+            # После сброса рейтинга сумма обнуляется: такие участники не видны.
+            .having(func.sum(ScoreEvent.points) > 0)
             .order_by(points_sum.desc(), last_event.asc(), last_id.asc())
             .limit(limit)
         )
@@ -241,4 +315,10 @@ class ScoreRepo(BaseRepo):
             stmt = stmt.where(ScoreEvent.created_at >= since)
         if until is not None:
             stmt = stmt.where(ScoreEvent.created_at < until)
-        return stmt.group_by(ScoreEvent.user_id).subquery()
+        # Участники с нулевой суммой (например, после сброса рейтинга)
+        # места в рейтинге не получают.
+        return (
+            stmt.group_by(ScoreEvent.user_id)
+            .having(func.sum(ScoreEvent.points) > 0)
+            .subquery()
+        )

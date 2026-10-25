@@ -37,6 +37,9 @@ def utcnow() -> datetime:
 BigIntType = BigInteger().with_variant(Integer, "sqlite")
 
 # Источники начислений в журнале очков.
+# `reset` — не начисление, а отмена: отрицательное событие, которым
+# сбрасывается рейтинг. Отдельная запись нужна, чтобы сброс можно было
+# откатить, не удаляя исходные начисления.
 score_source_enum = Enum(
     "quiz",
     "scramble",
@@ -45,7 +48,19 @@ score_source_enum = Enum(
     "truefalse",
     "daily_bonus",
     "streak_bonus",
+    "reset",
     name="score_source",
+    native_enum=False,
+)
+
+# Действия администраторов и участников, которые стоит сохранить в журнал.
+admin_action_enum = Enum(
+    "stop_game",
+    "reset_scores",
+    "undo_reset",
+    "opt_out",
+    "opt_in",
+    name="admin_action",
     native_enum=False,
 )
 
@@ -156,11 +171,62 @@ class ScoreEvent(Base):
     session_id: Mapped[uuid.UUID | None] = mapped_column(
         Uuid(as_uuid=True), ForeignKey("game_sessions.id")
     )
+    # Сброс рейтинга, к которому относится отмена (см. `ScoreReset`).
+    # Не внешний ключ: строки сброса не удаляются, только помечаются отменёнными.
+    reset_id: Mapped[int | None] = mapped_column(BigIntType)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
     __table_args__ = (
         Index("ix_score_events_chat_id_created_at", "chat_id", "created_at"),
         Index("ix_score_events_chat_id_user_id", "chat_id", "user_id"),
+        Index("ix_score_events_reset_id", "reset_id"),
+    )
+
+
+class ScoreReset(Base):
+    """Сброс рейтинга группы: запись нужна для отката в течение 24 часов.
+
+    Очки не удаляются: каждому участнику пишется отрицательное событие
+    `score_events` с источником `reset`, привязанное к этой записи. Пока
+    `undone_at` пуст, сброс действует; откат удаляет только события отмены.
+    """
+
+    __tablename__ = "score_resets"
+
+    id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
+    chat_id: Mapped[int] = mapped_column(
+        BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
+    )
+    # Кто из администраторов выполнил сброс.
+    admin_user_id: Mapped[int] = mapped_column(BigIntType)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    # Заполняется при откате сброса.
+    undone_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    __table_args__ = (
+        Index("ix_score_resets_chat_id_created_at", "chat_id", "created_at"),
+    )
+
+
+class AdminAction(Base):
+    """Журнал действий администраторов: кто остановил игру или сбросил рейтинг.
+
+    Также хранит запросы участников об исключении из рейтинга (`/privacy`).
+    """
+
+    __tablename__ = "admin_actions"
+
+    id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
+    chat_id: Mapped[int] = mapped_column(
+        BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
+    )
+    user_id: Mapped[int] = mapped_column(BigIntType)
+    action: Mapped[str] = mapped_column(admin_action_enum)
+    details: Mapped[dict | None] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    __table_args__ = (
+        Index("ix_admin_actions_chat_id_created_at", "chat_id", "created_at"),
     )
 
 

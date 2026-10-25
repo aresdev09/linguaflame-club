@@ -150,6 +150,16 @@ class Settings(BaseSettings):
     score_daily_cap: int = 300  # максимум очков на участника в день (0 — без лимита)
     # Сколько участников показывать в /top.
     leaderboard_top_limit: int = Field(default=10, ge=1, le=50)
+    # Сколько часов после /reset_scores рейтинг можно вернуть откатом.
+    score_reset_undo_hours: int = Field(default=24, ge=1, le=168)
+
+    # --- Обслуживание данных (защита и приватность) ---
+    # Тексты ответов игр старше этого срока очищаются (сами ответы остаются).
+    maintenance_answer_retention_days: int = Field(default=7, ge=1, le=365)
+    # Данные чата удаляются через столько дней после удаления бота из группы.
+    maintenance_chat_retention_days: int = Field(default=30, ge=1, le=365)
+    # Как часто планировщик запускает уборку данных, часы.
+    maintenance_tick_hours: int = Field(default=24, ge=1, le=168)
 
     # --- Лимиты Telegram и антиспам ---
     limit_messages_per_minute: int = 20  # сообщений на один чат в минуту
