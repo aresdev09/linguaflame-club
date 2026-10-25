@@ -71,8 +71,8 @@ class Settings(BaseSettings):
     ai_model: str = "nvidia/nemotron-3-ultra-550b-a55b"
     # Резервная модель, если основная не отвечает; пусто — работать без резерва.
     ai_model_fallback: str = "deepseek-ai/deepseek-v4.1-flash"
-    # Таймаут одного запроса к ИИ, секунды.
-    ai_timeout_seconds: float = Field(default=30.0, gt=0)
+    # Таймаут одного запроса к ИИ, секунды. Холодный старт модели бывает долгим.
+    ai_timeout_seconds: float = Field(default=90.0, gt=0)
     # Дневная квота запросов к ИИ на один чат (0 — без ограничения).
     ai_quota_per_day: int = Field(default=30, ge=0)
     # Глобальный дневной бюджет запросов к ИИ по всем чатам (0 — без ограничения).
