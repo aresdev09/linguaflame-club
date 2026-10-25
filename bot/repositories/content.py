@@ -172,6 +172,10 @@ class ContentRepo(BaseRepo):
         result = await self.session.execute(stmt)
         return result.scalars().first()
 
+    async def get_daily_post_by_id(self, post_id: int) -> DailyPost | None:
+        """Пост дня по id — по нему работают кнопки под постом."""
+        return await self.session.get(DailyPost, post_id)
+
     async def create_daily_post(
         self,
         chat_id: int,

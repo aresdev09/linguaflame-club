@@ -65,6 +65,32 @@ class ScoreRepo(BaseRepo):
         result = await self.session.execute(stmt)
         return int(result.scalar_one())
 
+    async def has_event(
+        self,
+        chat_id: int,
+        user_id: int,
+        *,
+        source: str,
+        since: datetime | None = None,
+        until: datetime | None = None,
+    ) -> bool:
+        """True, если у участника уже есть начисление из этого источника.
+
+        Нужно для наград «один раз в день» (кнопка «Got it»): повторное
+        начисление из того же источника за день не делается.
+        """
+        stmt = select(ScoreEvent.id).where(
+            ScoreEvent.chat_id == chat_id,
+            ScoreEvent.user_id == user_id,
+            ScoreEvent.source == source,
+        )
+        if since is not None:
+            stmt = stmt.where(ScoreEvent.created_at >= since)
+        if until is not None:
+            stmt = stmt.where(ScoreEvent.created_at < until)
+        result = await self.session.execute(stmt.limit(1))
+        return result.scalars().first() is not None
+
     async def leaderboard(
         self,
         chat_id: int,

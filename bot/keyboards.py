@@ -17,6 +17,7 @@ from bot.config import (
 )
 from bot.locales import t
 from bot.models import Chat
+from bot.services.daily_callbacks import build_got_callback, build_show_callback
 from bot.services.games.callbacks import OPTION_LETTERS, build_answer_callback
 
 
@@ -156,6 +157,22 @@ def truefalse_keyboard(session_id: uuid.UUID, round_no: int, lang: str) -> Inlin
         callback_data=build_answer_callback(session_id, round_no, 0),
     )
     builder.adjust(2)
+    return builder.as_markup()
+
+
+def daily_words_keyboard(post_id: int, lang: str) -> InlineKeyboardMarkup:
+    """Кнопка «Got it» под постом слов дня."""
+    builder = InlineKeyboardBuilder()
+    builder.button(text=t("daily.got", lang), callback_data=build_got_callback(post_id))
+    return builder.as_markup()
+
+
+def daily_grammar_keyboard(post_id: int, lang: str) -> InlineKeyboardMarkup:
+    """Кнопка «Show answer» под постом грамматики дня."""
+    builder = InlineKeyboardBuilder()
+    builder.button(
+        text=t("daily.show_answer", lang), callback_data=build_show_callback(post_id)
+    )
     return builder.as_markup()
 
 

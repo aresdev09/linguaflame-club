@@ -12,6 +12,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from datetime import time as dt_time
+from enum import Enum
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
@@ -61,6 +62,14 @@ def week_start(timezone_name: str, now: datetime) -> datetime:
     monday = local_now.date() - timedelta(days=local_now.weekday())
     start = datetime.combine(monday, dt_time.min, tzinfo=tz)
     return start.astimezone(UTC)
+
+
+class DailyAward(Enum):
+    """Итог начисления, которое даётся один раз в день («Got it»)."""
+
+    AWARDED = "awarded"
+    ALREADY = "already"  # очки за сегодня уже получены
+    CAPPED = "capped"  # дневной лимит очков не пустил начисление
 
 
 @dataclass(frozen=True)
@@ -171,6 +180,33 @@ class ScoringService:
                 chat_id,
             )
         return awarded
+
+    async def award_once_per_day(
+        self,
+        chat_id: int,
+        user_id: int,
+        points: int,
+        source: str,
+    ) -> DailyAward:
+        """Начисляет очки один раз за день участника; повтор — без начисления.
+
+        Проверка и запись идут в одной транзакции под блокировкой строки
+        чата: два одновременных нажатия кнопки не могут дать две награды.
+        """
+        async with self._session_factory() as session:
+            async with session.begin():
+                chat = await ChatRepo(session).get(chat_id, for_update=True)
+                timezone_name = chat.timezone if chat is not None else "UTC"
+                day_start, day_end = day_bounds(timezone_name, self._now())
+                scores = ScoreRepo(session)
+                if await scores.has_event(
+                    chat_id, user_id, source=source, since=day_start, until=day_end
+                ):
+                    return DailyAward.ALREADY
+                awarded = await self.award_locked(
+                    session, timezone_name, chat_id, user_id, points, source
+                )
+        return DailyAward.AWARDED if awarded > 0 else DailyAward.CAPPED
 
     async def top(self, chat: Chat, period: str = PERIOD_WEEK) -> list[LeaderboardEntry]:
         """Топ участников чата за период (`week` или `all`)."""
