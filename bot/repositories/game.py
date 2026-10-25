@@ -29,6 +29,23 @@ class SessionTotal:
     first_answer_id: int
 
 
+@dataclass(frozen=True)
+class AccuracyEntry:
+    """Точность ответов участника за период — для «Лучший по точности»."""
+
+    user_id: int
+    answers: int
+    correct: int
+    display_name: str | None
+
+    @property
+    def accuracy(self) -> int:
+        """Процент верных ответов, целое число."""
+        if self.answers <= 0:
+            return 0
+        return round(self.correct * 100 / self.answers)
+
+
 class GameRepo(BaseRepo):
     """Доступ к таблицам `game_sessions` и `game_answers`."""
 
@@ -180,6 +197,60 @@ class GameRepo(BaseRepo):
         result = await self.session.execute(stmt)
         answers, correct = result.one()
         return int(answers), int(correct)
+
+    async def accuracy_entries(
+        self,
+        chat_id: int,
+        *,
+        since: datetime | None = None,
+        until: datetime | None = None,
+        min_answers: int = 5,
+        limit: int = 1,
+    ) -> list[AccuracyEntry]:
+        """Самые точные участники периода: не меньше `min_answers` ответов.
+
+        Ничья решается по числу ответов: кто ответил больше, тот выше.
+        Участники с `opted_out` в итоги не попадают.
+        """
+        correct_flag = case((GameAnswer.is_correct.is_(True), 1), else_=0)
+        answers = func.count(GameAnswer.id).label("answers")
+        stmt = (
+            select(GameAnswer.user_id, answers, func.sum(correct_flag), Member.display_name)
+            .join(GameSession, GameSession.id == GameAnswer.session_id)
+            .outerjoin(
+                Member,
+                and_(
+                    Member.chat_id == GameSession.chat_id,
+                    Member.user_id == GameAnswer.user_id,
+                ),
+            )
+            .where(GameSession.chat_id == chat_id)
+            .where(func.coalesce(Member.opted_out, False).is_(False))
+        )
+        if since is not None:
+            stmt = stmt.where(GameAnswer.created_at >= since)
+        if until is not None:
+            stmt = stmt.where(GameAnswer.created_at < until)
+        stmt = (
+            stmt.group_by(GameAnswer.user_id, Member.display_name)
+            .having(func.count(GameAnswer.id) >= min_answers)
+            .order_by(
+                (func.sum(correct_flag) * 1.0 / func.count(GameAnswer.id)).desc(),
+                answers.desc(),
+                GameAnswer.user_id.asc(),
+            )
+            .limit(limit)
+        )
+        result = await self.session.execute(stmt)
+        return [
+            AccuracyEntry(
+                user_id=user_id,
+                answers=int(total),
+                correct=int(correct),
+                display_name=display_name,
+            )
+            for user_id, total, correct, display_name in result.all()
+        ]
 
     async def count_correct_answers(self, session_id: uuid.UUID, round: int) -> int:
         """Сколько верных ответов уже принято в раунде (бонус «первому»)."""

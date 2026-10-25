@@ -17,6 +17,7 @@ EXPECTED_TABLES = {
     "group_streaks",
     "members",
     "question_bank",
+    "scheduled_messages",
     "score_events",
 }
 

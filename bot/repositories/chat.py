@@ -1,6 +1,6 @@
 """Репозиторий чатов (групп) и их настроек."""
 
-from sqlalchemy import update
+from sqlalchemy import select, update
 
 from bot.models import (
     AIUsage,
@@ -44,6 +44,17 @@ class ChatRepo(BaseRepo):
         if title is not None and chat.title != title:
             chat.title = title
         return chat
+
+    async def list_active(self, *, limit: int = 1000) -> list[Chat]:
+        """Активные чаты для планировщика: из неактивных автосообщения не шлём."""
+        stmt = (
+            select(Chat)
+            .where(Chat.active.is_(True))
+            .order_by(Chat.id)
+            .limit(limit)
+        )
+        result = await self.session.execute(stmt)
+        return list(result.scalars().all())
 
     async def set_active(self, chat_id: int, active: bool) -> None:
         """Помечает чат активным или неактивным (бота добавили или удалили)."""

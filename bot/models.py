@@ -61,6 +61,17 @@ game_status_enum = Enum(
 daily_post_kind_enum = Enum(
     "words", "grammar", "recap", name="daily_post_kind", native_enum=False
 )
+
+# Виды автосообщений планировщика: по ним считается лимит на сутки.
+scheduled_message_kind_enum = Enum(
+    "daily",
+    "reminder",
+    "streak_lost",
+    "milestone",
+    "recap",
+    name="scheduled_message_kind",
+    native_enum=False,
+)
 content_kind_enum = Enum(
     "words",
     "grammar",
@@ -260,6 +271,43 @@ class DailyPost(Base):
         # Защита от дублей: один пост каждого вида в день на чат.
         Index("uq_daily_posts_chat_id_date_kind", "chat_id", "date", "kind", unique=True),
         Index("ix_daily_posts_chat_id_date", "chat_id", "date"),
+    )
+
+
+class ScheduledMessage(Base):
+    """Журнал автосообщений планировщика: защита от дублей и лимит в сутки.
+
+    Запись создаётся до отправки: пустой `posted_at` — сообщение ещё не
+    ушло. `attempts` считает неудачные попытки (в том числе генерацию
+    контента), `next_attempt_at` переносит повтор на более позднее время.
+    """
+
+    __tablename__ = "scheduled_messages"
+
+    id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
+    chat_id: Mapped[int] = mapped_column(
+        BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
+    )
+    # Дата в часовом поясе чата: лимит сообщений считается по дню группы.
+    date: Mapped[date_type] = mapped_column(Date)
+    kind: Mapped[str] = mapped_column(scheduled_message_kind_enum)
+    attempts: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    next_attempt_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    message_id: Mapped[int | None] = mapped_column(BigIntType)
+    posted_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+    __table_args__ = (
+        # Один вид автосообщения в день на чат: повторный tick дубль не создаст.
+        Index(
+            "uq_scheduled_messages_chat_id_date_kind",
+            "chat_id",
+            "date",
+            "kind",
+            unique=True,
+        ),
+        # Подсчёт сообщений дня для лимита в сутки.
+        Index("ix_scheduled_messages_chat_id_date", "chat_id", "date"),
     )
 
 

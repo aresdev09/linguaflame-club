@@ -3,13 +3,15 @@
 from bot.repositories.base import BaseRepo
 from bot.repositories.chat import ChatRepo
 from bot.repositories.content import ContentRepo
-from bot.repositories.game import GameRepo, RoundAnswer, SessionTotal
+from bot.repositories.game import AccuracyEntry, GameRepo, RoundAnswer, SessionTotal
 from bot.repositories.member import MemberRepo
+from bot.repositories.scheduler import SchedulerRepo
 from bot.repositories.score import LeaderboardEntry, ScoreRepo
 from bot.repositories.streak import StreakRepo
 from bot.repositories.usage import UsageRepo
 
 __all__ = [
+    "AccuracyEntry",
     "BaseRepo",
     "ChatRepo",
     "ContentRepo",
@@ -17,6 +19,7 @@ __all__ = [
     "LeaderboardEntry",
     "MemberRepo",
     "RoundAnswer",
+    "SchedulerRepo",
     "ScoreRepo",
     "SessionTotal",
     "StreakRepo",
