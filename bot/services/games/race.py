@@ -31,9 +31,15 @@ def race_points(
     duration_seconds: int,
     is_correct: bool,
 ) -> int:
-    """Очки за слово: максимум сразу, минимум 1 в конце раунда."""
+    """Очки за слово: максимум сразу, минимум 1 в конце раунда.
+
+    Подозрительно быстрый ответ (быстрее `score_fast_answer_ms`) бонуса
+    скорости не получает: остаётся только минимальный 1 балл.
+    """
     if not is_correct:
         return 0
+    if answer_time_ms < settings.score_fast_answer_ms:
+        return 1
     duration_ms = max(duration_seconds, 1) * 1000
     remaining = max(duration_ms - max(answer_time_ms, 0), 0)
     return max(1, int(settings.score_race_word_max * remaining / duration_ms))
