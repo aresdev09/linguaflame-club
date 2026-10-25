@@ -26,3 +26,25 @@ def t(key: str, lang: str | None = None, **kwargs: object) -> str:
     if text is None:
         raise KeyError(f"Нет текста для ключа {key!r}")
     return text.format(**kwargs) if kwargs else text
+
+
+def plural_days(days: int, lang: str) -> str:
+    """«5 days» / «5 дней»: число дней с правильной формой слова.
+
+    Форма выбирается по правилам языка (как в CLDR): в английском
+    единственное и множественное число, в русском — три формы.
+    Сами формы лежат в локали (`plural.days_one`, `plural.days_few`,
+    `plural.days_many`).
+    """
+    if lang == "ru":
+        if days % 100 in range(11, 15):
+            form = "many"
+        elif days % 10 == 1:
+            form = "one"
+        elif days % 10 in (2, 3, 4):
+            form = "few"
+        else:
+            form = "many"
+    else:
+        form = "one" if days == 1 else "many"
+    return t(f"plural.days_{form}", lang, days=days)

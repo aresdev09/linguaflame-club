@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 from bot.config import Settings
 from bot.models import Chat, ScoreEvent
 from bot.repositories import (
+    AccuracyEntry,
     ChatRepo,
     GameRepo,
     LeaderboardEntry,
@@ -26,8 +27,11 @@ from bot.services.scoring import (
     clean_display_name,
     format_me,
     format_top,
+    format_weekly_recap,
+    previous_week_bounds,
     week_start,
 )
+from bot.services.streak import StreakService
 
 CHAT_ID = -900
 
@@ -508,3 +512,94 @@ def test_format_me_without_place_or_game() -> None:
     assert "Место: —" in text
     assert "Ответы: 0 (0% верных)" in text
     assert "Лучшая игра" not in text
+
+
+# --- 9.3 Огонёк при начислении, итоги недели ---
+
+
+async def test_award_marks_day_as_active_for_streak(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """Очки за день — это и есть активность группы."""
+    await _chat(session_factory)
+    at = datetime(2026, 10, 19, 12, 0, tzinfo=UTC)
+    streak = StreakService(session_factory, now=_clock(at))
+    service = ScoringService(session_factory, _settings(), now=_clock(at), streak=streak)
+
+    await service.award(CHAT_ID, 111, 10, "quiz")
+
+    state = await streak.state(CHAT_ID, "UTC")
+    assert state.current == 1
+    assert state.active_today is True
+
+
+async def test_award_without_points_does_not_touch_streak(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """Ноль очков (дневной лимит) — день активности не открывает."""
+    await _chat(session_factory)
+    at = datetime(2026, 10, 19, 12, 0, tzinfo=UTC)
+    streak = StreakService(session_factory, now=_clock(at))
+    service = ScoringService(session_factory, _settings(), now=_clock(at), streak=streak)
+    await _event(session_factory, 111, 300, at=at)
+
+    assert await service.award(CHAT_ID, 111, 10, "quiz") == 0
+
+    state = await streak.state(CHAT_ID, "UTC")
+    assert state.current == 0
+
+
+def test_previous_week_bounds_utc() -> None:
+    """Итоги в понедельник охватывают прошлую неделю целиком."""
+    at = datetime(2026, 10, 19, 9, 30, tzinfo=UTC)
+
+    since, until = previous_week_bounds("UTC", at)
+
+    assert since == datetime(2026, 10, 12, 0, 0, tzinfo=UTC)
+    assert until == datetime(2026, 10, 19, 0, 0, tzinfo=UTC)
+
+
+def test_previous_week_bounds_samarkand() -> None:
+    """Границы недели считаются по поясу чата, а не по UTC."""
+    at = datetime(2026, 10, 19, 9, 30, tzinfo=UTC)  # 14:30 в Самарканде
+
+    since, until = previous_week_bounds("Asia/Samarkand", at)
+
+    # Понедельник 00:00 в Самарканде — это 19:00 UTC воскресенья.
+    assert since == datetime(2026, 10, 11, 19, 0, tzinfo=UTC)
+    assert until == datetime(2026, 10, 18, 19, 0, tzinfo=UTC)
+
+
+def test_format_weekly_recap_lists_winner_top_and_flame() -> None:
+    at = datetime(2026, 10, 14, 12, 0, tzinfo=UTC)
+    entries = [
+        LeaderboardEntry(user_id=1, points=90, display_name="Anna", last_event_at=at),
+        LeaderboardEntry(user_id=2, points=50, display_name="Bob", last_event_at=at),
+    ]
+    accuracy = AccuracyEntry(user_id=2, answers=10, correct=9, display_name="Bob")
+
+    text = format_weekly_recap(entries, accuracy, 12, "en")
+
+    assert "📊 Week in review" in text
+    assert "🏆 Winner of the week: Anna — 90 pts" in text
+    assert "🥇 Anna — 90 pts" in text
+    assert "🥈 Bob — 50 pts" in text
+    assert "🎯 Best accuracy: Bob — 90% (10 answers)" in text
+    assert "🔥 Flame record: 12 days" in text
+
+
+def test_format_weekly_recap_without_accuracy_and_flame() -> None:
+    entries = [
+        LeaderboardEntry(
+            user_id=1,
+            points=10,
+            display_name=None,
+            last_event_at=datetime(2026, 10, 14, 12, 0, tzinfo=UTC),
+        ),
+    ]
+
+    text = format_weekly_recap(entries, None, 0, "ru")
+
+    assert "🏆 Победитель недели: Игрок 1 — 10 очков" in text
+    assert "Лучшая точность" not in text
+    assert "Рекорд огонька" not in text

@@ -121,6 +121,32 @@ TEXTS: dict[str, str] = {
     "daily.grammar_answer_explanation": "💡 {explanation}",
     "daily.no_content": "Couldn't prepare the content right now. Try again in a minute.",
     "daily.no_content_quota": "The daily AI limit is used up. Try again later or tomorrow.",
+    # --- Огонёк группы (/streak) и автосообщения ---
+    "streak.title": "🔥 Group flame",
+    "streak.current": "Current streak: {days}",
+    "streak.best": "Best streak: {days}",
+    "streak.today_active": "Today: the group already earned points ✅",
+    "streak.today_pending": (
+        "Today: no points yet — play a game or tap \"Got it\" to keep the flame!"
+    ),
+    "streak.out": "The flame is out. Light it again with /quiz!",
+    "streak.reminder": (
+        "🔥 Your group flame is at risk! {days} in a row. One quick /quiz keeps it alive."
+    ),
+    "streak.lost": "The flame went out after {days}. Light it again with /quiz!",
+    "streak.milestone": (
+        "🔥 {days} in a row! The group flame is burning bright — keep it up!"
+    ),
+    # --- Итоги недели ---
+    "recap.title": "📊 Week in review",
+    "recap.winner": "🏆 Winner of the week: {name} — {points} pts",
+    "recap.top": "Top 3:",
+    "recap.accuracy": "🎯 Best accuracy: {name} — {accuracy}% ({answers} answers)",
+    "recap.flame_record": "🔥 Flame record: {days}",
+    # --- Формы слова «день» (выбирает plural_days) ---
+    "plural.days_one": "{days} day",
+    "plural.days_few": "{days} days",
+    "plural.days_many": "{days} days",
     # --- Названия языков ---
     "lang.en": "English",
     "lang.ru": "Русский",

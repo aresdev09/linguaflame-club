@@ -22,6 +22,7 @@ from bot.services.scoring import (
     format_me,
     format_top,
 )
+from bot.services.streak import StreakService, format_streak
 
 # Команды и кнопки этого роутера работают только в группах.
 GROUP_CHAT_TYPES = {"group", "supergroup"}
@@ -82,6 +83,18 @@ async def show_me(
     await sender.reply(message, format_me(stats, lang))
 
 
+async def show_streak(
+    message: Message,
+    session_factory: async_sessionmaker[AsyncSession],
+    chat: Chat,
+    lang: str,
+    sender: Sender,
+) -> None:
+    """Показывает огонёк группы: текущую серию, рекорд и активность сегодня."""
+    state = await StreakService(session_factory).state(chat.id, chat.timezone)
+    await sender.reply(message, format_streak(state, lang))
+
+
 def build_router() -> Router:
     """Собирает роутер рейтинга."""
     router = Router(name="leaderboard")
@@ -91,5 +104,6 @@ def build_router() -> Router:
 
     router.message.register(show_top, Command("top"))
     router.message.register(show_me, Command("me"))
+    router.message.register(show_streak, Command("streak"))
     router.callback_query.register(switch_top, F.data.startswith("top:"))
     return router

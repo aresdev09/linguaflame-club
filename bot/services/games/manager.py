@@ -394,7 +394,7 @@ class GameManager:
             async with self._gate:
                 async with self._session_factory() as session:
                     async with session.begin():
-                        flame = await self._streak.mark_active_locked(
+                        flame = await self._streak.register_activity_locked(
                             session, finished.chat_id, finished.timezone
                         )
         except Exception:

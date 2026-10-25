@@ -247,6 +247,15 @@ class DailyService:
             post_id=post_id,
         )
 
+    async def save_payload(self, chat: Chat, kind: str, payload: dict) -> int | None:
+        """Сохраняет пост дня из готового контента и возвращает его id.
+
+        Нужен запасному пути планировщика: когда ИИ не ответил, пост
+        собирается из банка вопросов, но кнопка дня и защита от дублей
+        должны работать так же, как у обычного поста.
+        """
+        return await self._save(chat.id, self._today(chat), kind, payload)
+
     async def mark_sent(self, post_id: int | None, message_id: int | None) -> None:
         """Отмечает пост отправленным: сохраняет id сообщения с кнопкой дня."""
         if post_id is None or message_id is None:
@@ -353,7 +362,7 @@ class DailyService:
     async def _touch_streak(self, chat: Chat) -> None:
         """День активности для огонька группы; ошибка не отменяет очки."""
         try:
-            await self._streak.mark_active(chat.id, chat.timezone)
+            await self._streak.register_activity(chat.id, chat.timezone)
         except Exception:
             logger.exception("Не удалось обновить огонёк чата %s", chat.id)
 

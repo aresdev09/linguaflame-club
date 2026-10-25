@@ -5,6 +5,8 @@
 день считаются по часовому поясу чата, сбрасывать счётчики не нужно.
 """
 
+from __future__ import annotations
+
 import html
 import logging
 import uuid
@@ -13,14 +15,24 @@ from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from datetime import time as dt_time
 from enum import Enum
+from typing import TYPE_CHECKING
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from bot.config import Settings
-from bot.locales import t
+from bot.locales import plural_days, t
 from bot.models import Chat, utcnow
-from bot.repositories import ChatRepo, GameRepo, LeaderboardEntry, ScoreRepo
+from bot.repositories import (
+    AccuracyEntry,
+    ChatRepo,
+    GameRepo,
+    LeaderboardEntry,
+    ScoreRepo,
+)
+
+if TYPE_CHECKING:  # огонёк импортирует этот модуль: связь только для типов
+    from bot.services.streak import StreakService
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +48,11 @@ MEDALS: tuple[str, ...] = ("🥇", "🥈", "🥉")
 
 # Имя в рейтинге обрезается до этой длины (после удаления упоминаний).
 NAME_MAX_LENGTH = 20
+
+# Сколько мест показывает /top и недельный итог.
+RECAP_TOP_LIMIT = 3
+# Минимум ответов за неделю, чтобы попасть в «Лучший по точности».
+RECAP_MIN_ANSWERS = 5
 
 
 def resolve_timezone(name: str) -> ZoneInfo:
@@ -62,6 +79,20 @@ def week_start(timezone_name: str, now: datetime) -> datetime:
     monday = local_now.date() - timedelta(days=local_now.weekday())
     start = datetime.combine(monday, dt_time.min, tzinfo=tz)
     return start.astimezone(UTC)
+
+
+def previous_week_bounds(
+    timezone_name: str, now: datetime
+) -> tuple[datetime, datetime]:
+    """Границы прошлой недели чата в UTC: [начало, конец).
+
+    Нужны итогам недели: в понедельник утром подводится итог недели,
+    которая уже закончилась.
+    """
+    current_start = week_start(timezone_name, now)
+    tz = resolve_timezone(timezone_name)
+    previous = (current_start.astimezone(tz) - timedelta(days=7)).astimezone(UTC)
+    return previous, current_start
 
 
 class DailyAward(Enum):
@@ -101,10 +132,13 @@ class ScoringService:
         settings: Settings,
         *,
         now: Callable[[], datetime] = utcnow,
+        streak: StreakService | None = None,
     ) -> None:
         self._session_factory = session_factory
         self._settings = settings
         self._now = now
+        # Огонёк обновляется при каждом начислении очков (см. StreakService).
+        self._streak = streak
 
     async def award(
         self,
@@ -171,6 +205,7 @@ class ScoringService:
                 source=source,
                 session_id=session_id,
             )
+            await self._register_activity(session, chat_id, timezone_name)
         if awarded < points:
             logger.info(
                 "Дневной лимит очков: %s из %s для %s в чате %s",
@@ -208,16 +243,54 @@ class ScoringService:
                 )
         return DailyAward.AWARDED if awarded > 0 else DailyAward.CAPPED
 
+    async def _register_activity(
+        self, session: AsyncSession, chat_id: int, timezone_name: str
+    ) -> None:
+        """Отмечает день активности для огонька группы.
+
+        Вызывается при каждом начислении: день считается активным, если
+        хотя бы один участник получил очки. Огонёк необязателен (тесты и
+        служебные начисления могут работать без него).
+        """
+        if self._streak is None:
+            return
+        await self._streak.register_activity_locked(session, chat_id, timezone_name)
+
     async def top(self, chat: Chat, period: str = PERIOD_WEEK) -> list[LeaderboardEntry]:
         """Топ участников чата за период (`week` или `all`)."""
         since, until = self._period_bounds(chat.timezone, period)
+        return await self.leaderboard(chat, since=since, until=until)
+
+    async def leaderboard(
+        self,
+        chat: Chat,
+        *,
+        since: datetime | None = None,
+        until: datetime | None = None,
+        limit: int | None = None,
+    ) -> list[LeaderboardEntry]:
+        """Топ участников за произвольный период — для итогов недели."""
         async with self._session_factory() as session:
             return await ScoreRepo(session).leaderboard(
                 chat.id,
                 since=since,
                 until=until,
-                limit=self._settings.leaderboard_top_limit,
+                limit=limit or self._settings.leaderboard_top_limit,
             )
+
+    async def best_accuracy(
+        self, chat: Chat, *, since: datetime, until: datetime
+    ) -> AccuracyEntry | None:
+        """Участник с лучшей точностью за период (не меньше 5 ответов)."""
+        async with self._session_factory() as session:
+            entries = await GameRepo(session).accuracy_entries(
+                chat.id,
+                since=since,
+                until=until,
+                min_answers=RECAP_MIN_ANSWERS,
+                limit=1,
+            )
+        return entries[0] if entries else None
 
     async def member_stats(self, chat: Chat, user_id: int) -> MemberStats:
         """Статистика участника: очки, место, ответы, лучшая игра."""
@@ -283,6 +356,56 @@ def format_top(entries: list[LeaderboardEntry], lang: str, period: str = PERIOD_
                 points=entry.points,
             )
         )
+    return "\n".join(lines)
+
+
+def format_weekly_recap(
+    entries: list[LeaderboardEntry],
+    accuracy: AccuracyEntry | None,
+    best_streak: int,
+    lang: str,
+    *,
+    top_limit: int = RECAP_TOP_LIMIT,
+) -> str:
+    """Итоги недели: победитель, топ мест, точность и рекорд огонька.
+
+    Победитель получает только «звание» в сообщении, очки не меняются.
+    """
+    lines = [t("recap.title", lang), ""]
+    winner = entries[0]
+    lines.append(
+        t(
+            "recap.winner",
+            lang,
+            name=clean_display_name(winner.display_name, winner.user_id, lang),
+            points=winner.points,
+        )
+    )
+    lines += ["", t("recap.top", lang)]
+    for index, entry in enumerate(entries[:top_limit], start=1):
+        place = MEDALS[index - 1] if index <= len(MEDALS) else f"{index}."
+        lines.append(
+            t(
+                "top.entry",
+                lang,
+                place=place,
+                name=clean_display_name(entry.display_name, entry.user_id, lang),
+                points=entry.points,
+            )
+        )
+    if accuracy is not None:
+        lines += [
+            "",
+            t(
+                "recap.accuracy",
+                lang,
+                name=clean_display_name(accuracy.display_name, accuracy.user_id, lang),
+                accuracy=accuracy.accuracy,
+                answers=accuracy.answers,
+            ),
+        ]
+    if best_streak > 0:
+        lines += ["", t("recap.flame_record", lang, days=plural_days(best_streak, lang))]
     return "\n".join(lines)
 
 
