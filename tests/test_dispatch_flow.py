@@ -552,6 +552,93 @@ async def test_dispatcher_word_post_and_got_it_award(
     assert "🥇 User11 — 3 pts" in bot.send_message.await_args.kwargs["text"]
 
 
+async def test_dispatcher_refuses_reset_scores_for_member(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """Обычный участник не может сбросить рейтинг: короткий отказ."""
+    bot, sender, admins, dispatcher, games = _harness(session_factory)
+
+    await _feed(
+        dispatcher,
+        bot,
+        sender,
+        admins,
+        session_factory,
+        _command_update(user_id=8, text="/reset_scores"),
+        games,
+    )
+
+    bot.send_message.assert_awaited_once()
+    assert bot.send_message.await_args.kwargs["text"] == en.TEXTS["common.not_admin"]
+
+
+async def test_dispatcher_reset_scores_needs_confirmation(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """Админ получает кнопку подтверждения, а сброс делается только по ней."""
+    bot, sender, admins, dispatcher, games = _harness(
+        session_factory, member_status=ChatMemberStatus.ADMINISTRATOR
+    )
+
+    await _feed(
+        dispatcher,
+        bot,
+        sender,
+        admins,
+        session_factory,
+        _command_update(user_id=9, text="/reset_scores"),
+        games,
+    )
+    buttons = [
+        button
+        for row in bot.send_message.await_args.kwargs["reply_markup"].inline_keyboard
+        for button in row
+    ]
+    assert [button.callback_data for button in buttons] == ["reset:confirm", "reset:cancel"]
+
+    # В группе есть очки — сбросу есть что отменять.
+    async with session_factory() as session:
+        async with session.begin():
+            await ScoreRepo(session).add_event(GROUP.id, 9, points=10, source="quiz")
+
+    # Подтверждение: сообщение правится, рейтинг пуст, есть кнопка возврата.
+    await _feed(
+        dispatcher,
+        bot,
+        sender,
+        admins,
+        session_factory,
+        _callback_update(user_id=9, data="reset:confirm"),
+        games,
+    )
+    edited = bot.edit_message_text.await_args.kwargs["text"]
+    assert "Leaderboard reset" in edited
+
+
+async def test_dispatcher_privacy_menu_for_member(
+    session_factory: async_sessionmaker[AsyncSession],
+) -> None:
+    """/privacy показывает, что хранит бот, и кнопку скрыться из рейтинга."""
+    bot, sender, admins, dispatcher, games = _harness(session_factory)
+
+    await _feed(
+        dispatcher,
+        bot,
+        sender,
+        admins,
+        session_factory,
+        _command_update(user_id=11, text="/privacy"),
+        games,
+    )
+
+    kwargs = bot.send_message.await_args.kwargs
+    assert "Your data" in kwargs["text"]
+    buttons = [
+        button for row in kwargs["reply_markup"].inline_keyboard for button in row
+    ]
+    assert [button.callback_data for button in buttons] == ["privacy:hide"]
+
+
 def test_parse_rounds_defaults_and_maximum() -> None:
     assert parse_rounds("/quiz") == 5
     assert parse_rounds("/quiz@ClubBot 7") == 7

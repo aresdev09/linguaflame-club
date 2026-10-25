@@ -776,7 +776,10 @@ def test_mini_game_point_rules() -> None:
     assert gap_points(settings, is_correct=True, is_first=False) == 8
     assert gap_points(settings, is_correct=False, is_first=True) == 0
 
-    assert race_points(settings, answer_time_ms=0, duration_seconds=12, is_correct=True) == 6
+    # Ответ быстрее 0,5 с подозрителен: только минимум, без бонуса скорости.
+    assert race_points(settings, answer_time_ms=0, duration_seconds=12, is_correct=True) == 1
+    assert race_points(settings, answer_time_ms=400, duration_seconds=12, is_correct=True) == 1
+    assert race_points(settings, answer_time_ms=1000, duration_seconds=12, is_correct=True) == 5
     assert race_points(settings, answer_time_ms=6000, duration_seconds=12, is_correct=True) == 3
     assert race_points(settings, answer_time_ms=11500, duration_seconds=12, is_correct=True) == 1
     assert race_points(settings, answer_time_ms=2000, duration_seconds=12, is_correct=False) == 0
