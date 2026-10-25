@@ -37,6 +37,7 @@ from bot.services.daily import (
     format_grammar_post,
     format_words_post,
 )
+from bot.services.maintenance import MaintenanceService
 from bot.services.scoring import (
     RECAP_TOP_LIMIT,
     ScoringService,
@@ -112,6 +113,15 @@ class GroupScheduler:
             max_instances=1,
             misfire_grace_time=self._settings.scheduler_tick_seconds,
         )
+        # Уборка данных: очистка текстов ответов и удаление старых чатов.
+        scheduler.add_job(
+            self._run_maintenance,
+            "interval",
+            hours=self._settings.maintenance_tick_hours,
+            id="maintenance",
+            coalesce=True,
+            max_instances=1,
+        )
         scheduler.start()
         self._scheduler = scheduler
         logger.info(
@@ -119,6 +129,21 @@ class GroupScheduler:
             self._settings.scheduler_tick_seconds,
             self._offset,
         )
+
+    async def _run_maintenance(self) -> None:
+        """Один проход уборки данных; ошибки не роняют планировщик."""
+        try:
+            service = MaintenanceService(
+                self._session_factory, self._settings, now=self._clock
+            )
+            answers, chats = await service.run()
+            logger.info(
+                "Обслуживание данных: очищено ответов %d, удалено чатов %d",
+                answers,
+                chats,
+            )
+        except Exception:
+            logger.exception("Уборка данных упала")
 
     def shutdown(self) -> None:
         """Останавливает задачу при выходе из бота."""

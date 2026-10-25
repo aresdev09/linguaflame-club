@@ -186,3 +186,29 @@ def games_menu(lang: str) -> InlineKeyboardMarkup:
         )
     builder.adjust(2)
     return builder.as_markup()
+
+
+def reset_confirm_keyboard(lang: str) -> InlineKeyboardMarkup:
+    """Подтверждение сброса рейтинга: действие необратимо без отката."""
+    builder = InlineKeyboardBuilder()
+    builder.button(text=t("admin.reset_yes", lang), callback_data="reset:confirm")
+    builder.button(text=t("admin.reset_no", lang), callback_data="reset:cancel")
+    builder.adjust(2)
+    return builder.as_markup()
+
+
+def reset_undo_keyboard(lang: str) -> InlineKeyboardMarkup:
+    """Кнопка отката сброса: доступна, пока сброс свежий."""
+    builder = InlineKeyboardBuilder()
+    builder.button(text=t("admin.reset_undo", lang), callback_data="reset:undo")
+    return builder.as_markup()
+
+
+def privacy_keyboard(lang: str, opted_out: bool) -> InlineKeyboardMarkup:
+    """Кнопка /privacy: скрыться из рейтинга или вернуться в него."""
+    builder = InlineKeyboardBuilder()
+    if opted_out:
+        builder.button(text=t("privacy.show", lang), callback_data="privacy:show")
+    else:
+        builder.button(text=t("privacy.hide", lang), callback_data="privacy:hide")
+    return builder.as_markup()

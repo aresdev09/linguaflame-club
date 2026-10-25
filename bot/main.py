@@ -17,12 +17,13 @@ from bot.logging_setup import setup_logging
 from bot.middlewares.errors import ErrorMiddleware
 from bot.middlewares.group import GroupContextMiddleware
 from bot.middlewares.throttle import ThrottleMiddleware
-from bot.routers import daily, games, group_admin, leaderboard, quiz
+from bot.routers import admin, daily, games, group_admin, leaderboard, quiz
 from bot.sender import Sender
 from bot.services.ai_client import build_ai_client
 from bot.services.content import ContentService
 from bot.services.daily import DailyService
 from bot.services.games.manager import GameManager
+from bot.services.maintenance import MaintenanceService
 from bot.services.scheduler import GroupScheduler
 from bot.services.scoring import ScoringService
 from bot.services.streak import StreakService
@@ -45,6 +46,7 @@ def build_dispatcher(
     dispatcher.include_router(games.build_router())
     dispatcher.include_router(daily.build_router())
     dispatcher.include_router(leaderboard.build_router())
+    dispatcher.include_router(admin.build_router())
 
     # Ошибки ловим снаружи всех: они не должны ронять бота.
     dispatcher.update.outer_middleware(ErrorMiddleware(session_factory, sender))
@@ -107,6 +109,11 @@ async def main(settings: Settings) -> None:
     try:
         # До первого апдейта: закрыть просроченные игры, возобновить живые.
         await games.recover()
+        try:
+            # Стартовая уборка данных: тексты ответов и данные старых чатов.
+            await MaintenanceService(session_factory, settings).run()
+        except Exception:
+            logger.exception("Стартовая уборка данных не удалась")
         scheduler.start()
         await dispatcher.start_polling(
             bot,

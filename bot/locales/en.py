@@ -143,6 +143,36 @@ TEXTS: dict[str, str] = {
     "recap.top": "Top 3:",
     "recap.accuracy": "🎯 Best accuracy: {name} — {accuracy}% ({answers} answers)",
     "recap.flame_record": "🔥 Flame record: {days}",
+    # --- Админ-команды: остановка игры и сброс рейтинга ---
+    "admin.stop_no_game": "There is no active game right now.",
+    "admin.reset_confirm": (
+        "Reset the group leaderboard?\n\n"
+        "Current scores are kept as a cancellation and can be restored within "
+        "24 hours. Tap Confirm to continue."
+    ),
+    "admin.reset_yes": "Confirm",
+    "admin.reset_no": "Cancel",
+    "admin.reset_cancelled": "Reset cancelled. Nothing changed.",
+    "admin.reset_done": (
+        "✅ Leaderboard reset: {users} players, {points} points cancelled. "
+        "You can undo this within 24 hours."
+    ),
+    "admin.reset_nothing": "There is nothing to reset — the group has no scores yet.",
+    "admin.reset_undo": "Undo reset",
+    "admin.reset_undone": "✅ Leaderboard restored ({points} points back).",
+    "admin.reset_none": "There is no recent reset to undo.",
+    "admin.reset_too_old": "This reset is older than 24 hours and cannot be undone.",
+    # --- Приватность (/privacy) ---
+    "privacy.title": "🔒 Your data",
+    "privacy.body": (
+        "I store your user id, username, display name and the points you earn "
+        "in group games. I never read ordinary messages.\n\n"
+        "You can hide yourself from the leaderboard at any time, or come back."
+    ),
+    "privacy.hide": "Hide from leaderboard",
+    "privacy.show": "Show in leaderboard",
+    "privacy.hidden": "You are hidden from the leaderboard. You can still play.",
+    "privacy.shown": "You are back in the leaderboard.",
     # --- Формы слова «день» (выбирает plural_days) ---
     "plural.days_one": "{days} day",
     "plural.days_few": "{days} days",
