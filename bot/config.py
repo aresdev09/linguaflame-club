@@ -4,9 +4,12 @@
 (шаблон — `.env.example`). Токены и ключи в коде не хранятся.
 """
 
+import re
+from datetime import time as dt_time
+from datetime import timedelta
 from functools import lru_cache
 
-from pydantic import Field, ValidationError
+from pydantic import Field, ValidationError, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 DEFAULT_DATABASE_URL = "sqlite+aiosqlite:///./linguaflame-club.db"
@@ -40,8 +43,63 @@ QUIET_HOURS_OPTIONS: tuple[tuple[str, str], ...] = (
 )
 
 
+# Единицы сдвига времени планировщика и разбор строки вида «1d2h30m».
+_OFFSET_UNITS: dict[str, int] = {"d": 24 * 3600, "h": 3600, "m": 60}
+_OFFSET_PART = re.compile(r"(\d+)\s*([dhm]?)")
+
+
 class ConfigError(RuntimeError):
     """Понятная ошибка конфигурации, показывается пользователю при запуске."""
+
+
+def parse_time_offset(value: str | int | timedelta) -> timedelta:
+    """Разбирает сдвиг времени планировщика: «2h», «1d2h30m», «90».
+
+    Число без единицы считается минутами, знак «-» сдвигает время назад.
+    Используется переменной `SCHEDULER_TIME_OFFSET`: для ручной проверки
+    планировщика можно «уехать» в нужное время суток, не меняя настройки
+    групп. Некорректное значение — ошибка конфигурации при запуске.
+    """
+    if isinstance(value, timedelta):
+        return value
+    text = str(value).strip()
+    if not text:
+        return timedelta(0)
+    sign = 1
+    if text[0] in "+-":
+        sign = -1 if text[0] == "-" else 1
+        text = text[1:].strip()
+    if not text:
+        raise ValueError("сдвиг времени не задан: ожидается, например, 2h или 1d3h30m")
+    if text.isdigit():
+        return sign * timedelta(minutes=int(text))
+
+    total = 0
+    position = 0
+    for match in _OFFSET_PART.finditer(text):
+        if match.start() != position:
+            break
+        total += int(match.group(1)) * _OFFSET_UNITS[match.group(2) or "m"]
+        position = match.end()
+    if position != len(text):
+        raise ValueError(
+            f"не удалось разобрать сдвиг времени {value!r}: ожидается, например, 2h или 1d3h30m"
+        )
+    return sign * timedelta(seconds=total)
+
+
+def parse_clock(value: object) -> dt_time:
+    """Время суток из строки «HH:MM» (для настроек планировщика)."""
+    if isinstance(value, dt_time):
+        return value
+    if isinstance(value, str):
+        try:
+            return dt_time.fromisoformat(value.strip())
+        except ValueError as exc:
+            raise ValueError(
+                f"ожидается время в формате HH:MM, получено {value!r}"
+            ) from exc
+    raise ValueError(f"ожидается строка со временем, получено {value!r}")
 
 
 class Settings(BaseSettings):
@@ -101,6 +159,25 @@ class Settings(BaseSettings):
     limit_game_cooldown_seconds: float = 10.0  # пауза между играми в чате
     limit_games_per_day: int = 30  # игр в день на один чат
 
+    # --- Планировщик и огонёк группы ---
+    # Через сколько секунд планировщик проверяет чаты.
+    scheduler_tick_seconds: int = Field(default=60, ge=5)
+    # Сдвиг «сейчас» планировщика для ручной проверки, например «2h», «-45m».
+    scheduler_time_offset: timedelta = timedelta(0)
+    # Вечернее напоминание об огоньке по времени группы.
+    scheduler_reminder_time: dt_time = dt_time(20, 0)
+    # Утреннее сообщение о потерянном огоньке по времени группы.
+    scheduler_streak_lost_time: dt_time = dt_time(9, 0)
+    # Разброс отправки, секунды: группы не получают автосообщения одной пачкой.
+    scheduler_jitter_max_seconds: int = Field(default=120, ge=0, le=600)
+    # Сколько автосообщений планировщика может получить чат за сутки.
+    scheduler_messages_per_day: int = Field(default=2, ge=1, le=5)
+    # Через сколько дней без активности автосообщения прекращаются.
+    scheduler_dormant_days: int = Field(default=7, ge=1, le=90)
+    # Попытки собрать контент до запасного варианта и пауза между ними.
+    scheduler_content_attempts: int = Field(default=3, ge=1, le=10)
+    scheduler_retry_delay_seconds: int = Field(default=600, ge=30)
+
     # --- Игры ---
     # Время на раунд квиза, секунды (настраивается 15–30).
     quiz_round_seconds: int = Field(default=20, ge=15, le=30)
@@ -113,6 +190,21 @@ class Settings(BaseSettings):
     quiz_break_seconds: int = Field(default=3, ge=1, le=15)
     # Ответы быстрее не получают бонус скорости (антиспам, миллисекунды).
     score_fast_answer_ms: int = Field(default=500, ge=0)
+
+    @field_validator("scheduler_time_offset", mode="before")
+    @classmethod
+    def _check_time_offset(cls, value: object) -> timedelta:
+        """Сдвиг планировщика задаётся строкой вида «2h» или «1d3h30m»."""
+        try:
+            return parse_time_offset(value)  # type: ignore[arg-type]
+        except ValueError as exc:
+            raise ValueError(str(exc)) from exc
+
+    @field_validator("scheduler_reminder_time", "scheduler_streak_lost_time", mode="before")
+    @classmethod
+    def _check_clock(cls, value: object) -> dt_time:
+        """Время напоминаний задаётся строкой «HH:MM»."""
+        return parse_clock(value)
 
 
 def _describe_settings_error(exc: ValidationError) -> str:

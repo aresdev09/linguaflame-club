@@ -36,6 +36,15 @@ class ChatUnavailable(RuntimeError):
     """Чат недоступен: бота удалили, нет прав или чат больше не существует."""
 
 
+class TelegramRateLimited(ChatUnavailable):
+    """Telegram просит подождать дольше повторов.
+
+    Чат при этом доступен: сообщение не потеряно, его нужно повторить
+    позже. Планировщик отличает этот случай от «бота удалили» и не
+    выключает группу.
+    """
+
+
 class _SlidingWindow:
     """Скользящее окно: не больше `limit` вызовов за `window` секунд."""
 
@@ -179,7 +188,7 @@ class Sender:
                     attempt,
                 )
                 if attempt == self._retry_attempts:
-                    raise ChatUnavailable(f"лимит Telegram: {exc}") from exc
+                    raise TelegramRateLimited(f"лимит Telegram: {exc}") from exc
                 await asyncio.sleep(exc.retry_after + 1)
             except TelegramForbiddenError as exc:
                 logger.warning("Нет доступа к чату %s: %s", chat_id, exc)

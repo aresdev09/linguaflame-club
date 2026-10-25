@@ -23,6 +23,7 @@ from bot.services.ai_client import build_ai_client
 from bot.services.content import ContentService
 from bot.services.daily import DailyService
 from bot.services.games.manager import GameManager
+from bot.services.scheduler import GroupScheduler
 from bot.services.scoring import ScoringService
 from bot.services.streak import StreakService
 
@@ -73,8 +74,8 @@ async def main(settings: Settings) -> None:
     admins = AdminCache(bot)
     ai_client = build_ai_client(settings)
     content = ContentService(session_factory, ai_client, settings)
-    scoring = ScoringService(session_factory, settings)
     streak = StreakService(session_factory)
+    scoring = ScoringService(session_factory, settings, streak=streak)
     games = GameManager(
         session_factory=session_factory,
         settings=settings,
@@ -90,6 +91,14 @@ async def main(settings: Settings) -> None:
         scoring=scoring,
         streak=streak,
     )
+    scheduler = GroupScheduler(
+        session_factory=session_factory,
+        settings=settings,
+        sender=sender,
+        daily=daily_service,
+        scoring=scoring,
+        streak=streak,
+    )
     dispatcher = build_dispatcher(session_factory, sender, settings)
 
     me = await bot.get_me()
@@ -98,6 +107,7 @@ async def main(settings: Settings) -> None:
     try:
         # До первого апдейта: закрыть просроченные игры, возобновить живые.
         await games.recover()
+        scheduler.start()
         await dispatcher.start_polling(
             bot,
             allowed_updates=ALLOWED_UPDATES,
@@ -109,6 +119,7 @@ async def main(settings: Settings) -> None:
             daily=daily_service,
         )
     finally:
+        scheduler.shutdown()
         await games.shutdown()
         await ai_client.close()
         await bot.session.close()
