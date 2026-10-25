@@ -104,7 +104,12 @@ class Settings(BaseSettings):
     # --- Игры ---
     # Время на раунд квиза, секунды (настраивается 15–30).
     quiz_round_seconds: int = Field(default=20, ge=15, le=30)
-    # Пауза между раундами квиза, секунды.
+    # Время на мини-игры, секунды.
+    scramble_round_seconds: int = Field(default=30, ge=10, le=60)
+    gap_round_seconds: int = Field(default=20, ge=10, le=30)
+    race_round_seconds: int = Field(default=12, ge=10, le=15)
+    truefalse_round_seconds: int = Field(default=20, ge=10, le=30)
+    # Пауза между раундами любой игры, секунды.
     quiz_break_seconds: int = Field(default=3, ge=1, le=15)
     # Ответы быстрее не получают бонус скорости (антиспам, миллисекунды).
     score_fast_answer_ms: int = Field(default=500, ge=0)

@@ -29,9 +29,7 @@ TEXTS: dict[str, str] = {
     "setup.timezone_prompt": (
         "Reply to this message with the timezone, for example Asia/Samarkand."
     ),
-    "setup.time_prompt": (
-        "Reply to this message with the post time as HH:MM, for example 09:00."
-    ),
+    "setup.time_prompt": ("Reply to this message with the post time as HH:MM, for example 09:00."),
     "setup.bad_timezone": "I don't know this timezone. Try, for example, UTC or Asia/Samarkand.",
     "setup.bad_time": "The time should look like 09:00.",
     "setup.saved": "Saved ✅",
@@ -82,6 +80,29 @@ TEXTS: dict[str, str] = {
     "quiz.correct_line": "✅ Correct: {letter}. {option}",
     "quiz.explanation_line": "💡 {explanation}",
     "quiz.finished": "🏁 Quiz finished!",
+    # --- Мини-игры ---
+    "games.menu_title": "🎮 Games\n\nPick a game — it starts right away.",
+    "scramble.title": "🔤 Word scramble — {current}/{total}",
+    "scramble.letters": "Letters: <b>{letters}</b>",
+    "scramble.hint": "💡 Hint: {hint}",
+    "scramble.footer": "⏱ {seconds} s · reply to this message with the word",
+    "scramble.correct_line": "✅ Word: <b>{word}</b>",
+    "scramble.finished": "🏁 Word scramble finished!",
+    "gap.title": "📝 Fill the gap — {current}/{total}",
+    "gap.footer": "⏱ {seconds} s · one answer per player",
+    "gap.correct_line": "✅ Correct: <b>{option}</b>",
+    "gap.finished": "🏁 Fill the gap finished!",
+    "race.title": "🏁 Translation race — {current}/{total}",
+    "race.prompt": "Translate: <b>{word}</b>",
+    "race.footer": "⏱ {seconds} s · faster answer = more points",
+    "race.correct_line": "✅ {word} — <b>{option}</b>",
+    "race.finished": "🏁 Translation race finished!",
+    "truefalse.title": "🤔 True or false — {current}/{total}",
+    "truefalse.footer": "⏱ {seconds} s · one answer per player",
+    "truefalse.true": "True",
+    "truefalse.false": "False",
+    "truefalse.correct_line": "✅ Answer: <b>{answer}</b>",
+    "truefalse.finished": "🏁 True or false finished!",
     # --- Названия языков ---
     "lang.en": "English",
     "lang.ru": "Русский",

@@ -28,9 +28,7 @@ TEXTS: dict[str, str] = {
     "setup.off": "выкл",
     "setup.timezone_manual": "✏️ Ввести часовой пояс вручную",
     "setup.time_manual": "✏️ Ввести время вручную",
-    "setup.timezone_prompt": (
-        "Ответьте на это сообщение часовым поясом, например Asia/Samarkand."
-    ),
+    "setup.timezone_prompt": ("Ответьте на это сообщение часовым поясом, например Asia/Samarkand."),
     "setup.time_prompt": (
         "Ответьте на это сообщение временем поста в формате ЧЧ:ММ, например 09:00."
     ),
@@ -86,6 +84,29 @@ TEXTS: dict[str, str] = {
     "quiz.correct_line": "✅ Правильный ответ: {letter}. {option}",
     "quiz.explanation_line": "💡 {explanation}",
     "quiz.finished": "🏁 Квиз завершён!",
+    # --- Мини-игры ---
+    "games.menu_title": "🎮 Мини-игры\n\nВыберите игру — она начнётся сразу.",
+    "scramble.title": "🔤 Собери слово — {current}/{total}",
+    "scramble.letters": "Буквы: <b>{letters}</b>",
+    "scramble.hint": "💡 Подсказка: {hint}",
+    "scramble.footer": "⏱ {seconds} с · ответьте на это сообщение словом",
+    "scramble.correct_line": "✅ Слово: <b>{word}</b>",
+    "scramble.finished": "🏁 «Собери слово» завершено!",
+    "gap.title": "📝 Пропущенное слово — {current}/{total}",
+    "gap.footer": "⏱ {seconds} с · один ответ на игрока",
+    "gap.correct_line": "✅ Верно: <b>{option}</b>",
+    "gap.finished": "🏁 «Пропущенное слово» завершено!",
+    "race.title": "🏁 Гонка переводов — {current}/{total}",
+    "race.prompt": "Переведите: <b>{word}</b>",
+    "race.footer": "⏱ {seconds} с · чем быстрее, тем больше очков",
+    "race.correct_line": "✅ {word} — <b>{option}</b>",
+    "race.finished": "🏁 «Гонка переводов» завершена!",
+    "truefalse.title": "🤔 Правда или ложь — {current}/{total}",
+    "truefalse.footer": "⏱ {seconds} с · один ответ на игрока",
+    "truefalse.true": "Правда",
+    "truefalse.false": "Ложь",
+    "truefalse.correct_line": "✅ Ответ: <b>{answer}</b>",
+    "truefalse.finished": "🏁 «Правда или ложь» завершена!",
     # --- Названия языков ---
     "lang.en": "English",
     "lang.ru": "Русский",

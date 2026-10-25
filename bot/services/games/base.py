@@ -64,6 +64,21 @@ class StartOutcome:
     reason: str | None = None
 
 
+def refusal_key(outcome: StartOutcome) -> str:
+    """Ключ локализации для причины, по которой игра не началась."""
+    if outcome.result is StartResult.ALREADY_RUNNING:
+        return "game.already_running"
+    if outcome.result is StartResult.COOLDOWN:
+        return "game.cooldown"
+    if outcome.result is StartResult.DAILY_LIMIT:
+        return "game.daily_limit"
+    if outcome.reason == "quota":
+        return "game.no_content_quota"
+    if outcome.reason == "send_failed":
+        return "common.error"
+    return "game.no_content"
+
+
 class AnswerResult(Enum):
     """Итог нажатия кнопки ответа."""
 
@@ -97,6 +112,12 @@ class Game(ABC):
     """Механика раундов, общая для всех игр; специфику дают подклассы."""
 
     kind: ClassVar[str] = ""
+    # Имя настройки с длительностью раунда: каждая игра задаёт своё время.
+    duration_setting: ClassVar[str] = "quiz_round_seconds"
+    # Scramble закрывает раунд сразу после первого верного ответа.
+    close_on_correct: ClassVar[bool] = False
+    # Scramble принимает текстовые ответы reply на сообщение раунда.
+    accepts_text: ClassVar[bool] = False
 
     def __init__(
         self,
@@ -390,10 +411,10 @@ class AnswerOutcome:
 
 @dataclass(frozen=True)
 class RoundView:
-    """Сообщение раунда: текст и кнопки."""
+    """Сообщение раунда: текст и кнопки (у scramble кнопок нет)."""
 
     text: str
-    keyboard: InlineKeyboardMarkup
+    keyboard: InlineKeyboardMarkup | None
 
 
 @dataclass(frozen=True)

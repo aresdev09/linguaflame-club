@@ -124,3 +124,48 @@ def quiz_answers_keyboard(
         )
     builder.adjust(2)
     return builder.as_markup()
+
+
+def option_buttons_keyboard(
+    session_id: uuid.UUID, round_no: int, labels: list[str]
+) -> InlineKeyboardMarkup:
+    """Кнопки мини-игр с текстом варианта: gap и race.
+
+    В `callback_data` только индекс, поэтому правильный ответ не виден
+    в данных кнопки.
+    """
+    builder = InlineKeyboardBuilder()
+    for index, label in enumerate(labels):
+        builder.button(
+            text=label,
+            callback_data=build_answer_callback(session_id, round_no, index),
+        )
+    builder.adjust(2)
+    return builder.as_markup()
+
+
+def truefalse_keyboard(session_id: uuid.UUID, round_no: int, lang: str) -> InlineKeyboardMarkup:
+    """Две кнопки «Правда» и «Ложь»: 1 — true, 0 — false."""
+    builder = InlineKeyboardBuilder()
+    builder.button(
+        text=t("truefalse.true", lang),
+        callback_data=build_answer_callback(session_id, round_no, 1),
+    )
+    builder.button(
+        text=t("truefalse.false", lang),
+        callback_data=build_answer_callback(session_id, round_no, 0),
+    )
+    builder.adjust(2)
+    return builder.as_markup()
+
+
+def games_menu(lang: str) -> InlineKeyboardMarkup:
+    """Меню /games: по кнопке на каждую мини-игру."""
+    builder = InlineKeyboardBuilder()
+    for kind in ("scramble", "gap", "race", "truefalse"):
+        builder.button(
+            text=t(f"game.{kind}", lang),
+            callback_data=f"games:{kind}",
+        )
+    builder.adjust(2)
+    return builder.as_markup()
