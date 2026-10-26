@@ -27,9 +27,13 @@ copy .env.example .env
 
 ## Команды
 
-`/start`, `/setup`, `/settings`, `/quiz [n]`, `/games`, `/scramble`, `/gap`,
-`/race`, `/truefalse`, `/word`, `/grammar`, `/top`, `/me`, `/streak`, `/stop`,
-`/privacy`.
+`/start`, `/help`, `/setup`, `/settings`, `/quiz [n]`, `/games`, `/scramble`,
+`/gap`, `/race`, `/truefalse`, `/word`, `/grammar`, `/top`, `/me`, `/streak`,
+`/stop`, `/reset_scores`, `/privacy`.
+
+В личном чате бот объясняет, как добавить его в группу (кнопка «Add to group»),
+и показывает `/help`; команды игр и админов там вежливо отвечают, что работают
+только в группе.
 
 Автоматически: пост дня со словами и грамматикой, вечернее напоминание об
 огоньке, утреннее сообщение о потерянном огоньке, вехи огонька (3, 7, 14, 30,

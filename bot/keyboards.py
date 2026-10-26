@@ -30,6 +30,22 @@ def _fmt(value: dt_time) -> str:
     return value.strftime("%H:%M")
 
 
+def add_to_group_keyboard(username: str, lang: str) -> InlineKeyboardMarkup | None:
+    """Кнопка «Add to group»: открывает выбор группы для бота.
+
+    Без имени бота кнопку построить не из чего: возвращаем `None`, и
+    сообщение уходит просто текстом.
+    """
+    if not username:
+        return None
+    builder = InlineKeyboardBuilder()
+    builder.button(
+        text=t("onboarding.add_button", lang),
+        url=f"https://t.me/{username}?startgroup=true",
+    )
+    return builder.as_markup()
+
+
 def settings_menu(chat: Chat, lang: str) -> InlineKeyboardMarkup:
     """Клавиатура меню /setup: текущие значения помечены галочкой."""
     builder = InlineKeyboardBuilder()

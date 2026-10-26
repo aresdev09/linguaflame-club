@@ -6,9 +6,50 @@ TEXTS: dict[str, str] = {
     "common.not_admin": "Only group admins can change settings.",
     # --- Приветствие в группе ---
     "welcome.added": (
-        "Hi! I'm LinguaFlame Club: group games, a leaderboard and words "
-        "of the day for English learners. An admin can set me up with /setup. "
-        "Let's learn together! 🔥"
+        "Hi! I'm LinguaFlame Club: group games, a leaderboard, words and "
+        "grammar of the day for English learners. An admin sets me up with /setup.\n\n"
+        "Admin rights are not required: /quiz, /games, /word, /grammar, /top and "
+        "the group flame work with plain member permissions. "
+        "Type /help to see every command. Let's learn together! 🔥"
+    ),
+    # --- Онбординг в личном чате ---
+    "onboarding.start": (
+        "🔥 <b>LinguaFlame Club</b>\n\n"
+        "I turn an English study group into a game:\n"
+        "• /quiz and mini-games — /games\n"
+        "• group leaderboard — /top, your stats — /me\n"
+        "• words and grammar of the day — /word, /grammar\n"
+        "• a shared group flame — /streak\n\n"
+        "Add me to a group and let an admin run /setup."
+    ),
+    "onboarding.add_button": "➕ Add to group",
+    "help.title": "📖 Commands",
+    "help.everyone": (
+        "For everyone:\n"
+        "/quiz [n] — group quiz\n"
+        "/games — mini-game menu\n"
+        "/scramble — word scramble\n"
+        "/gap — fill the gap\n"
+        "/race — translation race\n"
+        "/truefalse — true or false\n"
+        "/word — words of the day\n"
+        "/grammar — grammar of the day\n"
+        "/top — group leaderboard\n"
+        "/me — your stats\n"
+        "/streak — group flame\n"
+        "/privacy — what data I store"
+    ),
+    "help.admins": (
+        "For admins:\n"
+        "/setup — set up the group\n"
+        "/settings — show and change settings\n"
+        "/stop — stop the current game\n"
+        "/reset_scores — reset the leaderboard"
+    ),
+    "private.group_only": (
+        "This command works in a group chat — that's where games and the "
+        "leaderboard live.\n\n"
+        "Add me to your study group and let an admin run /setup."
     ),
     # --- Меню настроек (/setup) ---
     "setup.header": "⚙️ Group settings",
