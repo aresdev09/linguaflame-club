@@ -381,7 +381,9 @@ async def test_daily_cap_counts_only_earned_points_after_reset(
     session_factory: async_sessionmaker[AsyncSession],
 ) -> None:
     """Отмена сброса не снижает дневной лимит: считать нужно заработанное."""
-    now = datetime(2026, 10, 25, 12, 0, tzinfo=UTC)
+    # Часы берём настоящие: начисление помечает событие реальным UTC,
+    # и фиксированная дата в прошлом выпадала бы из дневного окна.
+    now = datetime.now(UTC)
     await _chat(session_factory)
     # Вчерашние очки: в дневное окно не попадают.
     await _event(
