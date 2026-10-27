@@ -148,7 +148,7 @@ def run() -> None:
     setup_logging()
     try:
         settings = get_settings()
-        setup_logging(settings.log_level)
+        setup_logging(settings.log_level, json_logs=settings.log_json)
         asyncio.run(main(settings))
     except ConfigError as exc:
         logger.error("%s", exc)

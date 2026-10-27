@@ -96,9 +96,7 @@ def parse_clock(value: object) -> dt_time:
         try:
             return dt_time.fromisoformat(value.strip())
         except ValueError as exc:
-            raise ValueError(
-                f"ожидается время в формате HH:MM, получено {value!r}"
-            ) from exc
+            raise ValueError(f"ожидается время в формате HH:MM, получено {value!r}") from exc
     raise ValueError(f"ожидается строка со временем, получено {value!r}")
 
 
@@ -122,6 +120,8 @@ class Settings(BaseSettings):
     database_url: str = DEFAULT_DATABASE_URL
     redis_url: str = DEFAULT_REDIS_URL
     log_level: str = "INFO"
+    # Структурные логи: одна JSON-строка на событие (для сервера и сборщиков).
+    log_json: bool = False
 
     # --- ИИ (OpenAI-совместимый API; по умолчанию NVIDIA NIM) ---
     ai_server_url: str = "https://integrate.api.nvidia.com/v1"
