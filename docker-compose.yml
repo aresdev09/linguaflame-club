@@ -1,0 +1,55 @@
+# Запуск проекта с нуля: бот, PostgreSQL и Redis.
+#
+#   copy .env.example .env   (Windows)  /  cp .env.example .env   (Linux/macOS)
+#   # заполните BOT_TOKEN и AI_API_KEY
+#   docker compose up --build
+#
+# Настройки бота берутся из .env, адреса базы и Redis подменяются на
+# контейнерные. Миграции применяются автоматически при старте бота.
+
+services:
+  bot:
+    build: .
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATABASE_URL: postgresql+asyncpg://linguaflame:${POSTGRES_PASSWORD:-linguaflame}@db:5432/linguaflame_club
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: linguaflame
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-linguaflame}
+      POSTGRES_DB: linguaflame_club
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U linguaflame -d linguaflame_club"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
+  redisdata:

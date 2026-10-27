@@ -1,0 +1,23 @@
+# Секреты и локальные данные не попадают в образ.
+.env
+*.db
+*.db-shm
+*.db-wal
+
+# Окружение и кеши инструментов.
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.git/
+.gitignore
+
+# Тесты и документация для разработки.
+tests/
+tasks/
+skills/
+AGENTS.md
+PROMPTS.md
+.opencode/
+docs/
