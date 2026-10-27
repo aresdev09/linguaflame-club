@@ -149,14 +149,10 @@ async def test_membership_handler_ignores_promotion(
     """Повышение бота до администратора — не добавление, приветствия нет."""
     sender = AsyncMock()
     chat = Chat(id=-201, type="group", title="Test group")
-    await register_bot_added(
-        session_factory, chat_id=-201, title="Test group", chat_type="group"
-    )
+    await register_bot_added(session_factory, chat_id=-201, title="Test group", chat_type="group")
 
     await bot_membership_changed(
-        update=_membership_update(
-            chat, ChatMemberStatus.MEMBER, ChatMemberStatus.ADMINISTRATOR
-        ),
+        update=_membership_update(chat, ChatMemberStatus.MEMBER, ChatMemberStatus.ADMINISTRATOR),
         session_factory=session_factory,
         sender=sender,
     )

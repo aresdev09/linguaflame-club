@@ -47,9 +47,7 @@ class CooldownTracker:
         self._last[key] = now
         if len(self._last) > _PRUNE_THRESHOLD:
             self._last = {
-                item: seen
-                for item, seen in self._last.items()
-                if now - seen < _MAX_IDLE_SECONDS
+                item: seen for item, seen in self._last.items() if now - seen < _MAX_IDLE_SECONDS
             }
         return True
 
@@ -79,9 +77,7 @@ class ThrottleMiddleware(BaseMiddleware):
             if not self._commands.allow((chat_id, user_id), self._user_cooldown):
                 logger.debug("Кулдаун: слишком частая команда /%s от %s", command, user_id)
                 return None
-            if command in HEAVY_COMMANDS and not self._heavy.allow(
-                chat_id, self._heavy_cooldown
-            ):
+            if command in HEAVY_COMMANDS and not self._heavy.allow(chat_id, self._heavy_cooldown):
                 logger.debug("Кулдаун: тяжёлая команда /%s в чате %s", command, chat_id)
                 return None
         return await handler(event, data)

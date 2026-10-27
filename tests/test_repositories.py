@@ -227,9 +227,7 @@ async def test_score_event_created_at_is_utc(session: AsyncSession) -> None:
     """Время начислений хранится в UTC."""
     await _create_chat(session)
     before = datetime.now(UTC)
-    event = await ScoreRepo(session).add_event(
-        CHAT_ID, 111, points=3, source="daily_bonus"
-    )
+    event = await ScoreRepo(session).add_event(CHAT_ID, 111, points=3, source="daily_bonus")
     after = datetime.now(UTC)
     await session.commit()
 
@@ -261,9 +259,7 @@ async def test_streak_progress_roundtrip(session: AsyncSession) -> None:
     await _create_chat(session)
     streaks = StreakRepo(session)
 
-    await streaks.set_progress(
-        CHAT_ID, current_streak=3, best_streak=5, last_active_date=DAY
-    )
+    await streaks.set_progress(CHAT_ID, current_streak=3, best_streak=5, last_active_date=DAY)
     await session.commit()
 
     streak = await streaks.get(CHAT_ID)

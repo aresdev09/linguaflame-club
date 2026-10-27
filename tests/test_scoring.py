@@ -67,9 +67,7 @@ async def _member(
 ) -> None:
     async with session_factory() as session:
         async with session.begin():
-            await MemberRepo(session).get_or_create(
-                chat_id, user_id, display_name=display_name
-            )
+            await MemberRepo(session).get_or_create(chat_id, user_id, display_name=display_name)
 
 
 async def _event(
@@ -147,15 +145,11 @@ async def test_daily_cap_is_counted_in_chat_timezone(
     service = ScoringService(session_factory, _settings(), now=_clock(now))
 
     # 18:59 UTC = 23:59 понедельника в Самарканде: лимит прошлого дня.
-    await _event(
-        session_factory, 111, 300, at=datetime(2026, 10, 12, 18, 59, tzinfo=UTC)
-    )
+    await _event(session_factory, 111, 300, at=datetime(2026, 10, 12, 18, 59, tzinfo=UTC))
     assert await service.award(CHAT_ID, 111, 30, "quiz") == 30
 
     # 19:00 UTC = 00:00 вторника: это уже текущий локальный день.
-    await _event(
-        session_factory, 222, 300, at=datetime(2026, 10, 12, 19, 0, tzinfo=UTC)
-    )
+    await _event(session_factory, 222, 300, at=datetime(2026, 10, 12, 19, 0, tzinfo=UTC))
     assert await service.award(CHAT_ID, 222, 30, "quiz") == 0
 
     events = await _all_events(session_factory)
@@ -222,13 +216,13 @@ def test_week_start_in_utc() -> None:
 
 def test_week_start_in_samarkand() -> None:
     """Понедельник 00:00 в Самарканде (UTC+5) — это воскресенье 19:00 UTC."""
-    assert week_start(
-        "Asia/Samarkand", datetime(2026, 10, 19, 5, 0, tzinfo=UTC)
-    ) == datetime(2026, 10, 18, 19, 0, tzinfo=UTC)
+    assert week_start("Asia/Samarkand", datetime(2026, 10, 19, 5, 0, tzinfo=UTC)) == datetime(
+        2026, 10, 18, 19, 0, tzinfo=UTC
+    )
     # 18:59 UTC — ещё воскресенье 23:59 локально, неделя прошлая.
-    assert week_start(
-        "Asia/Samarkand", datetime(2026, 10, 18, 18, 59, tzinfo=UTC)
-    ) == datetime(2026, 10, 11, 19, 0, tzinfo=UTC)
+    assert week_start("Asia/Samarkand", datetime(2026, 10, 18, 18, 59, tzinfo=UTC)) == datetime(
+        2026, 10, 11, 19, 0, tzinfo=UTC
+    )
 
 
 async def test_weekly_ranking_respects_samarkand_boundary(
@@ -239,15 +233,9 @@ async def test_weekly_ranking_respects_samarkand_boundary(
     now = datetime(2026, 10, 21, 12, 0, tzinfo=UTC)
     service = ScoringService(session_factory, _settings(), now=_clock(now))
 
-    await _event(
-        session_factory, 111, 5, at=datetime(2026, 10, 18, 18, 59, tzinfo=UTC)
-    )
-    await _event(
-        session_factory, 111, 7, at=datetime(2026, 10, 18, 19, 0, tzinfo=UTC)
-    )
-    await _event(
-        session_factory, 222, 3, at=datetime(2026, 10, 19, 0, 0, tzinfo=UTC)
-    )
+    await _event(session_factory, 111, 5, at=datetime(2026, 10, 18, 18, 59, tzinfo=UTC))
+    await _event(session_factory, 111, 7, at=datetime(2026, 10, 18, 19, 0, tzinfo=UTC))
+    await _event(session_factory, 222, 3, at=datetime(2026, 10, 19, 0, 0, tzinfo=UTC))
 
     week = await service.top(chat, PERIOD_WEEK)
     assert [(entry.user_id, entry.points) for entry in week] == [(111, 7), (222, 3)]
@@ -271,12 +259,8 @@ async def test_weekly_ranking_respects_utc_boundary(
     now = datetime(2026, 10, 21, 12, 0, tzinfo=UTC)
     service = ScoringService(session_factory, _settings(), now=_clock(now))
 
-    await _event(
-        session_factory, 111, 5, at=datetime(2026, 10, 18, 23, 59, 59, tzinfo=UTC)
-    )
-    await _event(
-        session_factory, 111, 7, at=datetime(2026, 10, 19, 0, 0, tzinfo=UTC)
-    )
+    await _event(session_factory, 111, 5, at=datetime(2026, 10, 18, 23, 59, 59, tzinfo=UTC))
+    await _event(session_factory, 111, 7, at=datetime(2026, 10, 19, 0, 0, tzinfo=UTC))
 
     week = await service.top(chat, PERIOD_WEEK)
     assert [(entry.user_id, entry.points) for entry in week] == [(111, 7)]
@@ -323,16 +307,10 @@ async def test_tie_is_broken_by_earlier_last_event(
     now = datetime(2026, 10, 21, 12, 0, tzinfo=UTC)
     service = ScoringService(session_factory, _settings(), now=_clock(now))
 
-    await _event(
-        session_factory, 111, 10, at=datetime(2026, 10, 19, 10, 0, tzinfo=UTC)
-    )
-    await _event(
-        session_factory, 222, 15, at=datetime(2026, 10, 19, 10, 5, tzinfo=UTC)
-    )
+    await _event(session_factory, 111, 10, at=datetime(2026, 10, 19, 10, 0, tzinfo=UTC))
+    await _event(session_factory, 222, 15, at=datetime(2026, 10, 19, 10, 5, tzinfo=UTC))
     # 111 набрал ещё очки позже — его последнее событие теперь позже.
-    await _event(
-        session_factory, 111, 5, at=datetime(2026, 10, 19, 10, 10, tzinfo=UTC)
-    )
+    await _event(session_factory, 111, 5, at=datetime(2026, 10, 19, 10, 10, tzinfo=UTC))
 
     top = await service.top(chat, PERIOD_WEEK)
     assert [(entry.user_id, entry.points) for entry in top] == [(222, 15), (111, 15)]
@@ -363,12 +341,8 @@ async def test_opted_out_member_hidden_from_rating(
     await _chat(session_factory)
     await _member(session_factory, 111, display_name="Anna")
     await _member(session_factory, 222, display_name="Bekzod")
-    await _event(
-        session_factory, 111, 10, at=datetime(2026, 10, 20, 10, 0, tzinfo=UTC)
-    )
-    await _event(
-        session_factory, 222, 20, at=datetime(2026, 10, 20, 11, 0, tzinfo=UTC)
-    )
+    await _event(session_factory, 111, 10, at=datetime(2026, 10, 20, 10, 0, tzinfo=UTC))
+    await _event(session_factory, 222, 20, at=datetime(2026, 10, 20, 11, 0, tzinfo=UTC))
     async with session_factory() as session:
         async with session.begin():
             await MemberRepo(session).set_opted_out(CHAT_ID, 222, True)
@@ -390,21 +364,34 @@ async def test_member_stats_counts_answers_and_best_game(
     chat = await _chat(session_factory)
     async with session_factory() as session:
         async with session.begin():
-            game = await GameRepo(session).create_session(
-                CHAT_ID, kind="quiz", started_by=111
-            )
+            game = await GameRepo(session).create_session(CHAT_ID, kind="quiz", started_by=111)
             answers = GameRepo(session)
             await answers.add_answer(
-                game.id, 1, user_id=111, answer="a", is_correct=True,
-                answer_time_ms=1000, points=10,
+                game.id,
+                1,
+                user_id=111,
+                answer="a",
+                is_correct=True,
+                answer_time_ms=1000,
+                points=10,
             )
             await answers.add_answer(
-                game.id, 2, user_id=111, answer="b", is_correct=False,
-                answer_time_ms=2000, points=0,
+                game.id,
+                2,
+                user_id=111,
+                answer="b",
+                is_correct=False,
+                answer_time_ms=2000,
+                points=0,
             )
             await answers.add_answer(
-                game.id, 3, user_id=111, answer="c", is_correct=True,
-                answer_time_ms=1500, points=10,
+                game.id,
+                3,
+                user_id=111,
+                answer="c",
+                is_correct=True,
+                answer_time_ms=1500,
+                points=10,
             )
     await _event(session_factory, 111, 10, source="quiz")
     await _event(session_factory, 111, 5, source="scramble")
@@ -419,9 +406,7 @@ async def test_member_stats_counts_answers_and_best_game(
     assert stats.total_points == 15
 
 
-async def _place(
-    session_factory: async_sessionmaker[AsyncSession], user_id: int
-) -> int | None:
+async def _place(session_factory: async_sessionmaker[AsyncSession], user_id: int) -> int | None:
     async with session_factory() as session:
         return await ScoreRepo(session).place(
             CHAT_ID, user_id, since=datetime(2026, 10, 19, 0, 0, tzinfo=UTC)

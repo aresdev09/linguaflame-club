@@ -38,9 +38,6 @@ def is_milestone(days: int) -> bool:
     return days in MILESTONES
 
 
-
-
-
 @dataclass(frozen=True)
 class StreakState:
     """Состояние огонька для `/streak` и планировщика."""

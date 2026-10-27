@@ -30,8 +30,6 @@ class UsageRepo(BaseRepo):
 
     async def total_requests(self, on_date: date) -> int:
         """Сумма запросов всех чатов за дату — для глобального бюджета."""
-        stmt = select(func.coalesce(func.sum(AIUsage.requests), 0)).where(
-            AIUsage.date == on_date
-        )
+        stmt = select(func.coalesce(func.sum(AIUsage.requests), 0)).where(AIUsage.date == on_date)
         result = await self.session.execute(stmt)
         return int(result.scalar_one())

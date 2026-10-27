@@ -98,15 +98,11 @@ async def _generate_items(
             seen.add(key)
             collected.append(payload)
         if attempt == 1 and len(collected) < count:
-            logger.info(
-                "%s %s: собрано %d из %d, догенерирую", kind, level, len(collected), count
-            )
+            logger.info("%s %s: собрано %d из %d, догенерирую", kind, level, len(collected), count)
     return collected[:count]
 
 
-def _save_file(
-    path: Path, *, kind: str, level: str, language: str, items: list[dict]
-) -> None:
+def _save_file(path: Path, *, kind: str, level: str, language: str, items: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     payload = {
         "kind": kind,
@@ -140,9 +136,7 @@ async def generate_bank(
                 logger.error("%s %s: не удалось собрать элементы", kind, level)
                 continue
             if len(items) < count:
-                logger.warning(
-                    "%s %s: собрано только %d из %d", kind, level, len(items), count
-                )
+                logger.warning("%s %s: собрано только %d из %d", kind, level, len(items), count)
             else:
                 complete += 1
             _save_file(
@@ -226,9 +220,7 @@ async def load_bank(
 async def _run_generate(settings: Settings, language: str, count: int) -> None:
     client = build_ai_client(settings)
     try:
-        files = await generate_bank(
-            client, language=language, count=count, bank_dir=BANK_DIR
-        )
+        files = await generate_bank(client, language=language, count=count, bank_dir=BANK_DIR)
     finally:
         await client.close()
     logger.info("Готово: полных файлов %d (язык %s)", files, language)

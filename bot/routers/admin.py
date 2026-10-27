@@ -75,9 +75,7 @@ async def stop_command(
     if not stopped:
         await sender.reply(message, t("admin.stop_no_game", lang))
         return
-    await AdminActionsService(session_factory).log(
-        chat.id, _actor_id(message), "stop_game"
-    )
+    await AdminActionsService(session_factory).log(chat.id, _actor_id(message), "stop_game")
     await sender.reply(message, t("game.stopped", lang))
 
 
@@ -120,9 +118,7 @@ async def reset_callback(
         return
 
     action = (callback.data or "").split(":", 1)[-1]
-    service = AdminActionsService(
-        session_factory, undo_hours=settings.score_reset_undo_hours
-    )
+    service = AdminActionsService(session_factory, undo_hours=settings.score_reset_undo_hours)
     message_id = callback.message.message_id
 
     if action == "confirm":
@@ -177,9 +173,7 @@ async def privacy_command(
     opted_out = bool(member.opted_out) if member is not None else False
     if chat_row is None:
         return
-    await sender.reply(
-        message, _privacy_text(lang), reply_markup=privacy_keyboard(lang, opted_out)
-    )
+    await sender.reply(message, _privacy_text(lang), reply_markup=privacy_keyboard(lang, opted_out))
 
 
 async def privacy_callback(

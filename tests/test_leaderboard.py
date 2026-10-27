@@ -39,9 +39,7 @@ async def _event(
     async with session_factory() as session:
         async with session.begin():
             if display_name is not None:
-                await MemberRepo(session).get_or_create(
-                    CHAT_ID, user_id, display_name=display_name
-                )
+                await MemberRepo(session).get_or_create(CHAT_ID, user_id, display_name=display_name)
             event = await ScoreRepo(session).add_event(
                 CHAT_ID, user_id, points=points, source="quiz"
             )

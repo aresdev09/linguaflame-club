@@ -168,16 +168,14 @@ TEXTS: dict[str, str] = {
     "streak.best": "Best streak: {days}",
     "streak.today_active": "Today: the group already earned points ✅",
     "streak.today_pending": (
-        "Today: no points yet — play a game or tap \"Got it\" to keep the flame!"
+        'Today: no points yet — play a game or tap "Got it" to keep the flame!'
     ),
     "streak.out": "The flame is out. Light it again with /quiz!",
     "streak.reminder": (
         "🔥 Your group flame is at risk! {days} in a row. One quick /quiz keeps it alive."
     ),
     "streak.lost": "The flame went out after {days}. Light it again with /quiz!",
-    "streak.milestone": (
-        "🔥 {days} in a row! The group flame is burning bright — keep it up!"
-    ),
+    "streak.milestone": ("🔥 {days} in a row! The group flame is burning bright — keep it up!"),
     # --- Итоги недели ---
     "recap.title": "📊 Week in review",
     "recap.winner": "🏆 Winner of the week: {name} — {points} pts",

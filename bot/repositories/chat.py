@@ -47,12 +47,7 @@ class ChatRepo(BaseRepo):
 
     async def list_active(self, *, limit: int = 1000) -> list[Chat]:
         """Активные чаты для планировщика: из неактивных автосообщения не шлём."""
-        stmt = (
-            select(Chat)
-            .where(Chat.active.is_(True))
-            .order_by(Chat.id)
-            .limit(limit)
-        )
+        stmt = select(Chat).where(Chat.active.is_(True)).order_by(Chat.id).limit(limit)
         result = await self.session.execute(stmt)
         return list(result.scalars().all())
 

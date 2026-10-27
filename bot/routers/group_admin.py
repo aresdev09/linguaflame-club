@@ -99,9 +99,7 @@ async def on_group_upgraded(
     new_chat_id = message.migrate_to_chat_id
     if new_chat_id is None:  # защита от служебного сообщения без миграции
         return
-    await migrate_chat(
-        session_factory, old_chat_id=message.chat.id, new_chat_id=new_chat_id
-    )
+    await migrate_chat(session_factory, old_chat_id=message.chat.id, new_chat_id=new_chat_id)
 
 
 async def on_group_upgrade_seen_in_supergroup(
@@ -116,9 +114,7 @@ async def on_group_upgrade_seen_in_supergroup(
     old_chat_id = message.migrate_from_chat_id
     if old_chat_id is None:
         return
-    await migrate_chat(
-        session_factory, old_chat_id=old_chat_id, new_chat_id=message.chat.id
-    )
+    await migrate_chat(session_factory, old_chat_id=old_chat_id, new_chat_id=message.chat.id)
 
 
 async def open_settings(
@@ -255,9 +251,7 @@ async def manual_time_input(
     state: FSMContext,
 ) -> None:
     """Ручной ввод времени поста: ответ на приглашение бота."""
-    await _handle_manual_input(
-        message, "time", session_factory, chat, admins, lang, sender, state
-    )
+    await _handle_manual_input(message, "time", session_factory, chat, admins, lang, sender, state)
 
 
 async def _handle_manual_input(
@@ -280,9 +274,7 @@ async def _handle_manual_input(
         await state.clear()
         return
 
-    error_key = await apply_manual_setting(
-        session_factory, chat.id, field, message.text or ""
-    )
+    error_key = await apply_manual_setting(session_factory, chat.id, field, message.text or "")
     await state.clear()
     if error_key is not None:
         await sender.reply(message, t(error_key, lang))

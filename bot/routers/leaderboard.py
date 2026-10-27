@@ -77,9 +77,7 @@ async def show_me(
     """Показывает личную статистику участника в группе."""
     if message.from_user is None:
         return
-    stats = await ScoringService(session_factory, settings).member_stats(
-        chat, message.from_user.id
-    )
+    stats = await ScoringService(session_factory, settings).member_stats(chat, message.from_user.id)
     await sender.reply(message, format_me(stats, lang))
 
 

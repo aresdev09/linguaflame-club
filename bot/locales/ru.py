@@ -170,9 +170,7 @@ TEXTS: dict[str, str] = {
     "streak.current": "Текущий огонёк: {days}",
     "streak.best": "Рекорд: {days}",
     "streak.today_active": "Сегодня: очки уже заработаны ✅",
-    "streak.today_pending": (
-        "Сегодня: очков пока нет — сыграйте в игру или нажмите «Got it»!"
-    ),
+    "streak.today_pending": ("Сегодня: очков пока нет — сыграйте в игру или нажмите «Got it»!"),
     "streak.out": "Огонёк погас. Зажгите его снова командой /quiz!",
     "streak.reminder": (
         "🔥 Огонёк группы под угрозой! {days} подряд. Один быстрый /quiz — и он снова горит."

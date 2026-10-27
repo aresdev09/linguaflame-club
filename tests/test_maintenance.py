@@ -36,9 +36,7 @@ async def _chat(
         async with session.begin():
             repo = ChatRepo(session)
             await repo.get_or_create(chat_id, title="Group")
-            await repo.update_settings(
-                chat_id, active=active, deactivated_at=deactivated_at
-            )
+            await repo.update_settings(chat_id, active=active, deactivated_at=deactivated_at)
 
 
 async def _answer(
@@ -79,9 +77,7 @@ async def test_answer_texts_are_cleared_but_stats_kept(
 
     async with session_factory() as session:
         answers = list(
-            (await session.execute(select(GameAnswer).order_by(GameAnswer.id)))
-            .scalars()
-            .all()
+            (await session.execute(select(GameAnswer).order_by(GameAnswer.id))).scalars().all()
         )
     assert answers[0].answer == ""  # старый текст стёрт
     assert answers[1].answer == "fresh"  # свежий ответ не тронут
@@ -95,9 +91,7 @@ async def test_answer_texts_are_cleared_but_stats_kept(
 async def test_inactive_chat_data_is_deleted_after_30_days(
     session_factory: async_sessionmaker[AsyncSession],
 ) -> None:
-    await _chat(
-        session_factory, OLD_CHAT, active=False, deactivated_at=NOW - timedelta(days=31)
-    )
+    await _chat(session_factory, OLD_CHAT, active=False, deactivated_at=NOW - timedelta(days=31))
     await _chat(
         session_factory,
         RECENT_CHAT,
@@ -115,11 +109,7 @@ async def test_inactive_chat_data_is_deleted_after_30_days(
 
     async with session_factory() as session:
         game_ids = list(
-            (
-                await session.execute(
-                    select(GameSession.id).where(GameSession.chat_id == OLD_CHAT)
-                )
-            )
+            (await session.execute(select(GameSession.id).where(GameSession.chat_id == OLD_CHAT)))
             .scalars()
             .all()
         )
@@ -134,14 +124,10 @@ async def test_inactive_chat_data_is_deleted_after_30_days(
         assert await MemberRepo(session).get(OLD_CHAT, 5) is None
         assert await ScoreRepo(session).total(OLD_CHAT, 5) == 0
         assert (
-            await session.execute(
-                select(GameSession).where(GameSession.chat_id == OLD_CHAT)
-            )
+            await session.execute(select(GameSession).where(GameSession.chat_id == OLD_CHAT))
         ).scalars().first() is None
         assert (
-            await session.execute(
-                select(GameAnswer).where(GameAnswer.session_id.in_(game_ids))
-            )
+            await session.execute(select(GameAnswer).where(GameAnswer.session_id.in_(game_ids)))
         ).scalars().first() is None
         # Недавний неактивный и активный чаты остаются нетронутыми.
         assert await ChatRepo(session).get(RECENT_CHAT) is not None
@@ -151,9 +137,7 @@ async def test_inactive_chat_data_is_deleted_after_30_days(
 async def test_run_reports_both_cleanups(
     session_factory: async_sessionmaker[AsyncSession],
 ) -> None:
-    await _chat(
-        session_factory, OLD_CHAT, active=False, deactivated_at=NOW - timedelta(days=40)
-    )
+    await _chat(session_factory, OLD_CHAT, active=False, deactivated_at=NOW - timedelta(days=40))
     await _answer(session_factory, OLD_CHAT, at=NOW - timedelta(days=10), text="x")
 
     service = MaintenanceService(session_factory, _settings(), now=lambda: NOW)

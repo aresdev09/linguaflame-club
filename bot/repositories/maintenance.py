@@ -38,9 +38,7 @@ class MaintenanceRepo(BaseRepo):
         )
         return int(result.rowcount or 0)
 
-    async def list_purgeable_chat_ids(
-        self, before: datetime, *, limit: int = 500
-    ) -> list[int]:
+    async def list_purgeable_chat_ids(self, before: datetime, *, limit: int = 500) -> list[int]:
         """Чаты, удалённые из бота раньше `before`: данные пора стереть."""
         stmt = (
             select(Chat.id)
@@ -58,13 +56,9 @@ class MaintenanceRepo(BaseRepo):
     async def delete_chat_data(self, chat_id: int) -> None:
         """Удаляет все данные чата в правильном порядке (внешние ключи)."""
         session_ids = select(GameSession.id).where(GameSession.chat_id == chat_id)
-        await self.session.execute(
-            delete(GameAnswer).where(GameAnswer.session_id.in_(session_ids))
-        )
+        await self.session.execute(delete(GameAnswer).where(GameAnswer.session_id.in_(session_ids)))
         await self.session.execute(delete(ScoreEvent).where(ScoreEvent.chat_id == chat_id))
-        await self.session.execute(
-            delete(GameSession).where(GameSession.chat_id == chat_id)
-        )
+        await self.session.execute(delete(GameSession).where(GameSession.chat_id == chat_id))
         await self.session.execute(delete(ScoreReset).where(ScoreReset.chat_id == chat_id))
         for model in (
             Member,

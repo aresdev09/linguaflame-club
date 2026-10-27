@@ -16,9 +16,7 @@ class SchedulerRepo(BaseRepo):
     ограничивает автосообщения на чат.
     """
 
-    async def get(
-        self, chat_id: int, on_date: date, kind: str
-    ) -> ScheduledMessage | None:
+    async def get(self, chat_id: int, on_date: date, kind: str) -> ScheduledMessage | None:
         """Запись автосообщения за день, если она уже создана."""
         stmt = select(ScheduledMessage).where(
             ScheduledMessage.chat_id == chat_id,

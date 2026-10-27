@@ -112,9 +112,7 @@ async def test_private_start_shows_add_to_group_button(
     kwargs = bot.send_message.await_args.kwargs
     assert "LinguaFlame Club" in kwargs["text"]
     assert "/setup" in kwargs["text"]
-    assert _button_urls(kwargs["reply_markup"]) == [
-        "https://t.me/ClubBot?startgroup=true"
-    ]
+    assert _button_urls(kwargs["reply_markup"]) == ["https://t.me/ClubBot?startgroup=true"]
 
 
 async def test_private_game_command_explains_it_works_in_a_group(
@@ -136,9 +134,7 @@ async def test_private_game_command_explains_it_works_in_a_group(
     bot.send_message.assert_awaited_once()
     kwargs = bot.send_message.await_args.kwargs
     assert kwargs["text"] == en.TEXTS["private.group_only"]
-    assert _button_urls(kwargs["reply_markup"]) == [
-        "https://t.me/ClubBot?startgroup=true"
-    ]
+    assert _button_urls(kwargs["reply_markup"]) == ["https://t.me/ClubBot?startgroup=true"]
 
 
 async def test_private_admin_command_does_not_crash(

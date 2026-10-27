@@ -37,9 +37,7 @@ def _update(
     return Update(update_id=_update_counter, message=message)
 
 
-async def _run_context(
-    middleware: GroupContextMiddleware, update: Update
-) -> dict[str, object]:
+async def _run_context(middleware: GroupContextMiddleware, update: Update) -> dict[str, object]:
     captured: dict[str, object] = {}
 
     async def handler(event: Update, data: dict[str, object]) -> None:
@@ -102,9 +100,7 @@ async def test_context_skips_migration_messages(
     middleware = GroupContextMiddleware(session_factory)
     supergroup = Chat(id=-500, type="supergroup", title="G")
 
-    captured = await _run_context(
-        middleware, _update(supergroup, None, migrate_from_chat_id=-100)
-    )
+    captured = await _run_context(middleware, _update(supergroup, None, migrate_from_chat_id=-100))
 
     assert "chat" not in captured
     async with session_factory() as session:

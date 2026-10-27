@@ -143,9 +143,7 @@ async def test_apply_manual_setting_validates_input(
     bad_time = await apply_manual_setting(session_factory, CHAT_ID, "time", "25:99")
     assert bad_time == "setup.bad_time"
 
-    good_zone = await apply_manual_setting(
-        session_factory, CHAT_ID, "timezone", "Asia/Samarkand"
-    )
+    good_zone = await apply_manual_setting(session_factory, CHAT_ID, "timezone", "Asia/Samarkand")
     assert good_zone is None
     assert await apply_manual_setting(session_factory, CHAT_ID, "time", "7:05") is None
 

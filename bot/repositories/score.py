@@ -317,8 +317,4 @@ class ScoreRepo(BaseRepo):
             stmt = stmt.where(ScoreEvent.created_at < until)
         # Участники с нулевой суммой (например, после сброса рейтинга)
         # места в рейтинге не получают.
-        return (
-            stmt.group_by(ScoreEvent.user_id)
-            .having(func.sum(ScoreEvent.points) > 0)
-            .subquery()
-        )
+        return stmt.group_by(ScoreEvent.user_id).having(func.sum(ScoreEvent.points) > 0).subquery()

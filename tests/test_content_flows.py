@@ -28,13 +28,9 @@ async def _chat(
     language: str = "ru",
     level: str = "B1",
 ):
-    await register_bot_added(
-        session_factory, chat_id=chat_id, title="G", chat_type="group"
-    )
+    await register_bot_added(session_factory, chat_id=chat_id, title="G", chat_type="group")
     async with session_factory() as session:
-        await ChatRepo(session).update_settings(
-            chat_id, translation_language=language, level=level
-        )
+        await ChatRepo(session).update_settings(chat_id, translation_language=language, level=level)
         await session.commit()
         chat = await ChatRepo(session).get(chat_id)
     assert chat is not None

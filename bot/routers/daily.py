@@ -106,17 +106,13 @@ async def daily_button(
 
     if action == ACTION_GOT:
         outcome = await daily.claim_points(chat, callback.from_user.id, post_id)
-        await sender.answer_callback(
-            callback, t(tap_key(outcome), lang, points=daily.bonus_points)
-        )
+        await sender.answer_callback(callback, t(tap_key(outcome), lang, points=daily.bonus_points))
         return
 
     await sender.answer_callback(callback)  # неизвестное действие — молча
 
 
-def _keyboard(
-    kind: str, result: DailyPostResult, lang: str
-) -> InlineKeyboardMarkup | None:
+def _keyboard(kind: str, result: DailyPostResult, lang: str) -> InlineKeyboardMarkup | None:
     """Кнопка дня под постом; без записи в `daily_posts` кнопки нет."""
     if result.post_id is None:  # запись не создалась — показываем пост без кнопки
         return None

@@ -204,9 +204,7 @@ async def test_dispatcher_greets_when_bot_is_added(
         sender,
         admins,
         session_factory,
-        _membership_update(
-            ChatMemberLeft(user=BOT_USER), ChatMemberMember(user=BOT_USER)
-        ),
+        _membership_update(ChatMemberLeft(user=BOT_USER), ChatMemberMember(user=BOT_USER)),
         games,
     )
 
@@ -231,9 +229,7 @@ async def test_dispatcher_deactivates_when_bot_kicked(
         sender,
         admins,
         session_factory,
-        _membership_update(
-            ChatMemberLeft(user=BOT_USER), ChatMemberMember(user=BOT_USER)
-        ),
+        _membership_update(ChatMemberLeft(user=BOT_USER), ChatMemberMember(user=BOT_USER)),
         games,
     )
     # Потом забанили — чат становится неактивным, данные остаются.
@@ -283,9 +279,7 @@ async def test_dispatcher_refuses_setup_from_regular_member(
 ) -> None:
     bot, sender, admins, dispatcher, games = _harness(session_factory)
 
-    await _feed(
-        dispatcher, bot, sender, admins, session_factory, _command_update(user_id=8), games
-    )
+    await _feed(dispatcher, bot, sender, admins, session_factory, _command_update(user_id=8), games)
 
     bot.send_message.assert_awaited_once()
     assert bot.send_message.await_args.kwargs["text"] == en.TEXTS["common.not_admin"]
@@ -302,9 +296,7 @@ async def test_dispatcher_opens_menu_for_admin(
         session_factory, member_status=ChatMemberStatus.ADMINISTRATOR
     )
 
-    await _feed(
-        dispatcher, bot, sender, admins, session_factory, _command_update(user_id=9), games
-    )
+    await _feed(dispatcher, bot, sender, admins, session_factory, _command_update(user_id=9), games)
 
     bot.send_message.assert_awaited_once()
     kwargs = bot.send_message.await_args.kwargs
@@ -332,11 +324,7 @@ async def test_dispatcher_runs_quiz_and_answers_buttons(
         bot.send_message.assert_awaited_once()
         kwargs = bot.send_message.await_args.kwargs
         assert "Quiz — round 1/2" in kwargs["text"]
-        buttons = [
-            button
-            for row in kwargs["reply_markup"].inline_keyboard
-            for button in row
-        ]
+        buttons = [button for row in kwargs["reply_markup"].inline_keyboard for button in row]
         assert [button.text for button in buttons] == ["A", "B", "C", "D"]
         session_id, round_no, _choice = parse_answer_callback(buttons[0].callback_data)
         assert round_no == 1
@@ -399,11 +387,7 @@ async def test_dispatcher_game_menu_starts_selected_game(
         bot.send_message.assert_awaited_once()
         kwargs = bot.send_message.await_args.kwargs
         assert "Games" in kwargs["text"]
-        buttons = [
-            button
-            for row in kwargs["reply_markup"].inline_keyboard
-            for button in row
-        ]
+        buttons = [button for row in kwargs["reply_markup"].inline_keyboard for button in row]
         assert [button.callback_data for button in buttons] == [
             "games:scramble",
             "games:gap",
@@ -633,9 +617,7 @@ async def test_dispatcher_privacy_menu_for_member(
 
     kwargs = bot.send_message.await_args.kwargs
     assert "Your data" in kwargs["text"]
-    buttons = [
-        button for row in kwargs["reply_markup"].inline_keyboard for button in row
-    ]
+    buttons = [button for row in kwargs["reply_markup"].inline_keyboard for button in row]
     assert [button.callback_data for button in buttons] == ["privacy:hide"]
 
 

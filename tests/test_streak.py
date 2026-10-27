@@ -55,9 +55,7 @@ async def _mark(
     *,
     timezone: str = "UTC",
 ) -> int:
-    return await StreakService(session_factory, now=clock).register_activity(
-        CHAT_ID, timezone
-    )
+    return await StreakService(session_factory, now=clock).register_activity(CHAT_ID, timezone)
 
 
 async def _streak_row(
@@ -272,9 +270,7 @@ async def test_best_streak_reads_record(
 
 
 def test_format_streak_shows_current_and_best() -> None:
-    state = StreakState(
-        current=3, best=12, last_active_date=date(2026, 10, 25), active_today=True
-    )
+    state = StreakState(current=3, best=12, last_active_date=date(2026, 10, 25), active_today=True)
 
     text = format_streak(state, "en")
 
@@ -290,9 +286,7 @@ def test_format_streak_uses_russian_plural_forms() -> None:
 
 
 def test_format_streak_when_flame_is_out() -> None:
-    state = StreakState(
-        current=0, best=9, last_active_date=None, active_today=False
-    )
+    state = StreakState(current=0, best=9, last_active_date=None, active_today=False)
 
     text = format_streak(state, "en")
 

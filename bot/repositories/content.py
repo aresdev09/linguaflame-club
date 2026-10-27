@@ -125,9 +125,7 @@ class ContentRepo(BaseRepo):
         """Запоминает контент, выданный чату."""
         history = await self.session.get(ChatContentHistory, (chat_id, content_hash))
         if history is None:
-            history = ChatContentHistory(
-                chat_id=chat_id, content_hash=content_hash, kind=kind
-            )
+            history = ChatContentHistory(chat_id=chat_id, content_hash=content_hash, kind=kind)
             self.session.add(history)
         else:
             history.used_at = utcnow()
@@ -161,9 +159,7 @@ class ContentRepo(BaseRepo):
 
     # --- Посты дня ---
 
-    async def get_daily_post(
-        self, chat_id: int, on_date: date, kind: str
-    ) -> DailyPost | None:
+    async def get_daily_post(self, chat_id: int, on_date: date, kind: str) -> DailyPost | None:
         stmt = select(DailyPost).where(
             DailyPost.chat_id == chat_id,
             DailyPost.date == on_date,

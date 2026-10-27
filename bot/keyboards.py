@@ -51,13 +51,9 @@ def settings_menu(chat: Chat, lang: str) -> InlineKeyboardMarkup:
     builder = InlineKeyboardBuilder()
 
     for level in LEVELS:
-        builder.button(
-            text=_mark(level == chat.level, level), callback_data=f"set:level:{level}"
-        )
+        builder.button(text=_mark(level == chat.level, level), callback_data=f"set:level:{level}")
 
-    builder.button(
-        text=_mark(chat.daily_words, t("setup.words", lang)), callback_data="set:words"
-    )
+    builder.button(text=_mark(chat.daily_words, t("setup.words", lang)), callback_data="set:words")
     builder.button(
         text=_mark(chat.daily_grammar, t("setup.grammar", lang)), callback_data="set:grammar"
     )
@@ -83,9 +79,7 @@ def settings_menu(chat: Chat, lang: str) -> InlineKeyboardMarkup:
         builder.button(
             text=_mark(zone == chat.timezone, zone), callback_data=f"set:timezone:{zone}"
         )
-    builder.button(
-        text=t("setup.timezone_manual", lang), callback_data="set:manual:timezone"
-    )
+    builder.button(text=t("setup.timezone_manual", lang), callback_data="set:manual:timezone")
 
     current_time = _fmt(chat.daily_time)
     for post_time in POST_TIME_OPTIONS:
@@ -186,9 +180,7 @@ def daily_words_keyboard(post_id: int, lang: str) -> InlineKeyboardMarkup:
 def daily_grammar_keyboard(post_id: int, lang: str) -> InlineKeyboardMarkup:
     """Кнопка «Show answer» под постом грамматики дня."""
     builder = InlineKeyboardBuilder()
-    builder.button(
-        text=t("daily.show_answer", lang), callback_data=build_show_callback(post_id)
-    )
+    builder.button(text=t("daily.show_answer", lang), callback_data=build_show_callback(post_id))
     return builder.as_markup()
 
 

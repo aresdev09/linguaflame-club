@@ -74,9 +74,7 @@ def tap_key(outcome: TapResult) -> str:
     return f"daily.got_{outcome.value}"
 
 
-def format_words_post(
-    level: str, words: list[dict], lang: str, *, points: int
-) -> list[str]:
+def format_words_post(level: str, words: list[dict], lang: str, *, points: int) -> list[str]:
     """Собирает пост слов: транскрипция, перевод и пример каждого слова.
 
     Длинный пост (20 слов с примерами) режется на несколько сообщений
@@ -126,9 +124,7 @@ def format_grammar_post(level: str, lesson: dict, lang: str) -> str:
         ]
         lines += [
             f"{letter}. {_escape(option)}"
-            for letter, option in zip(
-                OPTION_LETTERS, exercise.get("options") or [], strict=False
-            )
+            for letter, option in zip(OPTION_LETTERS, exercise.get("options") or [], strict=False)
         ]
     return "\n".join(lines)
 
@@ -147,9 +143,7 @@ def format_grammar_answer(lesson: dict, lang: str) -> str:
     lines = [t("daily.grammar_answer_correct", lang, answer=answer)]
     explanation = _escape(lesson.get("answer_explanation"))
     if explanation:
-        lines.append(
-            t("daily.grammar_answer_explanation", lang, explanation=explanation)
-        )
+        lines.append(t("daily.grammar_answer_explanation", lang, explanation=explanation))
     return "\n".join(lines)
 
 
@@ -290,8 +284,7 @@ class DailyService:
             return None
         level, lang = self._render_context(chat, record.payload)
         return (
-            f"{format_grammar_post(level, lesson, lang)}"
-            f"\n\n{format_grammar_answer(lesson, lang)}"
+            f"{format_grammar_post(level, lesson, lang)}\n\n{format_grammar_answer(lesson, lang)}"
         )
 
     # --- Внутренняя механика ---
@@ -315,13 +308,9 @@ class DailyService:
         lesson = payload.get("lesson") or {}
         if not lesson:
             return None
-        return DailyPostResult(
-            [format_grammar_post(level, lesson, lang)], post_id=record.id
-        )
+        return DailyPostResult([format_grammar_post(level, lesson, lang)], post_id=record.id)
 
-    async def _save(
-        self, chat_id: int, today: date, kind: str, payload: dict
-    ) -> int | None:
+    async def _save(self, chat_id: int, today: date, kind: str, payload: dict) -> int | None:
         """Создаёт или дополняет запись поста дня, возвращает её id.
 
         Одна запись на чат, дату и вид (уникальный индекс): если её уже
@@ -333,9 +322,7 @@ class DailyService:
                     repo = ContentRepo(session)
                     record = await repo.get_daily_post(chat_id, today, kind)
                     if record is None:
-                        record = await repo.create_daily_post(
-                            chat_id, today, kind, payload=payload
-                        )
+                        record = await repo.create_daily_post(chat_id, today, kind, payload=payload)
                     elif record.payload is None:
                         record.payload = payload
                         await session.flush()

@@ -72,13 +72,9 @@ class AdminActionsService:
         """Записывает действие в журнал: кто, что и когда сделал."""
         async with self._session_factory() as session:
             async with session.begin():
-                await AdminActionRepo(session).log(
-                    chat_id, user_id, action, details=details
-                )
+                await AdminActionRepo(session).log(chat_id, user_id, action, details=details)
 
-    async def recent_actions(
-        self, chat_id: int, *, limit: int = 20
-    ) -> list[AdminAction]:
+    async def recent_actions(self, chat_id: int, *, limit: int = 20) -> list[AdminAction]:
         """Последние действия чата — новые первыми."""
         async with self._session_factory() as session:
             return await AdminActionRepo(session).recent(chat_id, limit=limit)
@@ -93,9 +89,7 @@ class AdminActionsService:
                 if not positives:
                     return ResetOutcome(RESET_EMPTY)
 
-                reset = await scores.create_reset(
-                    chat_id, admin_user_id, created_at=self._now()
-                )
+                reset = await scores.create_reset(chat_id, admin_user_id, created_at=self._now())
                 cancelled = 0
                 for user_id, points in positives.items():
                     await scores.add_event(

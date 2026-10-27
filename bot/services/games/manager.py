@@ -402,9 +402,7 @@ class GameManager:
 
         text = game.render_results(finished.totals, finished.lang, flame)
         try:
-            await self._sender.send(
-                finished.chat_id, text, thread_id=finished.thread_id
-            )
+            await self._sender.send(finished.chat_id, text, thread_id=finished.thread_id)
         except ChatUnavailable as exc:
             await self._deactivate(finished.chat_id)
             logger.warning("Итоги не отправлены, чат недоступен: %s", exc)

@@ -81,9 +81,7 @@ def week_start(timezone_name: str, now: datetime) -> datetime:
     return start.astimezone(UTC)
 
 
-def previous_week_bounds(
-    timezone_name: str, now: datetime
-) -> tuple[datetime, datetime]:
+def previous_week_bounds(timezone_name: str, now: datetime) -> tuple[datetime, datetime]:
     """Границы прошлой недели чата в UTC: [начало, конец).
 
     Нужны итогам недели: в понедельник утром подводится итог недели,

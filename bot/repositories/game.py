@@ -76,9 +76,7 @@ class GameRepo(BaseRepo):
         await self.session.flush()
         return session
 
-    async def get(
-        self, session_id: uuid.UUID, *, for_update: bool = False
-    ) -> GameSession | None:
+    async def get(self, session_id: uuid.UUID, *, for_update: bool = False) -> GameSession | None:
         """Сессия по id; `for_update` блокирует строку до конца транзакции.
 
         Под этой блокировкой считаются верные ответы раунда — бонус
@@ -328,9 +326,8 @@ class GameRepo(BaseRepo):
 
     async def latest_finished_at(self, chat_id: int) -> datetime | None:
         """Время закрытия последней игры чата (кулдаун между играми)."""
-        stmt = (
-            select(func.max(GameSession.finished_at))
-            .where(GameSession.chat_id == chat_id, GameSession.finished_at.is_not(None))
+        stmt = select(func.max(GameSession.finished_at)).where(
+            GameSession.chat_id == chat_id, GameSession.finished_at.is_not(None)
         )
         result = await self.session.execute(stmt)
         return result.scalar_one()

@@ -45,3 +45,9 @@ select = ["E", "F", "I", "UP", "B"]
 [tool.ruff.lint.per-file-ignores]
 # Миграции пишет автогенерация Alembic: длинные строки и стиль шаблона.
 "migrations/versions/*.py" = ["E501", "I001", "UP007", "UP035"]
+
+[tool.ruff.format]
+# Единый стиль: LF, чтобы рабочий каталог совпадал с индексом git.
+line-ending = "lf"
+# Миграции пишет автогенерация Alembic — их не переформатируем.
+exclude = ["migrations/**"]

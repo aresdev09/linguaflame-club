@@ -74,9 +74,7 @@ def _private_language(user: User | None) -> str:
     return "ru" if code.startswith("ru") else DEFAULT_LANGUAGE
 
 
-async def start_private(
-    message: Message, sender: Sender, bot: Bot, settings: Settings
-) -> None:
+async def start_private(message: Message, sender: Sender, bot: Bot, settings: Settings) -> None:
     """`/start` в личке: что умеет бот и кнопка «Add to group»."""
     lang = _private_language(message.from_user)
     username = await bot_username(bot, settings)
@@ -87,9 +85,7 @@ async def start_private(
     )
 
 
-async def help_private(
-    message: Message, sender: Sender, bot: Bot, settings: Settings
-) -> None:
+async def help_private(message: Message, sender: Sender, bot: Bot, settings: Settings) -> None:
     """`/help` в личке: список команд по ролям и кнопка добавления."""
     lang = _private_language(message.from_user)
     username = await bot_username(bot, settings)
@@ -120,11 +116,7 @@ async def group_only_in_private(
 
 def _help_text(lang: str) -> str:
     """Справка: заголовок и два списка — участнику и админу."""
-    return (
-        f"{t('help.title', lang)}\n\n"
-        f"{t('help.everyone', lang)}\n\n"
-        f"{t('help.admins', lang)}"
-    )
+    return f"{t('help.title', lang)}\n\n{t('help.everyone', lang)}\n\n{t('help.admins', lang)}"
 
 
 def build_router() -> Router:
@@ -136,12 +128,8 @@ def build_router() -> Router:
     """
     router = Router(name="private")
 
-    router.message.register(
-        start_private, Command("start"), F.chat.type.in_(PRIVATE_CHAT_TYPES)
-    )
-    router.message.register(
-        help_private, Command("help"), F.chat.type.in_(PRIVATE_CHAT_TYPES)
-    )
+    router.message.register(start_private, Command("start"), F.chat.type.in_(PRIVATE_CHAT_TYPES))
+    router.message.register(help_private, Command("help"), F.chat.type.in_(PRIVATE_CHAT_TYPES))
     router.message.register(
         help_group,
         Command("start", "help"),

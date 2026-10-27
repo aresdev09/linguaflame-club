@@ -18,9 +18,7 @@ class AdminActionRepo(BaseRepo):
         details: dict | None = None,
     ) -> AdminAction:
         """Записывает действие: кто, что и когда сделал в группе."""
-        row = AdminAction(
-            chat_id=chat_id, user_id=user_id, action=action, details=details
-        )
+        row = AdminAction(chat_id=chat_id, user_id=user_id, action=action, details=details)
         self.session.add(row)
         await self.session.flush()
         return row

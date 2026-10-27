@@ -73,9 +73,7 @@ game_status_enum = Enum(
 )
 
 # Виды дневных постов и контента (общий кеш, банк вопросов, история).
-daily_post_kind_enum = Enum(
-    "words", "grammar", "recap", name="daily_post_kind", native_enum=False
-)
+daily_post_kind_enum = Enum("words", "grammar", "recap", name="daily_post_kind", native_enum=False)
 
 # Виды автосообщений планировщика: по ним считается лимит на сутки.
 scheduled_message_kind_enum = Enum(
@@ -116,9 +114,7 @@ class Chat(Base):
     # False, если бота удалили из группы; данные живут ещё 30 дней.
     active: Mapped[bool] = mapped_column(Boolean, default=True, server_default=true())
     ui_language: Mapped[str] = mapped_column(String(8), default="en", server_default="en")
-    translation_language: Mapped[str] = mapped_column(
-        String(8), default="en", server_default="en"
-    )
+    translation_language: Mapped[str] = mapped_column(String(8), default="en", server_default="en")
     level: Mapped[str] = mapped_column(String(2), default="B1", server_default="B1")
     timezone: Mapped[str] = mapped_column(String(64), default="UTC", server_default="UTC")
     daily_time: Mapped[time] = mapped_column(Time, default=time(9, 0))
@@ -161,9 +157,7 @@ class ScoreEvent(Base):
     __tablename__ = "score_events"
 
     id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
-    chat_id: Mapped[int] = mapped_column(
-        BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
-    )
+    chat_id: Mapped[int] = mapped_column(BigIntType, ForeignKey("chats.id", onupdate="CASCADE"))
     user_id: Mapped[int] = mapped_column(BigIntType)
     points: Mapped[int] = mapped_column(Integer)
     source: Mapped[str] = mapped_column(score_source_enum)
@@ -194,18 +188,14 @@ class ScoreReset(Base):
     __tablename__ = "score_resets"
 
     id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
-    chat_id: Mapped[int] = mapped_column(
-        BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
-    )
+    chat_id: Mapped[int] = mapped_column(BigIntType, ForeignKey("chats.id", onupdate="CASCADE"))
     # Кто из администраторов выполнил сброс.
     admin_user_id: Mapped[int] = mapped_column(BigIntType)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     # Заполняется при откате сброса.
     undone_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
-    __table_args__ = (
-        Index("ix_score_resets_chat_id_created_at", "chat_id", "created_at"),
-    )
+    __table_args__ = (Index("ix_score_resets_chat_id_created_at", "chat_id", "created_at"),)
 
 
 class AdminAction(Base):
@@ -217,17 +207,13 @@ class AdminAction(Base):
     __tablename__ = "admin_actions"
 
     id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
-    chat_id: Mapped[int] = mapped_column(
-        BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
-    )
+    chat_id: Mapped[int] = mapped_column(BigIntType, ForeignKey("chats.id", onupdate="CASCADE"))
     user_id: Mapped[int] = mapped_column(BigIntType)
     action: Mapped[str] = mapped_column(admin_action_enum)
     details: Mapped[dict | None] = mapped_column(JSON)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
-    __table_args__ = (
-        Index("ix_admin_actions_chat_id_created_at", "chat_id", "created_at"),
-    )
+    __table_args__ = (Index("ix_admin_actions_chat_id_created_at", "chat_id", "created_at"),)
 
 
 class GroupStreak(Base):
@@ -252,12 +238,8 @@ class GameSession(Base):
 
     __tablename__ = "game_sessions"
 
-    id: Mapped[uuid.UUID] = mapped_column(
-        Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4
-    )
-    chat_id: Mapped[int] = mapped_column(
-        BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
-    )
+    id: Mapped[uuid.UUID] = mapped_column(Uuid(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    chat_id: Mapped[int] = mapped_column(BigIntType, ForeignKey("chats.id", onupdate="CASCADE"))
     kind: Mapped[str] = mapped_column(game_kind_enum)
     status: Mapped[str] = mapped_column(
         game_status_enum, default="running", server_default="running"
@@ -324,9 +306,7 @@ class DailyPost(Base):
     __tablename__ = "daily_posts"
 
     id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
-    chat_id: Mapped[int] = mapped_column(
-        BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
-    )
+    chat_id: Mapped[int] = mapped_column(BigIntType, ForeignKey("chats.id", onupdate="CASCADE"))
     date: Mapped[date_type] = mapped_column(Date)
     kind: Mapped[str] = mapped_column(daily_post_kind_enum)
     payload: Mapped[dict | None] = mapped_column(JSON)
@@ -351,9 +331,7 @@ class ScheduledMessage(Base):
     __tablename__ = "scheduled_messages"
 
     id: Mapped[int] = mapped_column(BigIntType, primary_key=True)
-    chat_id: Mapped[int] = mapped_column(
-        BigIntType, ForeignKey("chats.id", onupdate="CASCADE")
-    )
+    chat_id: Mapped[int] = mapped_column(BigIntType, ForeignKey("chats.id", onupdate="CASCADE"))
     # Дата в часовом поясе чата: лимит сообщений считается по дню группы.
     date: Mapped[date_type] = mapped_column(Date)
     kind: Mapped[str] = mapped_column(scheduled_message_kind_enum)

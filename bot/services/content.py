@@ -137,9 +137,7 @@ class ContentService:
         if not await self._ai_allowed(chat):
             return ContentResult([], REASON_QUOTA)
         try:
-            response = await self._ai_client.generate_grammar(
-                chat.level, chat.translation_language
-            )
+            response = await self._ai_client.generate_grammar(chat.level, chat.translation_language)
         except AIError as exc:
             logger.warning("ИИ не сгенерировал грамматику дня: %s", exc)
             return ContentResult([], REASON_AI)
@@ -217,9 +215,7 @@ class ContentService:
         recent = await self._recent_hashes(chat)
         payloads = [item for item in payloads if find_stop_word_in(item) is None]
         payloads = dedupe_payloads(kind, payloads)
-        payloads = [
-            item for item in payloads if content_hash(kind, item) not in recent
-        ]
+        payloads = [item for item in payloads if content_hash(kind, item) not in recent]
         if not payloads:
             self._last_reason = REASON_EMPTY
             return []
@@ -228,9 +224,7 @@ class ContentService:
             async with session.begin():
                 repo = ContentRepo(session)
                 for payload in payloads:
-                    await repo.add_bank_item(
-                        kind, chat.level, chat.translation_language, payload
-                    )
+                    await repo.add_bank_item(kind, chat.level, chat.translation_language, payload)
         await self._record_usage(chat, self._ai_client.last_usage)
         return payloads
 
@@ -263,9 +257,7 @@ class ContentService:
             async with session.begin():
                 repo = ContentRepo(session)
                 for payload in payloads:
-                    await repo.mark_content_used(
-                        chat_id, content_hash(kind, payload), kind
-                    )
+                    await repo.mark_content_used(chat_id, content_hash(kind, payload), kind)
 
     async def _ai_allowed(self, chat: Chat) -> bool:
         """Проверяет квоту чата и глобальный дневной бюджет запросов."""

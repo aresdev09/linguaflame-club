@@ -123,9 +123,7 @@ def _callback(user: User, data: str) -> CallbackQuery:
 
 
 def _buttons(markup: object) -> list[str]:
-    return [
-        button.callback_data for row in markup.inline_keyboard for button in row
-    ]
+    return [button.callback_data for row in markup.inline_keyboard for button in row]
 
 
 def _long_words(count: int) -> list[dict]:
@@ -164,9 +162,7 @@ async def test_two_chats_share_daily_words(
     assert result_one.post_id != result_two.post_id
     async with session_factory() as session:
         for chat_id in (CHAT_ID, OTHER_CHAT_ID):
-            record = await ContentRepo(session).get_daily_post(
-                chat_id, _today(), KIND_WORDS
-            )
+            record = await ContentRepo(session).get_daily_post(chat_id, _today(), KIND_WORDS)
             assert record is not None and record.payload is not None
 
 
@@ -203,9 +199,7 @@ async def test_word_command_repeats_from_saved_post(
     first_text = sender.reply.await_args.args[1]
     markup = sender.reply.await_args.kwargs["reply_markup"]
     assert "Words of the day (B1)" in first_text
-    assert [button.text for row in markup.inline_keyboard for button in row] == [
-        "Got it"
-    ]
+    assert [button.text for row in markup.inline_keyboard for button in row] == ["Got it"]
 
     await word_command(_message(BEKZOD), chat, "en", sender, service)
 
@@ -425,9 +419,7 @@ async def test_got_it_awards_once_per_day(
         anna = await ScoreRepo(session).total(CHAT_ID, ANNA.id)
         bekzod = await ScoreRepo(session).total(CHAT_ID, BEKZOD.id)
         source = await ScoreRepo(session).best_source(CHAT_ID, ANNA.id)
-        events = await session.execute(
-            select(ScoreEvent).where(ScoreEvent.user_id == ANNA.id)
-        )
+        events = await session.execute(select(ScoreEvent).where(ScoreEvent.user_id == ANNA.id))
     assert anna == 3
     assert bekzod == 3
     assert source == "daily_bonus"
@@ -516,9 +508,7 @@ async def test_got_it_respects_daily_cap(
     assert result.post_id is not None
     async with session_factory() as session:
         async with session.begin():
-            await ScoreRepo(session).add_event(
-                CHAT_ID, BEKZOD.id, points=2, source="quiz"
-            )
+            await ScoreRepo(session).add_event(CHAT_ID, BEKZOD.id, points=2, source="quiz")
 
     anna = await service.claim_points(chat, ANNA.id, result.post_id)
     bekzod = await service.claim_points(chat, BEKZOD.id, result.post_id)
@@ -539,12 +529,8 @@ async def test_stale_button_answers_shortly(
     service = _service(session_factory, client)
     sender = AsyncMock()
 
-    await daily_button(
-        _callback(ANNA, build_show_callback(999)), chat, "en", sender, service
-    )
-    await daily_button(
-        _callback(ANNA, build_got_callback(999)), chat, "en", sender, service
-    )
+    await daily_button(_callback(ANNA, build_show_callback(999)), chat, "en", sender, service)
+    await daily_button(_callback(ANNA, build_got_callback(999)), chat, "en", sender, service)
 
     sender.edit.assert_not_awaited()
     texts = [call.args[1] for call in sender.answer_callback.await_args_list]

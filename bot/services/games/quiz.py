@@ -152,9 +152,7 @@ class QuizGame(Game):
             lines.append(t("game.nobody_correct", lang))
         return "\n".join(lines)
 
-    def render_results(
-        self, totals: list[SessionTotal], lang: str, flame_days: int | None
-    ) -> str:
+    def render_results(self, totals: list[SessionTotal], lang: str, flame_days: int | None) -> str:
         lines = [t("quiz.finished", lang), ""]
         scorers = [total for total in totals if total.points > 0]
         if scorers:

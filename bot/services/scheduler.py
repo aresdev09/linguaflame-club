@@ -133,9 +133,7 @@ class GroupScheduler:
     async def _run_maintenance(self) -> None:
         """Один проход уборки данных; ошибки не роняют планировщик."""
         try:
-            service = MaintenanceService(
-                self._session_factory, self._settings, now=self._clock
-            )
+            service = MaintenanceService(self._session_factory, self._settings, now=self._clock)
             answers, chats = await service.run()
             logger.info(
                 "Обслуживание данных: очищено ответов %d, удалено чатов %d",
@@ -276,9 +274,7 @@ class GroupScheduler:
             if result is not None:
                 results.append((kind, result))
         if not results:
-            logger.warning(
-                "Чат %s: запасного контента нет, пост дня пропущен", chat.id
-            )
+            logger.warning("Чат %s: запасного контента нет, пост дня пропущен", chat.id)
             return
         await self._send_post(chat, message, results, now)
 
@@ -399,9 +395,7 @@ class GroupScheduler:
 
     # --- итоги недели ---
 
-    async def _maybe_recap(
-        self, chat: Chat, local: datetime, today: date, now: datetime
-    ) -> None:
+    async def _maybe_recap(self, chat: Chat, local: datetime, today: date, now: datetime) -> None:
         """По понедельникам публикует итоги прошлой недели."""
         if local.weekday() != RECAP_WEEKDAY:
             return
@@ -458,9 +452,7 @@ class GroupScheduler:
         """Дата и время в часовом поясе чата, для сравнения с «сейчас»."""
         return datetime.combine(on, clock, tzinfo=local.tzinfo)
 
-    def _is_due(
-        self, chat: Chat, local: datetime, target: datetime, kind: str
-    ) -> bool:
+    def _is_due(self, chat: Chat, local: datetime, target: datetime, kind: str) -> bool:
         """Наступило ли время автосообщения с учётом разброса отправки."""
         jitter = timedelta(seconds=self._jitter_seconds(chat.id, local.date(), kind))
         return local >= target + jitter
@@ -531,9 +523,7 @@ class GroupScheduler:
                                     limit,
                                 )
                                 return None
-                            return await repo.create(
-                                chat_id, today, kind, lease_until=retry_at
-                            )
+                            return await repo.create(chat_id, today, kind, lease_until=retry_at)
                         if existing.posted_at is not None:
                             return None
                         next_attempt = existing.next_attempt_at
@@ -542,9 +532,7 @@ class GroupScheduler:
                         return existing
             except IntegrityError:
                 # Запись создали параллельно: следующая попытка её прочитает.
-                logger.debug(
-                    "Автосообщение %s для чата %s создано параллельно", kind, chat_id
-                )
+                logger.debug("Автосообщение %s для чата %s создано параллельно", kind, chat_id)
         return None
 
     async def _postpone(self, message: ScheduledMessage, now: datetime) -> None:
@@ -569,9 +557,7 @@ class GroupScheduler:
         """Отмечает автосообщение отправленным во времени планировщика."""
         async with self._session_factory() as session:
             async with session.begin():
-                await SchedulerRepo(session).mark_sent(
-                    message_id, telegram_message_id, at=now
-                )
+                await SchedulerRepo(session).mark_sent(message_id, telegram_message_id, at=now)
 
     # --- отправка ---
 

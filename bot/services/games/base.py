@@ -175,9 +175,7 @@ class Game(ABC):
         """Сообщение после раунда: верный ответ, пояснение, кто ответил верно."""
 
     @abstractmethod
-    def render_results(
-        self, totals: list[SessionTotal], lang: str, flame_days: int | None
-    ) -> str:
+    def render_results(self, totals: list[SessionTotal], lang: str, flame_days: int | None) -> str:
         """Итоговое сообщение сессии: топ и огонёк группы."""
 
     # --- Общее: ответы и переходы раундов ---

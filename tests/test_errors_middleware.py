@@ -31,9 +31,7 @@ async def _failing_handler(event: Update, data: dict) -> None:
 
 
 async def _create_chat(session_factory: async_sessionmaker[AsyncSession]) -> None:
-    await register_bot_added(
-        session_factory, chat_id=CHAT_ID, title="G", chat_type="group"
-    )
+    await register_bot_added(session_factory, chat_id=CHAT_ID, title="G", chat_type="group")
 
 
 async def test_handler_error_is_reported_to_group(

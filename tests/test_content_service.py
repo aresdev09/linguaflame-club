@@ -109,9 +109,7 @@ class StubAIClient:
     async def close(self) -> None:
         return None
 
-    async def generate_quiz_batch(
-        self, level: str, language: str, *, count: int = 20
-    ) -> QuizBatch:
+    async def generate_quiz_batch(self, level: str, language: str, *, count: int = 20) -> QuizBatch:
         self.calls.append({"task": "quiz_batch", "level": level, "language": language})
         self._raise()
         self._quiz_calls += 1
@@ -127,9 +125,7 @@ class StubAIClient:
         count: int,
         exclude_words: object = (),
     ) -> WordsResponse:
-        self.calls.append(
-            {"task": "words", "count": count, "exclude_words": list(exclude_words)}
-        )
+        self.calls.append({"task": "words", "count": count, "exclude_words": list(exclude_words)})
         self._raise()
         if self.words is not None:
             return self.words
@@ -149,9 +145,7 @@ class StubAIClient:
 
 
 async def _chat(session_factory: async_sessionmaker[AsyncSession], chat_id: int = CHAT_ID):
-    await register_bot_added(
-        session_factory, chat_id=chat_id, title="G", chat_type="group"
-    )
+    await register_bot_added(session_factory, chat_id=chat_id, title="G", chat_type="group")
     async with session_factory() as session:
         chat = await ChatRepo(session).get(chat_id)
     assert chat is not None

@@ -39,23 +39,17 @@ class MaintenanceService:
 
     async def purge_answer_texts(self) -> int:
         """Очищает тексты ответов старше срока хранения."""
-        cutoff = self._now() - timedelta(
-            days=self._settings.maintenance_answer_retention_days
-        )
+        cutoff = self._now() - timedelta(days=self._settings.maintenance_answer_retention_days)
         async with self._session_factory() as session:
             async with session.begin():
-                cleared = await MaintenanceRepo(session).clear_answer_texts_before(
-                    cutoff
-                )
+                cleared = await MaintenanceRepo(session).clear_answer_texts_before(cutoff)
         if cleared:
             logger.info("Обслуживание: очищено текстов ответов — %d", cleared)
         return cleared
 
     async def purge_inactive_chats(self) -> int:
         """Удаляет данные чатов, удалённых из бота больше срока назад."""
-        cutoff = self._now() - timedelta(
-            days=self._settings.maintenance_chat_retention_days
-        )
+        cutoff = self._now() - timedelta(days=self._settings.maintenance_chat_retention_days)
         async with self._session_factory() as session:
             chat_ids = await MaintenanceRepo(session).list_purgeable_chat_ids(cutoff)
         for chat_id in chat_ids:

@@ -251,9 +251,7 @@ class AIClient:
         elapsed_ms = int((time.perf_counter() - started) * 1000)
 
         if response.status_code == RATE_LIMIT_STATUS or response.status_code >= 500:
-            raise AIRequestError(
-                f"ИИ-сервер вернул {response.status_code}: {response.text[:200]}"
-            )
+            raise AIRequestError(f"ИИ-сервер вернул {response.status_code}: {response.text[:200]}")
         if response.status_code >= 400:
             raise AIRequestRejected(
                 f"ИИ-сервер отклонил запрос: {response.status_code} {response.text[:200]}"
@@ -355,11 +353,7 @@ class AIClient:
     def _parse_usage(data: dict[str, Any], *, prompt: str, content: str) -> UsageInfo:
         """Точный расход из `usage` или грубая оценка по символам."""
         usage = data.get("usage")
-        if (
-            isinstance(usage, dict)
-            and "prompt_tokens" in usage
-            and "completion_tokens" in usage
-        ):
+        if isinstance(usage, dict) and "prompt_tokens" in usage and "completion_tokens" in usage:
             return UsageInfo(
                 prompt_tokens=int(usage["prompt_tokens"]),
                 completion_tokens=int(usage["completion_tokens"]),

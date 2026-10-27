@@ -386,9 +386,7 @@ async def test_daily_cap_counts_only_earned_points_after_reset(
     now = datetime.now(UTC)
     await _chat(session_factory)
     # Вчерашние очки: в дневное окно не попадают.
-    await _event(
-        session_factory, MEMBER.id, 300, at=now - timedelta(days=1)
-    )
+    await _event(session_factory, MEMBER.id, 300, at=now - timedelta(days=1))
     service = AdminActionsService(session_factory, now=lambda: now)
     await service.reset_scores(CHAT_ID, ADMIN.id)
 

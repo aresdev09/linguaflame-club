@@ -159,9 +159,7 @@ def _question(index: int) -> dict:
     }
 
 
-async def _seed_bank(
-    session_factory: async_sessionmaker[AsyncSession], count: int
-) -> None:
+async def _seed_bank(session_factory: async_sessionmaker[AsyncSession], count: int) -> None:
     """Вопросы в банк: движок берёт контент оттуда, без ИИ."""
     async with session_factory() as session:
         async with session.begin():
@@ -178,9 +176,7 @@ def _session_id_of(message: SentMessage) -> uuid.UUID:
     return session_id
 
 
-async def _finish_round(
-    games: GameManager, session_id: uuid.UUID, clock: FakeClock
-) -> None:
+async def _finish_round(games: GameManager, session_id: uuid.UUID, clock: FakeClock) -> None:
     """Провести текущий раунд до конца: время вышло, пауза прошла."""
     clock.advance(30)  # раунд истёк (20 с) с запасом
     await games.advance(session_id)
@@ -286,14 +282,10 @@ async def test_participation_awarded_once_per_session(
         await _seed_bank(session_factory, count=1)
         await _member(session_factory, 1, "Anna")
 
-        await games.start_quiz(
-            await _chat(session_factory), started_by=1, rounds=1, thread_id=None
-        )
+        await games.start_quiz(await _chat(session_factory), started_by=1, rounds=1, thread_id=None)
         session_id = _session_id_of(sender.sent[0])
         clock.advance(2)
-        await games.submit_answer(
-            session_id, chat_id=CHAT_ID, user_id=1, round_no=1, payload="1"
-        )
+        await games.submit_answer(session_id, chat_id=CHAT_ID, user_id=1, round_no=1, payload="1")
         await _finish_round(games, session_id, clock)
 
         # Досрочно дёргаем шаги закрытой сессии — ничего не должно начисляться.
@@ -314,9 +306,7 @@ async def test_second_answer_in_round_rejected(
     async with _engine(session_factory) as (sender, clock, games):
         await _chat(session_factory)
         await _seed_bank(session_factory, count=1)
-        await games.start_quiz(
-            await _chat(session_factory), started_by=1, rounds=1, thread_id=None
-        )
+        await games.start_quiz(await _chat(session_factory), started_by=1, rounds=1, thread_id=None)
         session_id = _session_id_of(sender.sent[0])
 
         clock.advance(2)
@@ -344,9 +334,7 @@ async def test_answer_after_deadline_rejected(
     async with _engine(session_factory) as (sender, clock, games):
         await _chat(session_factory)
         await _seed_bank(session_factory, count=1)
-        await games.start_quiz(
-            await _chat(session_factory), started_by=1, rounds=1, thread_id=None
-        )
+        await games.start_quiz(await _chat(session_factory), started_by=1, rounds=1, thread_id=None)
         session_id = _session_id_of(sender.sent[0])
 
         # Время раунда истекло, но таймер его ещё не закрыл: ответ отклоняется.
@@ -371,9 +359,7 @@ async def test_buttons_of_finished_game_rejected(
     async with _engine(session_factory) as (sender, clock, games):
         await _chat(session_factory)
         await _seed_bank(session_factory, count=1)
-        await games.start_quiz(
-            await _chat(session_factory), started_by=1, rounds=1, thread_id=None
-        )
+        await games.start_quiz(await _chat(session_factory), started_by=1, rounds=1, thread_id=None)
         session_id = _session_id_of(sender.sent[0])
         await _finish_round(games, session_id, clock)
 
@@ -399,19 +385,13 @@ async def test_first_bonus_goes_to_exactly_one_player(
         await _seed_bank(session_factory, count=1)
         await _member(session_factory, 1, "Anna")
         await _member(session_factory, 2, "Bekzod")
-        await games.start_quiz(
-            await _chat(session_factory), started_by=1, rounds=1, thread_id=None
-        )
+        await games.start_quiz(await _chat(session_factory), started_by=1, rounds=1, thread_id=None)
         session_id = _session_id_of(sender.sent[0])
 
         clock.advance(2)
         outcomes = await asyncio.gather(
-            games.submit_answer(
-                session_id, chat_id=CHAT_ID, user_id=1, round_no=1, payload="1"
-            ),
-            games.submit_answer(
-                session_id, chat_id=CHAT_ID, user_id=2, round_no=1, payload="1"
-            ),
+            games.submit_answer(session_id, chat_id=CHAT_ID, user_id=1, round_no=1, payload="1"),
+            games.submit_answer(session_id, chat_id=CHAT_ID, user_id=2, round_no=1, payload="1"),
         )
         assert {o.result.value for o in outcomes} == {"correct"}
         assert sorted(o.points for o in outcomes) == [14, 16]
@@ -433,9 +413,7 @@ async def test_fast_answer_gets_no_speed_bonus(
     async with _engine(session_factory) as (sender, clock, games):
         await _chat(session_factory)
         await _seed_bank(session_factory, count=1)
-        await games.start_quiz(
-            await _chat(session_factory), started_by=1, rounds=1, thread_id=None
-        )
+        await games.start_quiz(await _chat(session_factory), started_by=1, rounds=1, thread_id=None)
         session_id = _session_id_of(sender.sent[0])
 
         clock.advance(0.1)
@@ -458,14 +436,10 @@ async def test_recovery_closes_expired_round_and_continues(
         await _chat(session_factory)
         await _seed_bank(session_factory, count=5)
         await _member(session_factory, 1, "Anna")
-        await games.start_quiz(
-            await _chat(session_factory), started_by=1, rounds=2, thread_id=None
-        )
+        await games.start_quiz(await _chat(session_factory), started_by=1, rounds=2, thread_id=None)
         session_id = _session_id_of(sender.sent[0])
         clock.advance(2)
-        await games.submit_answer(
-            session_id, chat_id=CHAT_ID, user_id=1, round_no=1, payload="1"
-        )
+        await games.submit_answer(session_id, chat_id=CHAT_ID, user_id=1, round_no=1, payload="1")
 
     # «Перезапуск»: новый менеджер, те же часы и база.
     async with _engine(session_factory, clock=clock) as (sender2, _c, games2):
@@ -498,9 +472,7 @@ async def test_recovery_rearms_live_session(
     async with _engine(session_factory, clock=clock) as (sender, _c, games):
         await _chat(session_factory)
         await _seed_bank(session_factory, count=1)
-        await games.start_quiz(
-            await _chat(session_factory), started_by=1, rounds=1, thread_id=None
-        )
+        await games.start_quiz(await _chat(session_factory), started_by=1, rounds=1, thread_id=None)
         session_id = _session_id_of(sender.sent[0])
 
     async with _engine(session_factory, clock=clock) as (sender2, clock2, games2):
@@ -530,9 +502,7 @@ async def test_recovery_closes_game_in_inactive_chat(
     async with _engine(session_factory, clock=clock) as (sender, _c, games):
         await _chat(session_factory)
         await _seed_bank(session_factory, count=1)
-        await games.start_quiz(
-            await _chat(session_factory), started_by=1, rounds=1, thread_id=None
-        )
+        await games.start_quiz(await _chat(session_factory), started_by=1, rounds=1, thread_id=None)
         session_id = _session_id_of(sender.sent[0])
 
     async with session_factory() as session:
@@ -580,9 +550,7 @@ async def test_cooldown_between_games(
     async with _engine(session_factory, settings=settings) as (sender, clock, games):
         await _chat(session_factory)
         await _seed_bank(session_factory, count=1)
-        await games.start_quiz(
-            await _chat(session_factory), started_by=1, rounds=1, thread_id=None
-        )
+        await games.start_quiz(await _chat(session_factory), started_by=1, rounds=1, thread_id=None)
         session_id = _session_id_of(sender.sent[0])
         await _finish_round(games, session_id, clock)
 
@@ -599,9 +567,7 @@ async def test_daily_game_limit(
     async with _engine(session_factory, settings=settings) as (sender, clock, games):
         await _chat(session_factory)
         await _seed_bank(session_factory, count=1)
-        await games.start_quiz(
-            await _chat(session_factory), started_by=1, rounds=1, thread_id=None
-        )
+        await games.start_quiz(await _chat(session_factory), started_by=1, rounds=1, thread_id=None)
         session_id = _session_id_of(sender.sent[0])
         await _finish_round(games, session_id, clock)
 
@@ -636,15 +602,11 @@ async def test_stop_mid_game_keeps_points(
         await _chat(session_factory)
         await _seed_bank(session_factory, count=5)
         await _member(session_factory, 1, "Anna")
-        await games.start_quiz(
-            await _chat(session_factory), started_by=1, rounds=2, thread_id=None
-        )
+        await games.start_quiz(await _chat(session_factory), started_by=1, rounds=2, thread_id=None)
         session_id = _session_id_of(sender.sent[0])
 
         clock.advance(2)
-        await games.submit_answer(
-            session_id, chat_id=CHAT_ID, user_id=1, round_no=1, payload="1"
-        )
+        await games.submit_answer(session_id, chat_id=CHAT_ID, user_id=1, round_no=1, payload="1")
         clock.advance(30)
         await games.advance(session_id)  # раунд 1 закрыт, идёт пауза
 

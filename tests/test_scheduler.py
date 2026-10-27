@@ -208,9 +208,7 @@ async def _seed_scores(
     """Начисление очков с нужной датой: так собираются итоги недели."""
     async with session_factory() as session:
         async with session.begin():
-            await MemberRepo(session).get_or_create(
-                CHAT_ID, user_id, display_name=name
-            )
+            await MemberRepo(session).get_or_create(CHAT_ID, user_id, display_name=name)
             event = await ScoreRepo(session).add_event(
                 CHAT_ID, user_id, points=points, source="quiz"
             )
@@ -319,9 +317,7 @@ async def test_scheduler_start_and_shutdown(
     session_factory: async_sessionmaker[AsyncSession],
 ) -> None:
     """start() включает задачу tick, shutdown() её выключает."""
-    scheduler = _scheduler(
-        session_factory, clock=FakeClock(), sender=RecordingSender()
-    )
+    scheduler = _scheduler(session_factory, clock=FakeClock(), sender=RecordingSender())
 
     assert scheduler.running is False
     scheduler.start()
@@ -708,9 +704,7 @@ async def test_third_auto_message_is_blocked_by_daily_limit(
     """Больше двух автосообщений в сутки не уходит даже с вехой."""
     clock = FakeClock(datetime(2026, 10, 19, 12, 0, tzinfo=UTC))
     await _chat(session_factory, words=False)
-    await _seed_journal(
-        session_factory, [JOURNAL_DAILY, JOURNAL_REMINDER], date(2026, 10, 19)
-    )
+    await _seed_journal(session_factory, [JOURNAL_DAILY, JOURNAL_REMINDER], date(2026, 10, 19))
     await _seed_streak(session_factory, days=3, last_active=date(2026, 10, 19))
     sender = RecordingSender()
     scheduler = _scheduler(session_factory, clock=clock, sender=sender)
@@ -764,9 +758,7 @@ async def test_recap_on_monday_after_post_time(
     """Понедельник: итоги прошлой недели публикуются после поста дня."""
     clock = FakeClock(datetime(2026, 10, 19, 9, 29, tzinfo=UTC))
     await _chat(session_factory, words=False)
-    await _seed_scores(
-        session_factory, 55, 40, at=datetime(2026, 10, 14, 12, 0, tzinfo=UTC)
-    )
+    await _seed_scores(session_factory, 55, 40, at=datetime(2026, 10, 14, 12, 0, tzinfo=UTC))
     await _seed_scores(
         session_factory, 66, 10, at=datetime(2026, 10, 15, 12, 0, tzinfo=UTC), name="Bob"
     )
@@ -797,9 +789,7 @@ async def test_recap_does_not_change_scores(
     """Победитель получает только звание: очки не меняются."""
     clock = FakeClock(datetime(2026, 10, 19, 9, 30, tzinfo=UTC))
     await _chat(session_factory, words=False)
-    await _seed_scores(
-        session_factory, 55, 40, at=datetime(2026, 10, 14, 12, 0, tzinfo=UTC)
-    )
+    await _seed_scores(session_factory, 55, 40, at=datetime(2026, 10, 14, 12, 0, tzinfo=UTC))
     sender = RecordingSender()
     scheduler = _scheduler(session_factory, clock=clock, sender=sender)
 
@@ -816,9 +806,7 @@ async def test_recap_skipped_without_points_last_week(
     """Неделя прошла без очков — итогов нет."""
     clock = FakeClock(datetime(2026, 10, 19, 9, 30, tzinfo=UTC))
     await _chat(session_factory, words=False)
-    await _seed_scores(
-        session_factory, 55, 40, at=datetime(2026, 10, 5, 12, 0, tzinfo=UTC)
-    )
+    await _seed_scores(session_factory, 55, 40, at=datetime(2026, 10, 5, 12, 0, tzinfo=UTC))
     sender = RecordingSender()
     scheduler = _scheduler(session_factory, clock=clock, sender=sender)
 
@@ -832,9 +820,7 @@ async def test_recap_only_on_monday(
 ) -> None:
     clock = FakeClock(datetime(2026, 10, 20, 9, 30, tzinfo=UTC))  # вторник
     await _chat(session_factory, words=False)
-    await _seed_scores(
-        session_factory, 55, 40, at=datetime(2026, 10, 19, 7, 0, tzinfo=UTC)
-    )
+    await _seed_scores(session_factory, 55, 40, at=datetime(2026, 10, 19, 7, 0, tzinfo=UTC))
     sender = RecordingSender()
     scheduler = _scheduler(session_factory, clock=clock, sender=sender)
 
@@ -849,9 +835,7 @@ async def test_recap_shows_best_accuracy(
     """Лучший по точности недели попадает в итоги."""
     clock = FakeClock(datetime(2026, 10, 19, 9, 30, tzinfo=UTC))
     await _chat(session_factory, words=False)
-    await _seed_scores(
-        session_factory, 55, 40, at=datetime(2026, 10, 14, 12, 0, tzinfo=UTC)
-    )
+    await _seed_scores(session_factory, 55, 40, at=datetime(2026, 10, 14, 12, 0, tzinfo=UTC))
     await _seed_answers(session_factory, user_id=55, correct=5, wrong=1, name="Anna")
     await _seed_answers(session_factory, user_id=66, correct=4, wrong=4, name="Bob")
     sender = RecordingSender()
@@ -948,6 +932,7 @@ async def test_retry_after_delays_post_without_deactivation(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """TelegramRetryAfter: пост переносится, чат остаётся активным."""
+
     async def fake_sleep(seconds: float) -> None:
         return None
 
@@ -986,6 +971,7 @@ async def test_retry_after_is_repeated_inside_sender(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     """Один RetryAfter не мешает посту: Sender повторяет отправку сам."""
+
     async def fake_sleep(seconds: float) -> None:
         return None
 
@@ -996,9 +982,7 @@ async def test_retry_after_is_repeated_inside_sender(
     bot = AsyncMock()
     bot.send_message = AsyncMock(
         side_effect=[
-            TelegramRetryAfter(
-                method=AsyncMock(), message="Too Many Requests", retry_after=5
-            ),
+            TelegramRetryAfter(method=AsyncMock(), message="Too Many Requests", retry_after=5),
             AsyncMock(message_id=12),
         ]
     )
